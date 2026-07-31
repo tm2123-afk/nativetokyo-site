@@ -1,0 +1,8 @@
+---
+interface Props { class?: string; }
+const { class: className = '' } = Astro.props;
+---
+<div class={`pointer-events-none absolute rounded-full border border-line ${className}`} aria-hidden="true">
+  <div class="absolute inset-[22%] rounded-full border border-line"></div>
+  <div class="absolute inset-[44%] rounded-full border-2 border-amber/40"></div>
+</div>

@@ -1,0 +1,44 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+
+const rows = [
+  ['販売事業者', '合同会社NATIVETOKYO'],
+  ['代表者', '松本 大志'],
+  ['所在地', '〒150-0045 東京都渋谷区神泉町10-15'],
+  ['連絡先', 'info@nativetokyo.jp'],
+  ['販売価格', '各サービスページに記載、または個別お見積り。表示価格は税別です。'],
+  ['商品代金以外の必要料金', '実施場所への交通費・宿泊費が発生する場合は別途申し受けます。'],
+  ['支払方法', '銀行振込'],
+  ['支払時期', '請求書発行後、記載の期日までにお支払いください。'],
+  ['役務の提供時期', 'ご契約時に個別に定めた日程にて提供します。'],
+  ['キャンセルについて', '実施日から起算した日数に応じたキャンセル料が発生します。詳細は個別契約書に定めます。'],
+];
+---
+<Layout
+  title="特定商取引法に基づく表記"
+  description="合同会社NATIVETOKYOの特定商取引法に基づく表記。"
+  path="/legal"
+  breadcrumbs={[{ name: '特定商取引法に基づく表記', path: '/legal' }]}
+>
+  <Header />
+  <main id="main">
+    <PageHero eyebrow="LEGAL" title="特定商取引法に基づく表記" />
+    <section class="px-6 md:px-16 py-16">
+      <dl class="max-w-3xl border-t border-line">
+        {rows.map(([k, v]) => (
+          <div class="grid sm:grid-cols-[220px_1fr] gap-2 sm:gap-6 py-5 border-b border-line">
+            <dt class="text-[13px] text-ink/55 tracking-wide">{k}</dt>
+            <dd class="text-[15px] text-ink/85 leading-loose">{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p class="text-xs text-ink/50 mt-8 max-w-3xl">
+        ※ 本表記は内容確認中の暫定版です。公開前に専門家の確認を推奨します。
+      </p>
+    </section>
+  </main>
+  <Footer />
+</Layout>

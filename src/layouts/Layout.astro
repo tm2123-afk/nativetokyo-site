@@ -1,0 +1,125 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+  ogImage?: string;
+  breadcrumbs?: { name: string; path: string }[];
+  noindex?: boolean;
+  jsonLd?: Record<string, any>;
+}
+
+const {
+  title,
+  description,
+  path = Astro.url.pathname,
+  ogImage = '/og-default.png',
+  breadcrumbs = [],
+  noindex = false,
+  jsonLd,
+} = Astro.props;
+
+const siteName = 'NATIVETOKYO';
+const siteUrl = 'https://nativetokyo.jp';
+const canonical = new URL(path, siteUrl).toString();
+const fullTitle = path === '/' ? `${siteName} | ${title}` : `${title} | ${siteName}`;
+const GA_ID = 'G-3T4ZWVDF7H';
+
+const orgLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Organization',
+  name: '合同会社NATIVETOKYO',
+  alternateName: ['NATIVETOKYO LLC', 'ネイティブトーキョー'],
+  url: siteUrl,
+  logo: `${siteUrl}/logo.svg`,
+  email: 'info@nativetokyo.jp',
+  address: {
+    '@type': 'PostalAddress',
+    postalCode: '150-0045',
+    addressRegion: '東京都',
+    addressLocality: '渋谷区',
+    streetAddress: '神泉町10-15',
+    addressCountry: 'JP',
+  },
+  founder: { '@type': 'Person', name: '松本大志' },
+};
+
+const websiteLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  name: siteName,
+  url: siteUrl,
+};
+
+const breadcrumbLd = breadcrumbs.length
+  ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [{ name: 'ホーム', path: '/' }, ...breadcrumbs].map((b, i) => ({
+        '@type': 'ListItem',
+        position: i + 1,
+        name: b.name,
+        item: new URL(b.path, siteUrl).toString(),
+      })),
+    }
+  : null;
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
+
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="ja_JP" />
+  <meta property="og:site_name" content={siteName} />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@700;800&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script type="application/ld+json" set:html={JSON.stringify(orgLd)} />
+  <script type="application/ld+json" set:html={JSON.stringify(websiteLd)} />
+  {breadcrumbLd && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbLd)} />}
+  {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
+
+  <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+  <script define:vars={{ GA_ID }} is:inline>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){ dataLayer.push(arguments); }
+    gtag('js', new Date());
+    gtag('config', GA_ID);
+  </script>
+
+  <!-- CTAクリックの計測。data-ga属性を持つ要素を自動で拾う -->
+  <script is:inline>
+    document.addEventListener('click', function (e) {
+      const el = e.target.closest('[data-ga]');
+      if (el && typeof gtag === 'function') {
+        gtag('event', el.dataset.ga, { location: el.dataset.gaLocation || 'unknown' });
+      }
+    });
+  </script>
+</head>
+<body>
+  <a href="#main" class="skip-link">本文へスキップ</a>
+  <slot />
+</body>
+</html>

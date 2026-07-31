@@ -1,0 +1,40 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line px-6 md:px-16 py-16">
+  <div class="grid md:grid-cols-3 gap-12">
+    <div>
+      <div class="font-mincho font-bold text-lg text-navy mb-4">
+        NATIVE<span class="text-amber">TOKYO</span>
+      </div>
+      <p class="text-sm text-ink/60 leading-relaxed">
+        合同会社NATIVETOKYO<br />
+        〒150-0045 東京都渋谷区神泉町10-15<br />
+        <a href="mailto:info@nativetokyo.jp" class="hover:text-navy">info@nativetokyo.jp</a>
+      </p>
+    </div>
+
+    <div class="label">
+      <p class="text-amber mb-5">SERVICE</p>
+      <ul class="space-y-3 text-ink/70 tracking-normal text-sm">
+        <li><a href="/service/presence" class="hover:text-navy">プレゼンス研修</a></li>
+        <li><a href="/service/ai-ningenryoku" class="hover:text-navy">AI時代の人間力研修</a></li>
+        <li><a href="/works" class="hover:text-navy">実績</a></li>
+      </ul>
+    </div>
+
+    <div class="label">
+      <p class="text-amber mb-5">COMPANY</p>
+      <ul class="space-y-3 text-ink/70 tracking-normal text-sm">
+        <li><a href="/about" class="hover:text-navy">私たちについて</a></li>
+        <li><a href="/blog" class="hover:text-navy">ブログ</a></li>
+        <li><a href="/contact" class="hover:text-navy">お問い合わせ</a></li>
+        <li><a href="/legal" class="hover:text-navy">特定商取引法に基づく表記</a></li>
+        <li><a href="/privacy" class="hover:text-navy">プライバシーポリシー</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="mt-16 text-xs text-ink/40">© {year} NATIVETOKYO LLC.</p>
+</footer>

@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+@theme {
+  /* 和文フォントは重いので2種類に絞る。
+     ラベル用途はNoto Sans JPの字間調整で代用 */
+  --font-mincho: "Shippori Mincho B1", "Yu Mincho", serif;
+  --font-sans: "Noto Sans JP", system-ui, sans-serif;
+
+  --color-paper: #FAFAF7;
+  --color-ink: #1C1C1C;
+  --color-navy: #1B2A4A;
+  --color-navy-soft: #2E3F63;
+  --color-amber: #C08A34;
+  --color-line: #E4E1D8;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-weight: 400;
+}
+
+/* ラベル：字間を開けて小さく使う共通クラス */
+.label {
+  font-size: 13px;
+  letter-spacing: 0.18em;
+  font-weight: 500;
+}
+
+/* 縦書きのシグネチャー要素 */
+.vertical {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.25em;
+}
+
+a:focus-visible,
+button:focus-visible,
+summary:focus-visible {
+  outline: 2px solid var(--color-amber);
+  outline-offset: 3px;
+}
+
+/* スキップリンク */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  background: var(--color-navy);
+  color: var(--color-paper);
+  padding: 12px 20px;
+  z-index: 100;
+}
+.skip-link:focus { left: 0; }
+
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -1,0 +1,130 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const personLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: '松本大志',
+  alternateName: 'Taishi Matsumoto',
+  jobTitle: '代表',
+  worksFor: { '@type': 'Organization', name: '合同会社NATIVETOKYO', url: 'https://nativetokyo.jp' },
+  knowsAbout: ['プレゼンスマネジメント', '対人コミュニケーション', '行動科学', '組織開発'],
+  url: 'https://nativetokyo.jp/about',
+};
+---
+
+<Layout
+  title="私たちについて"
+  description="合同会社NATIVETOKYO 代表 松本大志。行動科学に基づく対人力学とプレゼンス設計を、法人向け研修として提供しています。会社概要と代表プロフィール。"
+  path="/about"
+  breadcrumbs={[{ name: '私たちについて', path: '/about' }]}
+  jsonLd={personLd}
+>
+  <Header />
+
+  <main id="main">
+    <PageHero
+      eyebrow="ABOUT"
+      title="扱われ方は、設計できる。"
+      lead="NATIVETOKYOは、対人コミュニケーションにおける「本音」と「行動」の非対称性を研究し、それを再現可能な技術として法人向けに提供している会社です。"
+    />
+
+    <!-- 事業の考え方 -->
+    <section class="px-6 md:px-16 py-20">
+      <p class="label text-amber mb-5">PHILOSOPHY</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-8">なぜ「見せ方」なのか</h2>
+      <div class="max-w-3xl space-y-6 text-[15px] leading-loose text-ink/80">
+        <p>
+          人が発する情報の多くは、本音そのものではなく「その場に適応するための行動」です。
+          表面的な傾聴だけでは、相手の真のニーズには辿り着けません。
+        </p>
+        <p>
+          同時に、こちら側が発している情報も同じ構造を持っています。
+          実力や誠実さは、そのままでは相手に届きません。姿勢・声・視線・間といった非言語情報を通じて、
+          はじめて「そういう人だ」と認識されます。
+        </p>
+        <p>
+          この非対称性を理解し、意図的に設計すること。それがNATIVETOKYOの扱う領域です。
+          精神論でも、テクニック集でもなく、行動科学のフレームで再現可能にすることを重視しています。
+        </p>
+      </div>
+    </section>
+
+    <!-- 代表 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-amber mb-5">REPRESENTATIVE</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
+
+      <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
+        <!-- 写真プレースホルダ -->
+        <div class="aspect-[3/4] bg-line/50 border border-line flex items-center justify-center">
+          <span class="text-xs text-ink/40">写真（準備中）</span>
+        </div>
+
+        <div>
+          <p class="font-mincho font-bold text-xl text-navy mb-1">松本 大志</p>
+          <p class="text-sm text-ink/60 mb-8">Taishi Matsumoto ／ 合同会社NATIVETOKYO 代表</p>
+
+          <div class="space-y-5 text-[15px] leading-loose text-ink/80">
+            <p>
+              聖光学院卒業後、ロンドン芸術大学にてファッションPRを修学。
+              その後、Wharton School、University of Michigan にてコミュニケーション戦略・行動科学を学ぶ。
+            </p>
+            <p>
+              ロンドン滞在中、マイノリティとして長期の孤立を経験。
+              自分でも言語化できていなかった感情を先に言語化されたことで状況が変わった経験から、
+              対人コミュニケーションにおける「理解される／されない」の構造に関心を持つ。
+            </p>
+            <p>
+              帰国後、個人向けのコンサルティングを中心に活動。
+              延べ多数のクライアントに対し、対人関係・ビジネスシーンでのプレゼンス設計を支援してきた。
+              現在は、その知見を組織単位で再現可能にする法人向け研修へ展開している。
+            </p>
+          </div>
+
+          <!-- 実績数値プレースホルダ -->
+          <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-px bg-line border border-line">
+            {[
+              { n: '準備中', l: '個人セッション実績' },
+              { n: '準備中', l: '活動年数' },
+              { n: '準備中', l: '法人導入' },
+            ].map((s) => (
+              <div class="bg-paper p-5 text-center">
+                <p class="font-mincho font-bold text-lg text-navy">{s.n}</p>
+                <p class="text-[11px] text-ink/55 mt-1.5">{s.l}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 会社概要 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-amber mb-5">COMPANY</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">会社概要</h2>
+      <dl class="max-w-3xl border-t border-line">
+        {[
+          ['商号', '合同会社NATIVETOKYO（NATIVETOKYO LLC.）'],
+          ['代表', '松本 大志'],
+          ['所在地', '〒150-0045 東京都渋谷区神泉町10-15'],
+          ['連絡先', 'info@nativetokyo.jp'],
+          ['事業内容', '法人向け研修事業／コミュニケーション領域のコンサルティング'],
+        ].map(([k, v]) => (
+          <div class="grid sm:grid-cols-[180px_1fr] gap-2 sm:gap-6 py-5 border-b border-line">
+            <dt class="text-[13px] text-ink/55 tracking-wide">{k}</dt>
+            <dd class="text-[15px] text-ink/85">{v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <CtaBand location="about_page" />
+  </main>
+
+  <Footer />
+</Layout>

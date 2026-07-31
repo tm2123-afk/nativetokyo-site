@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+---
+
+<Layout
+  title="実績"
+  description="NATIVETOKYOの法人向け研修・個人向けコンサルティングの実施実績。実際の課題と施策、変化をご紹介します。"
+  path="/works"
+  breadcrumbs={[{ name: '実績', path: '/works' }]}
+>
+  <Header />
+
+  <main id="main">
+    <PageHero
+      eyebrow="WORKS"
+      title="実施実績"
+      lead="法人向けの研修事業は展開初期の段階にあります。掲載できる事例は限られていますが、実際に行った内容を具体的に記載しています。"
+    />
+
+    <!-- 法人事例 -->
+    <section class="px-6 md:px-16 py-20">
+      <p class="label text-amber mb-5">CORPORATE</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">法人研修</h2>
+
+      <article class="border border-line p-8 md:p-12 max-w-4xl">
+        <p class="label text-amber mb-4">CASE 01</p>
+        <h3 class="font-mincho font-bold text-xl text-navy mb-8">コンサルティング企業向け研修</h3>
+
+        <dl class="space-y-6 text-[15px] leading-loose">
+          <div>
+            <dt class="text-[13px] text-ink/55 mb-1.5 tracking-wide">課題</dt>
+            <dd class="text-ink/80">掲載内容を準備中です。</dd>
+          </div>
+          <div>
+            <dt class="text-[13px] text-ink/55 mb-1.5 tracking-wide">実施内容</dt>
+            <dd class="text-ink/80">掲載内容を準備中です。</dd>
+          </div>
+          <div>
+            <dt class="text-[13px] text-ink/55 mb-1.5 tracking-wide">結果</dt>
+            <dd class="text-ink/80">掲載内容を準備中です。</dd>
+          </div>
+        </dl>
+      </article>
+
+      <p class="text-sm text-ink/60 mt-8 max-w-2xl leading-loose">
+        ※ 実績数を多く見せるための事例の水増しや、イメージ写真の使用は行っていません。
+        導入が進み次第、実際の内容のみを追加していきます。
+      </p>
+    </section>
+
+    <!-- 個人 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-amber mb-5">PERSONAL</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">個人向けコンサルティング</h2>
+      <p class="text-[15px] leading-loose text-ink/75 max-w-3xl mb-10">
+        法人研修に先立ち、個人向けのコンサルティングを継続的に行ってきました。
+        経営者、営業職、専門職など、立場に応じたプレゼンス設計を支援しています。
+        個別の事例については、守秘の観点から一般化した形でのご紹介となります。
+      </p>
+
+      <div class="grid sm:grid-cols-3 gap-px bg-line border border-line max-w-4xl">
+        {[
+          { t: '経営者・役員', d: '対役員、対社外でのコミュニケーション設計。意思決定の場での存在感の作り方。' },
+          { t: '営業・提案職', d: '提案内容ではなく「伝わり方」に起因する失注構造の特定と改善。' },
+          { t: '専門職・技術職', d: '専門性が高いほど生じやすい「伝わらなさ」の解消。対クライアント場面の設計。' },
+        ].map((x) => (
+          <div class="bg-paper p-7">
+            <h3 class="font-bold text-navy mb-3 text-[15px]">{x.t}</h3>
+            <p class="text-[13px] leading-loose text-ink/70">{x.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <CtaBand location="works_page" />
+  </main>
+
+  <Footer />
+</Layout>

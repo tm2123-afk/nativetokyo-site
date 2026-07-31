@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 64">
+  <rect width="320" height="64" fill="none"/>
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#C08A34" stroke-width="2"/>
+  <circle cx="32" cy="32" r="11" fill="none" stroke="#1B2A4A" stroke-width="2"/>
+  <circle cx="32" cy="32" r="3.5" fill="#C08A34"/>
+  <text x="70" y="41" font-family="serif" font-weight="700" font-size="24" letter-spacing="2" fill="#1B2A4A">NATIVE</text>
+  <text x="182" y="41" font-family="serif" font-weight="700" font-size="24" letter-spacing="2" fill="#C08A34">TOKYO</text>
+</svg>

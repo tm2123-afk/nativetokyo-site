@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+
+const fmt = (d: Date) =>
+  `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+---
+
+<Layout
+  title="ブログ"
+  description="扱われ方・見せ方・対人コミュニケーションについて、行動科学の観点から具体策を書いています。合同会社NATIVETOKYO。"
+  path="/blog"
+  breadcrumbs={[{ name: 'ブログ', path: '/blog' }]}
+>
+  <Header />
+
+  <main id="main">
+    <PageHero
+      eyebrow="BLOG"
+      title="見せ方の具体策"
+      lead="抽象論ではなく、明日から実行できる具体まで分解して書いています。"
+    />
+
+    <section class="px-6 md:px-16 py-16">
+      {posts.length === 0 ? (
+        <p class="text-[15px] text-ink/70">記事を準備中です。</p>
+      ) : (
+        <ul class="max-w-3xl border-t border-line">
+          {posts.map((post) => (
+            <li class="border-b border-line">
+              <a href={`/blog/${post.id}/`} class="block py-8 group">
+                <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
+                  {fmt(post.data.pubDate)}
+                </time>
+                <h2 class="font-mincho font-bold text-lg md:text-xl text-navy mt-3 mb-3 group-hover:text-amber transition-colors">
+                  {post.data.title}
+                </h2>
+                <p class="text-sm leading-loose text-ink/70">{post.data.description}</p>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <CtaBand location="blog_index" />
+  </main>
+
+  <Footer />
+</Layout>

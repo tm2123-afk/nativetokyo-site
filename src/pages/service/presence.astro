@@ -1,0 +1,122 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const faqs = [
+  { q: '何名から実施できますか？', a: '少人数の経営層向けから、数十名規模の階層別研修まで対応しています。人数と課題に応じて構成を変えるため、まずはご相談ください。' },
+  { q: '単発のセミナーだけでも依頼できますか？', a: '可能です。多くの企業様が単発のセミナーから開始し、効果を確認した上で実践・ガイドライン策定へ進まれます。' },
+  { q: '「見た目の指導」という理解で合っていますか？', a: '外見はあくまで構成要素の一つです。姿勢・声・視線・間といった非言語情報の全体設計を扱うため、服装指導のみを行うプログラムではありません。' },
+  { q: 'オンライン研修に対応していますか？', a: '対応可能です。ただし非言語情報を扱う性質上、対面の方が精度が上がる領域があるため、初回は対面を推奨しています。' },
+  { q: '費用はどのくらいですか？', a: '実施形式・回数・人数によって変動します。単発セミナーから年間パートナーシップまで幅がありますので、お問い合わせ時に課題感をお聞かせいただければ、個別にお見積りをご案内します。' },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<Layout
+  title="プレゼンス研修｜法人向け"
+  description="姿勢・声・視線・間・服装。非言語情報の設計を通じて、実力が正しく伝わる状態をつくる法人向けプレゼンス研修。組織単位で基準を揃え、属人化させずに定着させます。"
+  path="/service/presence"
+  breadcrumbs={[{ name: 'プレゼンス研修', path: '/service/presence' }]}
+  jsonLd={faqLd}
+>
+  <Header />
+
+  <main id="main">
+    <PageHero
+      eyebrow="PRESENCE MANAGEMENT"
+      title="「なんとなく軽く扱われる」を、組織から無くす。"
+      lead="実力があるのに評価されない人材が、組織には必ずいます。その差の多くは能力ではなく、非言語情報の設計不足です。プレゼンス研修は、姿勢・声・視線・間・服装を行動科学のフレームで設計し、実力が正しく伝わる状態を組織単位でつくります。"
+    />
+
+    <!-- 課題 -->
+    <section class="px-6 md:px-16 py-20">
+      <p class="label text-amber mb-5">SYMPTOMS</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">こんな課題に効きます</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-12 gap-y-5 max-w-4xl">
+        {[
+          '実力のある若手・中堅が、社内外で正当に扱われていない',
+          '会議で発言が流され、意思決定に反映されない',
+          '営業の提案内容は良いのに、受注に繋がらない',
+          '管理職の指示が、なぜか現場に浸透しない',
+          '評価制度が成果のみで、「伝わり方」を扱えていない',
+          '新任リーダーが役割にふさわしい存在感を出せていない',
+        ].map((item) => (
+          <li class="flex gap-3 text-[15px] leading-loose text-ink/80 border-b border-line pb-4">
+            <span class="text-amber shrink-0">—</span>{item}
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- 内容 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-amber mb-5">CURRICULUM</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-12">扱う領域</h2>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
+        {[
+          { t: '姿勢・所作', d: '立ち方、座り方、入室から着席までの動線。無意識に「格」を下げている動きを特定し、修正する。' },
+          { t: '声・話し方', d: '音量ではなく通る声の構造。間の取り方、語尾の処理、沈黙の使い方を設計する。' },
+          { t: '視線・表情', d: '視線の配分と滞留時間。複数人の場での目線の運び方を、場面別に組み立てる。' },
+          { t: 'アピアランス', d: '役割とブランドに合致した外見設計。清潔感を前提に、立場にふさわしいトーンへ調整する。' },
+        ].map((x) => (
+          <div class="bg-paper p-7">
+            <h3 class="font-bold text-navy mb-3">{x.t}</h3>
+            <p class="text-[13px] leading-loose text-ink/70">{x.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 診断 -->
+    <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-24">
+      <div class="border border-line bg-white/40 p-8 md:p-14 max-w-4xl">
+        <p class="label text-amber mb-5">FREE DIAGNOSIS</p>
+        <h2 class="font-mincho font-bold text-2xl text-navy mb-5">組織プレゼンス診断</h2>
+        <p class="text-[15px] leading-loose text-ink/75 mb-8 max-w-2xl">
+          貴社の組織に「プレゼンス格差」がどの程度存在するかを、7つの設問で可視化します。
+          個人のスタイル診断ではなく、組織の課題を測るための診断です。所要時間は1分程度。
+        </p>
+        <p class="text-xs text-ink/50 mb-8">※ 現在準備中です。公開までもう少しお待ちください。</p>
+        <a
+          href="/contact"
+          data-ga="cta_contact_click"
+          data-ga-location="diagnosis_section"
+          class="label px-9 py-4 bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors inline-block"
+        >先に個別相談を申し込む</a>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-amber mb-5">FAQ</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">よくあるご質問</h2>
+      <div class="max-w-3xl border-t border-line">
+        {faqs.map((f) => (
+          <details class="border-b border-line group">
+            <summary class="py-6 flex justify-between items-start gap-6 text-[15px] font-medium text-navy">
+              {f.q}
+              <span class="text-amber shrink-0 text-xl leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <p class="pb-6 text-sm leading-loose text-ink/70">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <CtaBand location="presence_page" />
+  </main>
+
+  <Footer />
+</Layout>

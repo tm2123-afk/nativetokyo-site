@@ -1,0 +1,18 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+<Layout title="ページが見つかりません" description="お探しのページは見つかりませんでした。" path="/404"
+  noindex>
+  <Header />
+  <main id="main" class="px-6 md:px-16 py-32 min-h-[50vh]">
+    <p class="label text-amber mb-5">404</p>
+    <h1 class="font-mincho font-extrabold text-navy text-3xl mb-6">ページが見つかりませんでした。</h1>
+    <p class="text-[15px] leading-loose text-ink/75 max-w-xl mb-10">
+      URLが変更されたか、削除された可能性があります。
+    </p>
+    <a href="/" class="text-sm text-navy border-b border-navy pb-0.5">トップへ戻る →</a>
+  </main>
+  <Footer />
+</Layout>
