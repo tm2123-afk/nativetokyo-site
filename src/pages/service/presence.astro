@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import Diagnosis from '../../components/Diagnosis.astro';
 
 const faqs = [
   { q: '何名から実施できますか？', a: '少人数の経営層向けから、数十名規模の階層別研修まで対応しています。人数と課題に応じて構成を変えるため、まずはご相談ください。' },
@@ -80,22 +81,8 @@ const faqLd = {
     </section>
 
     <!-- 診断 -->
-    <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-24">
-      <div class="border border-line bg-white/40 p-8 md:p-14 max-w-4xl">
-        <p class="label text-amber mb-5">FREE DIAGNOSIS</p>
-        <h2 class="font-mincho font-bold text-2xl text-navy mb-5">組織プレゼンス診断</h2>
-        <p class="text-[15px] leading-loose text-ink/75 mb-8 max-w-2xl">
-          貴社の組織に「プレゼンス格差」がどの程度存在するかを、7つの設問で可視化します。
-          個人のスタイル診断ではなく、組織の課題を測るための診断です。所要時間は1分程度。
-        </p>
-        <p class="text-xs text-ink/50 mb-8">※ 現在準備中です。公開までもう少しお待ちください。</p>
-        <a
-          href="/contact"
-          data-ga="cta_contact_click"
-          data-ga-location="diagnosis_section"
-          class="label px-9 py-4 bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors inline-block"
-        >先に個別相談を申し込む</a>
-      </div>
+    <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-20">
+      <Diagnosis />
     </section>
 
     <!-- FAQ -->
