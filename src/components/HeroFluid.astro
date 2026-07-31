@@ -1,6 +1,4 @@
 ---
-// 案2の流体グラフィック：SVG + CSSアニメーション
-// 紺×琥珀の半透明フィルムが交差して流れる
 ---
 
 <div class="hero-fluid" aria-hidden="true">
@@ -8,122 +6,102 @@
     viewBox="0 0 1400 780"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid slice"
-    class="fluid-svg"
+    style="width:100%;height:100%;position:absolute;inset:0;"
   >
     <defs>
-      <filter id="blur-soft">
-        <feGaussianBlur stdDeviation="18" />
+      <filter id="hf-blur1">
+        <feGaussianBlur stdDeviation="22" />
       </filter>
-      <filter id="blur-mid">
-        <feGaussianBlur stdDeviation="10" />
+      <filter id="hf-blur2">
+        <feGaussianBlur stdDeviation="12" />
       </filter>
     </defs>
 
-    <!-- 背景ベース：粒子風の極薄ドット -->
-    <g opacity="0.18">
-      {Array.from({ length: 60 }).map((_, i) => {
-        const x = ((i * 137.5) % 1400).toFixed(0);
-        const y = ((i * 97.3) % 780).toFixed(0);
-        const r = (1 + (i % 3) * 0.8).toFixed(1);
-        const col = i % 3 === 0 ? '#1B2A4A' : i % 3 === 1 ? '#C08A34' : '#1B2A4A';
-        return <circle cx={x} cy={y} r={r} fill={col} />;
-      })}
-    </g>
+    <!-- 粒子 -->
+    <circle cx="120"  cy="90"  r="1.5" fill="#1B2A4A" opacity="0.15"/>
+    <circle cx="340"  cy="210" r="1"   fill="#C08A34" opacity="0.15"/>
+    <circle cx="580"  cy="60"  r="2"   fill="#1B2A4A" opacity="0.10"/>
+    <circle cx="820"  cy="150" r="1.5" fill="#C08A34" opacity="0.12"/>
+    <circle cx="1050" cy="300" r="1"   fill="#1B2A4A" opacity="0.15"/>
+    <circle cx="1280" cy="120" r="2"   fill="#C08A34" opacity="0.10"/>
+    <circle cx="200"  cy="500" r="1.5" fill="#1B2A4A" opacity="0.12"/>
+    <circle cx="700"  cy="650" r="1"   fill="#C08A34" opacity="0.15"/>
+    <circle cx="1100" cy="580" r="2"   fill="#1B2A4A" opacity="0.10"/>
+    <circle cx="950"  cy="700" r="1.5" fill="#C08A34" opacity="0.12"/>
 
-    <!-- 流体1：紺の大きな波 -->
-    <path
-      class="fluid-path path-1"
-      d="M-200,200 C100,80 300,320 600,180 C900,40 1100,300 1400,160 L1400,420 C1100,540 900,280 600,400 C300,520 100,300 -200,420 Z"
-      fill="#1B2A4A"
-      opacity="0.22"
-      filter="url(#blur-soft)"
+    <!-- 流体1：紺 大波 -->
+    <path class="hf1"
+      d="M-200,180 C150,60 380,340 680,190 C980,40 1180,290 1450,150 L1450,420 C1180,560 980,310 680,430 C380,550 150,280 -200,400 Z"
+      fill="#1B2A4A" opacity="0.20" filter="url(#hf-blur1)"
     />
 
-    <!-- 流体2：琥珀の波 -->
-    <path
-      class="fluid-path path-2"
-      d="M-100,350 C200,220 450,480 750,320 C1050,160 1250,400 1500,280 L1500,540 C1250,660 1050,420 750,560 C450,700 200,460 -100,580 Z"
-      fill="#C08A34"
-      opacity="0.18"
-      filter="url(#blur-soft)"
+    <!-- 流体2：琥珀 中波 -->
+    <path class="hf2"
+      d="M-100,330 C220,200 480,460 780,310 C1080,160 1260,390 1500,260 L1500,520 C1260,650 1080,420 780,560 C480,700 220,470 -100,580 Z"
+      fill="#C08A34" opacity="0.17" filter="url(#hf-blur1)"
     />
 
-    <!-- 流体3：紺の細い波 -->
-    <path
-      class="fluid-path path-3"
-      d="M0,120 C250,40 500,200 800,100 C1100,0 1300,180 1400,80 L1400,220 C1300,320 1100,140 800,240 C500,340 250,180 0,260 Z"
-      fill="#2E3F63"
-      opacity="0.16"
-      filter="url(#blur-mid)"
+    <!-- 流体3：紺 細波（上） -->
+    <path class="hf3"
+      d="M0,100 C260,30 520,190 820,90 C1120,0 1300,170 1400,70 L1400,210 C1300,310 1120,140 820,230 C520,320 260,160 0,240 Z"
+      fill="#2E3F63" opacity="0.15" filter="url(#hf-blur2)"
     />
 
-    <!-- 流体4：琥珀の細い波（低い位置） -->
-    <path
-      class="fluid-path path-4"
-      d="M-150,480 C150,380 400,560 700,440 C1000,320 1200,500 1450,400 L1450,560 C1200,660 1000,480 700,600 C400,720 150,540 -150,640 Z"
-      fill="#C08A34"
-      opacity="0.14"
-      filter="url(#blur-mid)"
+    <!-- 流体4：琥珀 細波（下） -->
+    <path class="hf4"
+      d="M-150,500 C160,380 420,560 720,430 C1020,300 1220,500 1450,390 L1450,560 C1220,670 1020,470 720,600 C420,730 160,550 -150,660 Z"
+      fill="#C08A34" opacity="0.13" filter="url(#hf-blur2)"
     />
 
-    <!-- 細かい線のスジ：奥行き感 -->
-    <g opacity="0.08" stroke="#1B2A4A" stroke-width="0.5" fill="none">
-      <path d="M0,300 Q350,200 700,310 Q1050,420 1400,300" />
-      <path d="M0,380 Q350,280 700,390 Q1050,500 1400,380" />
-      <path d="M0,460 Q350,360 700,470 Q1050,580 1400,460" />
-    </g>
+    <!-- 細線 -->
+    <path d="M0,310 Q350,210 700,320 Q1050,430 1400,310" stroke="#1B2A4A" stroke-width="0.6" fill="none" opacity="0.07"/>
+    <path d="M0,400 Q350,300 700,410 Q1050,520 1400,400" stroke="#1B2A4A" stroke-width="0.6" fill="none" opacity="0.05"/>
   </svg>
 </div>
 
-<style>
+<style is:global>
   .hero-fluid {
     position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
   }
-  .fluid-svg {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+
+  .hf1 {
+    animation: hf-drift1 20s ease-in-out infinite alternate;
+    transform-origin: 700px 300px;
+  }
+  .hf2 {
+    animation: hf-drift2 25s ease-in-out infinite alternate;
+    transform-origin: 700px 390px;
+  }
+  .hf3 {
+    animation: hf-drift3 16s ease-in-out infinite alternate;
+    transform-origin: 700px 155px;
+  }
+  .hf4 {
+    animation: hf-drift4 22s ease-in-out infinite alternate;
+    transform-origin: 700px 525px;
   }
 
-  .fluid-path {
-    transform-origin: center;
-    will-change: transform;
+  @keyframes hf-drift1 {
+    from { transform: translateY(0px) scaleX(1); }
+    to   { transform: translateY(-28px) scaleX(1.05); }
   }
-
-  .path-1 {
-    animation: drift1 18s ease-in-out infinite alternate;
+  @keyframes hf-drift2 {
+    from { transform: translateY(0px) scaleX(1); }
+    to   { transform: translateY(24px) scaleX(0.97); }
   }
-  .path-2 {
-    animation: drift2 22s ease-in-out infinite alternate;
+  @keyframes hf-drift3 {
+    from { transform: translate(0px, 0px); }
+    to   { transform: translate(28px, -18px); }
   }
-  .path-3 {
-    animation: drift3 15s ease-in-out infinite alternate;
-  }
-  .path-4 {
-    animation: drift4 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes drift1 {
-    0%   { transform: translateY(0px) scaleX(1); }
-    100% { transform: translateY(-30px) scaleX(1.04); }
-  }
-  @keyframes drift2 {
-    0%   { transform: translateY(0px) scaleX(1); }
-    100% { transform: translateY(25px) scaleX(0.97); }
-  }
-  @keyframes drift3 {
-    0%   { transform: translateY(0px) translateX(0px); }
-    100% { transform: translateY(-20px) translateX(30px); }
-  }
-  @keyframes drift4 {
-    0%   { transform: translateY(0px) translateX(0px); }
-    100% { transform: translateY(20px) translateX(-20px); }
+  @keyframes hf-drift4 {
+    from { transform: translate(0px, 0px); }
+    to   { transform: translate(-22px, 18px); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .fluid-path { animation: none; }
+    .hf1, .hf2, .hf3, .hf4 { animation: none; }
   }
 </style>
