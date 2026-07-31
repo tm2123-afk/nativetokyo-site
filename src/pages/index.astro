@@ -17,32 +17,28 @@ const steps = [
   description="実力があるのに軽く扱われる。その差は能力ではなく「見せ方」の設計です。行動科学に基づくプレゼンス研修とAI時代の人間力研修で、組織内の評価ギャップを可視化します。合同会社NATIVETOKYO。"
   path="/"
 >
-  <Header />
+  <!-- ヒーロー部分はネイビー背景なのでdark mode header -->
+  <Header dark={true} />
 
   <main id="main">
 
-    <!-- Hero：案2スタイル。流体SVG背景＋明朝大見出し＋赤ボタン -->
-    <section class="relative min-h-[86vh] flex items-center overflow-hidden bg-paper">
+    <!-- Hero：ネイビー背景×白金×格章リップル -->
+    <section class="hero-section relative min-h-screen flex items-center overflow-hidden bg-[#1B2A4A]">
       <HeroFluid />
 
-      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl">
-        <p class="label text-amber mb-7 flex items-center gap-3">
-          <span class="w-8 h-px bg-amber inline-block"></span>PRESENCE MANAGEMENT × 行動科学
-        </p>
-
-        <h1 class="font-mincho font-extrabold text-navy leading-[1.35] text-[clamp(36px,5.8vw,76px)]">
+      <div class="hero-content relative z-10 px-6 md:px-16 py-24 max-w-5xl">
+        <h1 class="hero-title font-mincho font-extrabold leading-[1.35] text-[clamp(38px,6.5vw,88px)]" style="font-family: 'Shippori Mincho B1', serif; color: #E8E0CC;">
           実力ある人材が、正当に<br />
-          <span class="text-amber">「格」</span>で評価される組織へ。
+          <span style="color: #C08A34;">「格」</span>で評価される組織へ。
         </h1>
 
-        <p class="mt-10 text-[16px] md:text-[17px] leading-[2] text-ink/80 max-w-lg">
-          「本音」と「行動」の非対称性を見抜き、関係性を最適化する。
-          行動科学に基づいたプレゼンス設計の研修で、組織内の評価ギャップを可視化し、
-          正当な評価が行き渡る仕組みをつくります。
+        <p class="hero-sub mt-10 text-[16px] leading-[2] max-w-lg" style="color: rgba(232, 224, 204, 0.70);">
+          「本音」と「行動」の非対称性を見抜き、関係性を最適化する。<br />
+          行動科学に基づいたプレゼンス設計の研修で、<br />
+          組織内の評価ギャップを可視化し、正当な評価が行き渡る仕組みをつくります。
         </p>
 
-        <div class="mt-12 flex flex-col sm:flex-row gap-6 sm:items-center">
-          <!-- 主CTA：案2に合わせて赤ボタン -->
+        <div class="hero-cta mt-12 flex flex-col sm:flex-row gap-6 sm:items-center">
           <a
             href="/contact"
             data-ga="cta_contact_click"
@@ -53,14 +49,18 @@ const steps = [
             href="/service/presence#diagnosis"
             data-ga="cta_diagnosis_click"
             data-ga-location="hero"
-            class="text-sm text-navy border-b border-navy pb-0.5 w-fit"
+            class="text-sm pb-0.5 w-fit border-b"
+            style="color: #E8E0CC; border-color: #E8E0CC;"
           >組織プレゼンス診断を受ける →</a>
         </div>
       </div>
+
+      <!-- ヒーロー下端の琥珀ライン -->
+      <div class="absolute bottom-0 left-0 right-0 h-[2px] bg-[#C08A34]"></div>
     </section>
 
     <!-- THE GAP -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line bg-[#FAFAF7]">
       <div class="grid md:grid-cols-3 gap-10 md:gap-16">
         <div>
           <p class="label text-amber mb-5">THE GAP</p>
@@ -77,7 +77,7 @@ const steps = [
     </section>
 
     <!-- SERVICE -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line bg-[#FAFAF7]">
       <p class="label text-amber mb-5">SERVICE</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">提供している研修</h2>
       <div class="grid md:grid-cols-2 gap-px bg-line border border-line">
@@ -101,7 +101,7 @@ const steps = [
     </section>
 
     <!-- 4-stage model -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line bg-[#FAFAF7]">
       <p class="label text-amber mb-5">SERVICE MODEL</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-4">
         4段階で、組織のプレゼンスを設計する
@@ -145,3 +145,41 @@ const steps = [
   </main>
   <Footer />
 </Layout>
+
+<style>
+  /* ページロード時のフェードインアニメーション */
+  .hero-title,
+  .hero-sub,
+  .hero-cta {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: hero-fade-in 0.8s ease-out forwards;
+  }
+
+  .hero-title {
+    animation-delay: 0.1s;
+  }
+  .hero-sub {
+    animation-delay: 0.3s;
+  }
+  .hero-cta {
+    animation-delay: 0.5s;
+  }
+
+  @keyframes hero-fade-in {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-title,
+    .hero-sub,
+    .hero-cta {
+      animation: none;
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>

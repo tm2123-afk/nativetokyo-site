@@ -1,107 +1,117 @@
 ---
+// 格章リップルアニメーション
+// 中心から同心円が外に広がりフェードアウト
+// 白金色(#E8E0CC)、opacity 0.08〜0.15、3〜4本が時間差で繰り返す、周期20秒
 ---
 
-<div class="hero-fluid" aria-hidden="true">
+<div class="hero-ripple" aria-hidden="true">
   <svg
-    viewBox="0 0 1400 780"
+    viewBox="0 0 1400 900"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMidYMid slice"
-    style="width:100%;height:100%;position:absolute;inset:0;"
+    class="ripple-svg"
   >
-    <defs>
-      <filter id="hf-blur1">
-        <feGaussianBlur stdDeviation="22" />
-      </filter>
-      <filter id="hf-blur2">
-        <feGaussianBlur stdDeviation="12" />
-      </filter>
-    </defs>
-
-    <!-- 粒子 -->
-    <circle cx="120"  cy="90"  r="1.5" fill="#1B2A4A" opacity="0.15"/>
-    <circle cx="340"  cy="210" r="1"   fill="#C08A34" opacity="0.15"/>
-    <circle cx="580"  cy="60"  r="2"   fill="#1B2A4A" opacity="0.10"/>
-    <circle cx="820"  cy="150" r="1.5" fill="#C08A34" opacity="0.12"/>
-    <circle cx="1050" cy="300" r="1"   fill="#1B2A4A" opacity="0.15"/>
-    <circle cx="1280" cy="120" r="2"   fill="#C08A34" opacity="0.10"/>
-    <circle cx="200"  cy="500" r="1.5" fill="#1B2A4A" opacity="0.12"/>
-    <circle cx="700"  cy="650" r="1"   fill="#C08A34" opacity="0.15"/>
-    <circle cx="1100" cy="580" r="2"   fill="#1B2A4A" opacity="0.10"/>
-    <circle cx="950"  cy="700" r="1.5" fill="#C08A34" opacity="0.12"/>
-
-    <!-- 流体1：紺 大波 -->
-    <path class="hf1"
-      d="M-200,180 C150,60 380,340 680,190 C980,40 1180,290 1450,150 L1450,420 C1180,560 980,310 680,430 C380,550 150,280 -200,400 Z"
-      fill="#1B2A4A" opacity="0.20" filter="url(#hf-blur1)"
-    />
-
-    <!-- 流体2：琥珀 中波 -->
-    <path class="hf2"
-      d="M-100,330 C220,200 480,460 780,310 C1080,160 1260,390 1500,260 L1500,520 C1260,650 1080,420 780,560 C480,700 220,470 -100,580 Z"
-      fill="#C08A34" opacity="0.17" filter="url(#hf-blur1)"
-    />
-
-    <!-- 流体3：紺 細波（上） -->
-    <path class="hf3"
-      d="M0,100 C260,30 520,190 820,90 C1120,0 1300,170 1400,70 L1400,210 C1300,310 1120,140 820,230 C520,320 260,160 0,240 Z"
-      fill="#2E3F63" opacity="0.15" filter="url(#hf-blur2)"
-    />
-
-    <!-- 流体4：琥珀 細波（下） -->
-    <path class="hf4"
-      d="M-150,500 C160,380 420,560 720,430 C1020,300 1220,500 1450,390 L1450,560 C1220,670 1020,470 720,600 C420,730 160,550 -150,660 Z"
-      fill="#C08A34" opacity="0.13" filter="url(#hf-blur2)"
-    />
-
-    <!-- 細線 -->
-    <path d="M0,310 Q350,210 700,320 Q1050,430 1400,310" stroke="#1B2A4A" stroke-width="0.6" fill="none" opacity="0.07"/>
-    <path d="M0,400 Q350,300 700,410 Q1050,520 1400,400" stroke="#1B2A4A" stroke-width="0.6" fill="none" opacity="0.05"/>
+    <!-- リップル中心を画面右側に配置（テキストと重ならない位置） -->
+    <g class="ripple-group" style="transform-origin: 1050px 450px;">
+      <!-- リップル1 -->
+      <circle
+        class="ripple-circle ripple-1"
+        cx="1050"
+        cy="450"
+        r="50"
+        fill="none"
+        stroke="#E8E0CC"
+        stroke-width="1"
+      />
+      <!-- リップル2 -->
+      <circle
+        class="ripple-circle ripple-2"
+        cx="1050"
+        cy="450"
+        r="50"
+        fill="none"
+        stroke="#E8E0CC"
+        stroke-width="1"
+      />
+      <!-- リップル3 -->
+      <circle
+        class="ripple-circle ripple-3"
+        cx="1050"
+        cy="450"
+        r="50"
+        fill="none"
+        stroke="#E8E0CC"
+        stroke-width="1"
+      />
+      <!-- リップル4 -->
+      <circle
+        class="ripple-circle ripple-4"
+        cx="1050"
+        cy="450"
+        r="50"
+        fill="none"
+        stroke="#E8E0CC"
+        stroke-width="1"
+      />
+    </g>
   </svg>
 </div>
 
 <style is:global>
-  .hero-fluid {
+  .hero-ripple {
     position: absolute;
     inset: 0;
     overflow: hidden;
     pointer-events: none;
   }
 
-  .hf1 {
-    animation: hf-drift1 20s ease-in-out infinite alternate;
-    transform-origin: 700px 300px;
-  }
-  .hf2 {
-    animation: hf-drift2 25s ease-in-out infinite alternate;
-    transform-origin: 700px 390px;
-  }
-  .hf3 {
-    animation: hf-drift3 16s ease-in-out infinite alternate;
-    transform-origin: 700px 155px;
-  }
-  .hf4 {
-    animation: hf-drift4 22s ease-in-out infinite alternate;
-    transform-origin: 700px 525px;
+  .ripple-svg {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    inset: 0;
   }
 
-  @keyframes hf-drift1 {
-    from { transform: translateY(0px) scaleX(1); }
-    to   { transform: translateY(-28px) scaleX(1.05); }
+  .ripple-circle {
+    opacity: 0;
+    transform-origin: 1050px 450px;
+    animation: ripple-expand 20s ease-out infinite;
   }
-  @keyframes hf-drift2 {
-    from { transform: translateY(0px) scaleX(1); }
-    to   { transform: translateY(24px) scaleX(0.97); }
+
+  .ripple-1 {
+    animation-delay: 0s;
   }
-  @keyframes hf-drift3 {
-    from { transform: translate(0px, 0px); }
-    to   { transform: translate(28px, -18px); }
+  .ripple-2 {
+    animation-delay: 5s;
   }
-  @keyframes hf-drift4 {
-    from { transform: translate(0px, 0px); }
-    to   { transform: translate(-22px, 18px); }
+  .ripple-3 {
+    animation-delay: 10s;
+  }
+  .ripple-4 {
+    animation-delay: 15s;
+  }
+
+  @keyframes ripple-expand {
+    0% {
+      r: 50;
+      opacity: 0.15;
+      stroke-width: 1;
+    }
+    50% {
+      opacity: 0.10;
+    }
+    100% {
+      r: 900;
+      opacity: 0;
+      stroke-width: 0.5;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hf1, .hf2, .hf3, .hf4 { animation: none; }
+    .ripple-circle {
+      animation: none;
+      opacity: 0.08;
+      r: 400;
+    }
   }
 </style>
