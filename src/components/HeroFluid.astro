@@ -1,0 +1,129 @@
+---
+// 案2の流体グラフィック：SVG + CSSアニメーション
+// 紺×琥珀の半透明フィルムが交差して流れる
+---
+
+<div class="hero-fluid" aria-hidden="true">
+  <svg
+    viewBox="0 0 1400 780"
+    xmlns="http://www.w3.org/2000/svg"
+    preserveAspectRatio="xMidYMid slice"
+    class="fluid-svg"
+  >
+    <defs>
+      <filter id="blur-soft">
+        <feGaussianBlur stdDeviation="18" />
+      </filter>
+      <filter id="blur-mid">
+        <feGaussianBlur stdDeviation="10" />
+      </filter>
+    </defs>
+
+    <!-- 背景ベース：粒子風の極薄ドット -->
+    <g opacity="0.18">
+      {Array.from({ length: 60 }).map((_, i) => {
+        const x = ((i * 137.5) % 1400).toFixed(0);
+        const y = ((i * 97.3) % 780).toFixed(0);
+        const r = (1 + (i % 3) * 0.8).toFixed(1);
+        const col = i % 3 === 0 ? '#1B2A4A' : i % 3 === 1 ? '#C08A34' : '#1B2A4A';
+        return <circle cx={x} cy={y} r={r} fill={col} />;
+      })}
+    </g>
+
+    <!-- 流体1：紺の大きな波 -->
+    <path
+      class="fluid-path path-1"
+      d="M-200,200 C100,80 300,320 600,180 C900,40 1100,300 1400,160 L1400,420 C1100,540 900,280 600,400 C300,520 100,300 -200,420 Z"
+      fill="#1B2A4A"
+      opacity="0.22"
+      filter="url(#blur-soft)"
+    />
+
+    <!-- 流体2：琥珀の波 -->
+    <path
+      class="fluid-path path-2"
+      d="M-100,350 C200,220 450,480 750,320 C1050,160 1250,400 1500,280 L1500,540 C1250,660 1050,420 750,560 C450,700 200,460 -100,580 Z"
+      fill="#C08A34"
+      opacity="0.18"
+      filter="url(#blur-soft)"
+    />
+
+    <!-- 流体3：紺の細い波 -->
+    <path
+      class="fluid-path path-3"
+      d="M0,120 C250,40 500,200 800,100 C1100,0 1300,180 1400,80 L1400,220 C1300,320 1100,140 800,240 C500,340 250,180 0,260 Z"
+      fill="#2E3F63"
+      opacity="0.16"
+      filter="url(#blur-mid)"
+    />
+
+    <!-- 流体4：琥珀の細い波（低い位置） -->
+    <path
+      class="fluid-path path-4"
+      d="M-150,480 C150,380 400,560 700,440 C1000,320 1200,500 1450,400 L1450,560 C1200,660 1000,480 700,600 C400,720 150,540 -150,640 Z"
+      fill="#C08A34"
+      opacity="0.14"
+      filter="url(#blur-mid)"
+    />
+
+    <!-- 細かい線のスジ：奥行き感 -->
+    <g opacity="0.08" stroke="#1B2A4A" stroke-width="0.5" fill="none">
+      <path d="M0,300 Q350,200 700,310 Q1050,420 1400,300" />
+      <path d="M0,380 Q350,280 700,390 Q1050,500 1400,380" />
+      <path d="M0,460 Q350,360 700,470 Q1050,580 1400,460" />
+    </g>
+  </svg>
+</div>
+
+<style>
+  .hero-fluid {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .fluid-svg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .fluid-path {
+    transform-origin: center;
+    will-change: transform;
+  }
+
+  .path-1 {
+    animation: drift1 18s ease-in-out infinite alternate;
+  }
+  .path-2 {
+    animation: drift2 22s ease-in-out infinite alternate;
+  }
+  .path-3 {
+    animation: drift3 15s ease-in-out infinite alternate;
+  }
+  .path-4 {
+    animation: drift4 20s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift1 {
+    0%   { transform: translateY(0px) scaleX(1); }
+    100% { transform: translateY(-30px) scaleX(1.04); }
+  }
+  @keyframes drift2 {
+    0%   { transform: translateY(0px) scaleX(1); }
+    100% { transform: translateY(25px) scaleX(0.97); }
+  }
+  @keyframes drift3 {
+    0%   { transform: translateY(0px) translateX(0px); }
+    100% { transform: translateY(-20px) translateX(30px); }
+  }
+  @keyframes drift4 {
+    0%   { transform: translateY(0px) translateX(0px); }
+    100% { transform: translateY(20px) translateX(-20px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fluid-path { animation: none; }
+  }
+</style>
