@@ -4,17 +4,25 @@ interface Props {
   imageAlt: string;
   eyebrow: string;
   headline: string;
+  // 元画像内で被写体がどのあたりにいるか（%）。ここを基準に切り取るので
+  // 画面幅が変わっても人物が切れない
+  focusX?: number;
 }
-const { image, imageAlt, eyebrow, headline } = Astro.props;
+const { image, imageAlt, eyebrow, headline, focusX = 68 } = Astro.props;
 ---
 
 <section class="diagonal-split" data-reveal>
   <div class="ds-photo">
-    <img src={image} alt={imageAlt} width="700" height="900" loading="lazy" />
+    <img src={image} alt={imageAlt} width="700" height="900" loading="lazy" style={`object-position: ${focusX}% 20%;`} />
+    <div class="ds-tint" aria-hidden="true"></div>
+    <!-- 色ブロックを写真にも重ねて、no-companyのような切り取り感を出す -->
+    <div class="ds-block ds-block-1" aria-hidden="true"></div>
+    <div class="ds-block ds-block-2" aria-hidden="true"></div>
   </div>
   <div class="ds-color">
-    <p class="label text-paper/80 mb-5">{eyebrow}</p>
-    <p class="font-mincho font-extrabold text-[clamp(24px,3.2vw,38px)] leading-[1.6] text-paper">
+    <div class="ds-ring" aria-hidden="true"></div>
+    <p class="label text-paper/80 mb-5 relative z-10">{eyebrow}</p>
+    <p class="font-mincho font-extrabold text-[clamp(24px,3.2vw,38px)] leading-[1.6] text-paper relative z-10">
       {headline}
     </p>
   </div>
@@ -28,7 +36,7 @@ const { image, imageAlt, eyebrow, headline } = Astro.props;
     min-height: 420px;
   }
   @media (min-width: 768px) {
-    .diagonal-split { grid-template-columns: 1.1fr 1fr; min-height: 520px; }
+    .diagonal-split { grid-template-columns: minmax(360px, 1.1fr) minmax(320px, 1fr); min-height: 520px; }
   }
 
   .ds-photo {
@@ -40,8 +48,34 @@ const { image, imageAlt, eyebrow, headline } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center center;
-    filter: grayscale(1) contrast(1.08);
+    /* object-position は上のstyle属性でfocusXに応じて動的に設定される */
+    filter: grayscale(1) contrast(1.12) brightness(0.96);
+    display: block;
+  }
+  /* デュオトーン：ブランドカラーを写真に載せて質感を統一する */
+  .ds-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, var(--color-navy) 0%, var(--color-magenta) 120%);
+    mix-blend-mode: color;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  /* 写真に重なる色ブロック：no-companyのようなコラージュ感 */
+  .ds-block {
+    position: absolute;
+    pointer-events: none;
+  }
+  .ds-block-1 {
+    top: 24px; left: 24px;
+    width: 64px; height: 64px;
+    background: var(--color-magenta);
+    opacity: 0.85;
+  }
+  .ds-block-2 {
+    bottom: 40px; left: 40px;
+    width: 40px; height: 40px;
+    border: 2px solid var(--color-paper);
   }
 
   .ds-color {
@@ -51,14 +85,21 @@ const { image, imageAlt, eyebrow, headline } = Astro.props;
     flex-direction: column;
     justify-content: center;
     padding: 56px 40px;
+    overflow: hidden;
+  }
+  .ds-ring {
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 280px; height: 280px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(250, 250, 247, 0.3);
   }
   @media (min-width: 768px) {
     .ds-color {
       padding: 64px 64px;
-      /* 斜めカットでフォトとの継ぎ目を作る（チラシの構図を踏襲）
-         角度を緩めて写真側への被りを減らす */
-      clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
-      margin-left: -4%;
+      /* 斜めカットでフォトとの継ぎ目を作る（チラシの構図を踏襲） */
+      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
+      margin-left: -6%;
     }
   }
 </style>

@@ -1,0 +1,38 @@
+---
+interface Props {
+  word: string;
+  class?: string;
+}
+const { word, class: className = '' } = Astro.props;
+---
+
+<div class={`giant-word ${className}`} aria-hidden="true">
+  <span class="gw-text">{word}</span>
+</div>
+
+<style>
+  .giant-word {
+    position: absolute;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  .gw-text {
+    display: block;
+    font-family: var(--font-mincho);
+    font-weight: 800;
+    font-size: clamp(80px, 15vw, 180px);
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px var(--color-navy);
+    opacity: 0.08;
+    white-space: nowrap;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .gw-text {
+      -webkit-text-stroke: 1px var(--color-paper);
+    }
+  }
+</style>
