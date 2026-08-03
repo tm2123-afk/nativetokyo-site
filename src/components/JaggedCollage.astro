@@ -1,0 +1,90 @@
+---
+interface Props {
+  mainImage: string;
+  mainAlt: string;
+  insetImage?: string;
+  insetAlt?: string;
+  focusX?: number; // メイン写真の被写体の水平位置(%)
+}
+const { mainImage, mainAlt, insetImage, insetAlt, focusX = 60 } = Astro.props;
+---
+
+<div class="jagged-collage" data-reveal>
+  <!-- 背後の色ブロック：階段状の切り欠きから覗かせる -->
+  <div class="jc-block" aria-hidden="true"></div>
+
+  <div class="jc-photo">
+    <img src={mainImage} alt={mainAlt} style={`object-position: ${focusX}% 25%;`} loading="lazy" />
+    <div class="jc-tint" aria-hidden="true"></div>
+  </div>
+
+  {insetImage && (
+    <div class="jc-inset">
+      <img src={insetImage} alt={insetAlt} loading="lazy" />
+    </div>
+  )}
+</div>
+
+<style>
+  .jagged-collage {
+    position: relative;
+    padding: 0 28px 28px 0;
+  }
+
+  .jc-block {
+    position: absolute;
+    inset: 0;
+    left: 28px;
+    top: 28px;
+    background: var(--color-magenta);
+  }
+
+  .jc-photo {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    /* 左下を階段状に切り欠いて、背後のマゼンタブロックを覗かせる */
+    clip-path: polygon(
+      0% 0%, 100% 0%, 100% 100%, 42% 100%, 42% 91%,
+      33% 91%, 33% 82%, 24% 82%, 24% 73%,
+      15% 73%, 15% 64%, 6% 64%, 6% 55%, 0% 55%
+    );
+  }
+  .jc-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: grayscale(1) contrast(1.1) brightness(0.97);
+    display: block;
+  }
+  .jc-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(150deg, var(--color-navy) 0%, var(--color-magenta) 130%);
+    mix-blend-mode: color;
+    opacity: 0.45;
+    pointer-events: none;
+  }
+
+  .jc-inset {
+    position: absolute;
+    left: -6px;
+    top: -6px;
+    width: 34%;
+    max-width: 220px;
+    aspect-ratio: 4 / 3;
+    border: 6px solid var(--color-paper);
+    box-shadow: 0 12px 28px rgba(0,0,0,0.18);
+    overflow: hidden;
+    transform: rotate(-2deg);
+  }
+  .jc-inset img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  @media (max-width: 640px) {
+    .jc-inset { display: none; } /* 狭い画面では省いて崩れを防ぐ */
+  }
+</style>
