@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import HeroImpact from '../components/HeroImpact.astro';
+import HashtagMarquee from '../components/HashtagMarquee.astro';
 
 const steps = [
   { num: '01', title: 'セミナー', body: '行動科学に基づく対人力学の基礎理論を、組織全体にインストールする。' },
@@ -25,7 +26,7 @@ const steps = [
     <section class="relative min-h-[86vh] flex items-center overflow-hidden bg-paper">
       <HeroImpact />
 
-      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl">
+      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl" data-reveal>
         <p class="label text-magenta mb-7 flex items-center gap-3">
           <span class="w-8 h-px bg-magenta inline-block"></span>PRESENCE MANAGEMENT × 行動科学
         </p>
@@ -59,8 +60,10 @@ const steps = [
       </div>
     </section>
 
+    <HashtagMarquee tags={['プレゼンス設計', '行動科学', '対人力学', '非言語情報', '組織研修', '評価ギャップ', '見せ方の技術', 'NATIVETOKYO']} />
+
     <!-- THE GAP -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <div class="grid md:grid-cols-3 gap-10 md:gap-16">
         <div>
           <p class="label text-magenta mb-5">THE GAP</p>
@@ -77,7 +80,7 @@ const steps = [
     </section>
 
     <!-- SERVICE -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
       <p class="label text-magenta mb-5">SERVICE</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">提供している研修</h2>
       <div class="grid md:grid-cols-2 gap-px bg-line border border-line">
@@ -101,14 +104,16 @@ const steps = [
     </section>
 
     <!-- 代表・実績ティザー -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
       <div class="grid md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
-        <img
-          src="/images/about-main.jpg"
-          alt="代表 松本大志"
-          class="w-full aspect-[3/4] object-cover object-top border border-line"
-          width="500" height="667" loading="lazy"
-        />
+        <div class="photo-duo aspect-[3/4] border border-line">
+          <img
+            src="/images/about-main.jpg"
+            alt="代表 松本大志"
+            class="w-full h-full object-cover object-top"
+            width="500" height="667" loading="lazy"
+          />
+        </div>
         <div>
           <p class="label text-magenta mb-5">REPRESENTATIVE</p>
           <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-6 leading-relaxed">
@@ -125,7 +130,7 @@ const steps = [
     </section>
 
     <!-- 4-stage model -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
       <p class="label text-magenta mb-5">SERVICE MODEL</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-4">
         4段階で、組織のプレゼンスを設計する
@@ -151,7 +156,7 @@ const steps = [
     </section>
 
     <!-- Final CTA -->
-    <section class="px-6 md:px-16 py-24 border-t border-line bg-navy text-paper">
+    <section class="px-6 md:px-16 py-24 border-t border-line bg-navy text-paper" data-reveal>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl mb-6 max-w-xl leading-relaxed">
         まずは貴社の課題感を、お聞かせください。
       </h2>

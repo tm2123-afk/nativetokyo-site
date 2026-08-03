@@ -40,6 +40,7 @@ const { image, imageAlt, eyebrow, headline } = Astro.props;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     filter: grayscale(1) contrast(1.08);
   }
 
@@ -54,9 +55,10 @@ const { image, imageAlt, eyebrow, headline } = Astro.props;
   @media (min-width: 768px) {
     .ds-color {
       padding: 64px 64px;
-      /* 斜めカットでフォトとの継ぎ目を作る（チラシの構図を踏襲） */
-      clip-path: polygon(8% 0, 100% 0, 100% 100%, 0 100%);
-      margin-left: -6%;
+      /* 斜めカットでフォトとの継ぎ目を作る（チラシの構図を踏襲）
+         角度を緩めて写真側への被りを減らす */
+      clip-path: polygon(5% 0, 100% 0, 100% 100%, 0 100%);
+      margin-left: -4%;
     }
   }
 </style>

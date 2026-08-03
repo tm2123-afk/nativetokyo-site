@@ -1,0 +1,105 @@
+---
+interface Props {
+  image: string;
+  imageAlt: string;
+  variant?: 'left' | 'right';
+}
+const { image, imageAlt, variant = 'left' } = Astro.props;
+---
+
+<div class={`photo-collage photo-collage-${variant}`}>
+  <!-- 背後のカラーブロック -->
+  <div class="pc-block pc-block-1" aria-hidden="true"></div>
+  <div class="pc-block pc-block-2" aria-hidden="true"></div>
+
+  <!-- 写真本体（デュオトーン処理） -->
+  <div class="pc-photo photo-duo">
+    <img src={image} alt={imageAlt} width="800" height="533" loading="lazy" />
+  </div>
+
+  <!-- 手前のアクセントブロック -->
+  <div class="pc-block pc-block-3" aria-hidden="true"></div>
+</div>
+
+<style>
+  .photo-collage {
+    position: relative;
+    aspect-ratio: 3/2;
+    width: 100%;
+  }
+
+  .pc-photo {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    border: 1px solid var(--color-line);
+  }
+  .pc-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .pc-block {
+    position: absolute;
+    background: var(--color-magenta);
+  }
+
+  /* 左寄せバリエーション */
+  .photo-collage-left .pc-block-1 {
+    width: 140px;
+    height: 140px;
+    background: var(--color-navy);
+    top: -20px;
+    left: -30px;
+    z-index: 1;
+  }
+  .photo-collage-left .pc-block-2 {
+    width: 100px;
+    height: 100px;
+    bottom: -25px;
+    right: 15%;
+    z-index: 1;
+  }
+  .photo-collage-left .pc-block-3 {
+    width: 80px;
+    height: 80px;
+    background: var(--color-magenta);
+    top: 10%;
+    right: -20px;
+    z-index: 3;
+  }
+
+  /* 右寄せバリエーション */
+  .photo-collage-right .pc-block-1 {
+    width: 140px;
+    height: 140px;
+    background: var(--color-magenta);
+    top: -20px;
+    right: -30px;
+    z-index: 1;
+  }
+  .photo-collage-right .pc-block-2 {
+    width: 100px;
+    height: 100px;
+    background: var(--color-navy);
+    bottom: -25px;
+    left: 15%;
+    z-index: 1;
+  }
+  .photo-collage-right .pc-block-3 {
+    width: 80px;
+    height: 80px;
+    background: var(--color-navy);
+    top: 10%;
+    left: -20px;
+    z-index: 3;
+  }
+
+  @media (max-width: 640px) {
+    .pc-block-1 { width: 100px !important; height: 100px !important; }
+    .pc-block-2 { width: 70px !important; height: 70px !important; }
+    .pc-block-3 { width: 60px !important; height: 60px !important; }
+  }
+</style>

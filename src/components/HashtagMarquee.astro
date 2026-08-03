@@ -1,0 +1,50 @@
+---
+interface Props {
+  tags: string[];
+}
+const { tags } = Astro.props;
+const duplicatedTags = [...tags, ...tags, ...tags];
+---
+
+<div class="hashtag-marquee" aria-hidden="true">
+  <div class="hm-track">
+    {duplicatedTags.map((tag) => (
+      <span class="hm-tag">#{tag}</span>
+    ))}
+  </div>
+</div>
+
+<style>
+  .hashtag-marquee {
+    overflow: hidden;
+    background: var(--color-navy);
+    border-top: 1px solid var(--color-navy-soft);
+    border-bottom: 1px solid var(--color-navy-soft);
+    padding: 16px 0;
+  }
+
+  .hm-track {
+    display: flex;
+    gap: 32px;
+    animation: marquee 40s linear infinite;
+    will-change: transform;
+  }
+
+  .hm-tag {
+    font-size: 14px;
+    letter-spacing: 0.08em;
+    color: var(--color-paper);
+    opacity: 0.5;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-33.333%); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hm-track { animation: none; }
+  }
+</style>

@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Insignia from '../components/Insignia.astro';
+import HashtagMarquee from '../components/HashtagMarquee.astro';
 ---
 
 <Layout
@@ -22,6 +23,8 @@ import Insignia from '../components/Insignia.astro';
       lead="法人向けの研修事業は展開初期の段階にあります。掲載できる事例は限られていますが、実際に行った内容を具体的に記載しています。"
     />
 
+    <HashtagMarquee tags={['実績', '法人研修', '個人コンサルティング', '経営者', '営業職', '専門職', 'プレゼンス設計']} />
+
     <!-- 法人事例：navy背景 -->
     <section class="px-6 md:px-16 py-20 bg-navy relative overflow-hidden" data-reveal>
       <Insignia class="absolute -top-40 -left-40 w-[600px] h-[600px] opacity-10" />
@@ -30,12 +33,14 @@ import Insignia from '../components/Insignia.astro';
         <h2 class="font-mincho font-bold text-2xl text-paper mb-10">法人研修</h2>
 
         <article class="border border-paper/20 max-w-4xl bg-paper/5">
-          <img
-            src="/images/seminar-2.jpg"
-            alt="研修実施の様子"
-            class="w-full aspect-[3/2] object-cover"
-            width="900" height="600" loading="lazy"
-          />
+          <div class="photo-duo aspect-[3/2]">
+            <img
+              src="/images/seminar-2.jpg"
+              alt="研修実施の様子"
+              class="w-full h-full object-cover"
+              width="900" height="600" loading="lazy"
+            />
+          </div>
           <div class="p-8 md:p-12">
           <p class="label text-magenta mb-4">CASE 01</p>
           <h3 class="font-mincho font-bold text-xl text-paper mb-8">コンサルティング企業向け研修</h3>

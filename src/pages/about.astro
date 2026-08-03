@@ -6,6 +6,8 @@ import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import MagentaQuote from '../components/MagentaQuote.astro';
 import Insignia from '../components/Insignia.astro';
+import PhotoCollage from '../components/PhotoCollage.astro';
+import HashtagMarquee from '../components/HashtagMarquee.astro';
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -35,8 +37,10 @@ const personLd = {
       lead="NATIVETOKYOは、対人コミュニケーションにおける「本音」と「行動」の非対称性を研究し、それを再現可能な技術として法人向けに提供している会社です。"
     />
 
+    <HashtagMarquee tags={['松本大志', 'NATIVETOKYO', '行動科学', '対人力学', 'プレゼンス設計', '組織開発', '法人研修']} />
+
     <!-- 事業の考え方 -->
-    <section class="px-6 md:px-16 py-20">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <p class="label text-magenta mb-5">PHILOSOPHY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-8">なぜ「見せ方」なのか</h2>
       <div class="max-w-3xl space-y-6 text-[15px] leading-loose text-ink/80">
@@ -121,21 +125,19 @@ const personLd = {
     <section class="px-6 md:px-16 py-20 bg-navy" data-reveal>
       <p class="label text-magenta mb-5">IN ACTION</p>
       <h2 class="font-mincho font-bold text-2xl text-paper mb-10">研修・セミナーの様子</h2>
-      <div class="grid sm:grid-cols-2 gap-6" data-reveal-group>
-        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
-          <img
-            src="/images/seminar-1.jpg"
-            alt="法人向け研修の様子"
-            class="w-full h-full object-cover"
-            width="800" height="533" loading="lazy"
+      <div class="grid sm:grid-cols-2 gap-12 md:gap-16 max-w-6xl">
+        <div data-reveal>
+          <PhotoCollage
+            image="/images/seminar-1.jpg"
+            imageAlt="法人向け研修の様子"
+            variant="left"
           />
         </div>
-        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
-          <img
-            src="/images/about-sub.jpg"
-            alt="登壇の様子"
-            class="w-full h-full object-cover"
-            width="800" height="533" loading="lazy"
+        <div data-reveal>
+          <PhotoCollage
+            image="/images/about-sub.jpg"
+            imageAlt="登壇の様子"
+            variant="right"
           />
         </div>
       </div>
