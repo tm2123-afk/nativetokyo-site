@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
+import Insignia from '../components/Insignia.astro';
 ---
 
 <Layout
@@ -20,16 +21,32 @@ import PageHero from '../components/PageHero.astro';
       lead="研修のご相談、お見積り、その他ご質問はこちらから。通常2営業日以内にご返信します。"
     />
 
-    <section class="px-6 md:px-16 py-16">
-      <form
-        name="contact"
-        method="POST"
-        data-netlify="true"
-        netlify-honeypot="bot-field"
-        action="/thanks"
-        class="max-w-2xl space-y-8"
-        data-ga="form_start"
-      >
+    <section class="px-6 md:px-16 py-16 relative">
+      <div class="grid md:grid-cols-[1fr_1.4fr] gap-12 md:gap-16 max-w-6xl">
+        <!-- 左側：視覚要素 -->
+        <div class="relative" data-reveal>
+          <Insignia class="w-full max-w-[320px] mx-auto opacity-30" />
+          <div class="mt-8">
+            <p class="font-mincho font-bold text-xl text-navy mb-4">
+              まずは貴社の課題感を、<br />お聞かせください。
+            </p>
+            <p class="text-sm leading-loose text-ink/70">
+              四半期単位のスポット導入から、年間パートナーシップまで。組織の規模と課題に合わせてご提案します。
+            </p>
+          </div>
+        </div>
+
+        <!-- 右側：フォーム -->
+        <form
+          name="contact"
+          method="POST"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          action="/thanks"
+          class="space-y-8"
+          data-ga="form_start"
+          data-reveal
+        >
         <input type="hidden" name="form-name" value="contact" />
         <p class="hidden">
           <label>この項目は入力しないでください<input name="bot-field" /></label>
@@ -102,7 +119,8 @@ import PageHero from '../components/PageHero.astro';
           data-ga-location="contact_page"
           class="label px-12 py-4 bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors"
         >送信する</button>
-      </form>
+        </form>
+      </div>
     </section>
   </main>
 

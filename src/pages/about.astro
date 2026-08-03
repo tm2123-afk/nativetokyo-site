@@ -5,6 +5,7 @@ import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import MagentaQuote from '../components/MagentaQuote.astro';
+import Insignia from '../components/Insignia.astro';
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -60,13 +61,15 @@ const personLd = {
       attribution="NATIVETOKYO PHILOSOPHY"
     />
 
-    <!-- 代表 -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-magenta mb-5">REPRESENTATIVE</p>
-      <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
+    <!-- 代表：背景色＋Insignia -->
+    <section class="px-6 md:px-16 py-20 bg-paper relative overflow-hidden" data-reveal>
+      <Insignia class="absolute -bottom-32 -right-32 w-[500px] h-[500px] opacity-10" />
+      <div class="relative z-10">
+        <p class="label text-magenta mb-5">REPRESENTATIVE</p>
+        <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
 
-      <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
-        <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
+        <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
+          <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
           <img
             src="/images/about-main.jpg"
             alt="松本大志"
@@ -111,12 +114,13 @@ const personLd = {
           </div>
         </div>
       </div>
+      </div>
     </section>
 
-    <!-- 登壇・研修風景 -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <!-- 登壇・研修風景：navy背景 -->
+    <section class="px-6 md:px-16 py-20 bg-navy" data-reveal>
       <p class="label text-magenta mb-5">IN ACTION</p>
-      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">研修・セミナーの様子</h2>
+      <h2 class="font-mincho font-bold text-2xl text-paper mb-10">研修・セミナーの様子</h2>
       <div class="grid sm:grid-cols-2 gap-6" data-reveal-group>
         <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
           <img
@@ -138,7 +142,7 @@ const personLd = {
     </section>
 
     <!-- 会社概要 -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <p class="label text-magenta mb-5">COMPANY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-10">会社概要</h2>
       <dl class="max-w-3xl border-t border-line">

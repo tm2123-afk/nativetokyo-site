@@ -35,7 +35,7 @@ const fmt = (d: Date) =>
         <ul class="max-w-3xl border-t border-line">
           {posts.map((post) => (
             <li class="border-b border-line">
-              <a href={`/blog/${post.id}/`} class="block py-8 group">
+              <a href={`/blog/${post.id}/`} class="block py-8 group hover:bg-paper/50 -mx-4 px-4 transition-all duration-200 hover:shadow-sm" data-reveal>
                 <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
                   {fmt(post.data.pubDate)}
                 </time>

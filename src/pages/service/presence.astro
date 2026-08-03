@@ -42,10 +42,10 @@ const faqLd = {
       lead="実力があるのに評価されない人材が、組織には必ずいます。その差の多くは能力ではなく、非言語情報の設計不足です。プレゼンス研修は、姿勢・声・視線・間・服装を行動科学のフレームで設計し、実力が正しく伝わる状態を組織単位でつくります。"
     />
 
-    <!-- 課題 -->
-    <section class="px-6 md:px-16 py-20">
+    <!-- 課題：navy背景 -->
+    <section class="px-6 md:px-16 py-20 bg-navy" data-reveal>
       <p class="label text-magenta mb-5">SYMPTOMS</p>
-      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">こんな課題に効きます</h2>
+      <h2 class="font-mincho font-bold text-2xl text-paper mb-10">こんな課題に効きます</h2>
       <ul class="grid sm:grid-cols-2 gap-x-12 gap-y-5 max-w-4xl">
         {[
           '実力のある若手・中堅が、社内外で正当に扱われていない',
@@ -55,7 +55,7 @@ const faqLd = {
           '評価制度が成果のみで、「伝わり方」を扱えていない',
           '新任リーダーが役割にふさわしい存在感を出せていない',
         ].map((item) => (
-          <li class="flex gap-3 text-[15px] leading-loose text-ink/80 border-b border-line pb-4">
+          <li class="flex gap-3 text-[15px] leading-loose text-paper/80 border-b border-paper/20 pb-4">
             <span class="text-magenta shrink-0">—</span>{item}
           </li>
         ))}
@@ -63,7 +63,7 @@ const faqLd = {
     </section>
 
     <!-- 内容 -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <p class="label text-magenta mb-5">CURRICULUM</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-12">扱う領域</h2>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-px bg-line border border-line">
@@ -89,12 +89,12 @@ const faqLd = {
     />
 
     <!-- 診断 -->
-    <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-20">
+    <section id="diagnosis" class="px-6 md:px-16 py-20 scroll-mt-20" data-reveal>
       <Diagnosis />
     </section>
 
     <!-- FAQ -->
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <p class="label text-magenta mb-5">FAQ</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-10">よくあるご質問</h2>
       <div class="max-w-3xl border-t border-line">

@@ -4,14 +4,15 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import DiagonalSplit from '../../components/DiagonalSplit.astro';
 
 const elements = [
-  { t: 'データを読む', d: '何が起きているかを、数字と事実で把握する。AIが出力した結果を鵜呑みにせず、前提を疑う視点を持つ。' },
-  { t: '構造で分析する', d: '事象を要素に分解し、因果と相関を切り分ける。AIに問いを投げる前に、問い自体を設計できる状態にする。' },
-  { t: '原理から考える', d: '前例やテンプレートではなく、第一原理に立ち返って組み立て直す。AIが最も苦手とする領域。' },
-  { t: '経験を蓄積する', d: '身体を通した実体験の量。他者と対面した回数と質が、判断の精度を決める。' },
-  { t: '他者を感知する', d: '相手が何を感じ、何を言わずにいるかを読む。非言語情報から仮説を立てる技術。' },
-  { t: '判断する', d: '正解のない状況で、責任を持って決める。最終的に人にしか担えない領域。' },
+  { n: '01', t: 'データを読む', d: '何が起きているかを、数字と事実で把握する。AIが出力した結果を鵜呑みにせず、前提を疑う視点を持つ。' },
+  { n: '02', t: '構造で分析する', d: '事象を要素に分解し、因果と相関を切り分ける。AIに問いを投げる前に、問い自体を設計できる状態にする。' },
+  { n: '03', t: '原理から考える', d: '前例やテンプレートではなく、第一原理に立ち返って組み立て直す。AIが最も苦手とする領域。' },
+  { n: '04', t: '経験を蓄積する', d: '身体を通した実体験の量。他者と対面した回数と質が、判断の精度を決める。' },
+  { n: '05', t: '他者を感知する', d: '相手が何を感じ、何を言わずにいるかを読む。非言語情報から仮説を立てる技術。' },
+  { n: '06', t: '判断する', d: '正解のない状況で、責任を持って決める。最終的に人にしか担えない領域。' },
 ];
 ---
 
@@ -30,12 +31,13 @@ const elements = [
       lead="AI時代の人間力という言葉は広く語られていますが、多くは抽象論で終わっています。この研修では、人に残る能力を6つの要素に分解し、それぞれを行動レベルの具体策まで落とし込みます。"
     />
 
-    <section class="px-6 md:px-16 py-20">
+    <!-- THE PROBLEM：navy全面帯 -->
+    <section class="px-6 md:px-16 py-24 bg-navy" data-reveal>
       <p class="label text-magenta mb-5">THE PROBLEM</p>
-      <h2 class="font-mincho font-bold text-2xl text-navy mb-8 max-w-2xl leading-relaxed">
+      <h2 class="font-mincho font-bold text-3xl md:text-4xl text-paper mb-8 max-w-2xl leading-relaxed">
         抽象論は、現場で再現できない。
       </h2>
-      <p class="text-[15px] leading-loose text-ink/75 max-w-3xl">
+      <p class="text-[15px] leading-loose text-paper/75 max-w-3xl">
         「これからは共感力の時代」「人間にしかできないことをやろう」——
         こうしたメッセージは正しくても、翌日から何をすればいいのかが分かりません。
         結果として、研修を実施しても行動が変わらない。
@@ -43,14 +45,15 @@ const elements = [
       </p>
     </section>
 
-    <section class="px-6 md:px-16 py-20 border-t border-line">
+    <section class="px-6 md:px-16 py-20" data-reveal>
       <p class="label text-magenta mb-5">6 ELEMENTS</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-12">人に残る6つの要素</h2>
       <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line">
         {elements.map((x) => (
-          <div class="bg-paper p-7">
-            <h3 class="font-bold text-navy mb-3">{x.t}</h3>
-            <p class="text-[13px] leading-loose text-ink/70">{x.d}</p>
+          <div class="bg-paper p-7 relative overflow-hidden">
+            <span class="absolute top-2 right-2 font-mincho text-[80px] leading-none text-navy/6" aria-hidden="true">{x.n}</span>
+            <h3 class="font-bold text-navy mb-3 relative z-10">{x.t}</h3>
+            <p class="text-[13px] leading-loose text-ink/70 relative z-10">{x.d}</p>
           </div>
         ))}
       </div>
@@ -59,14 +62,19 @@ const elements = [
       </p>
     </section>
 
-    <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-magenta mb-5">APPROACH</p>
-      <h2 class="font-mincho font-bold text-2xl text-navy mb-8">プレゼンス研修との関係</h2>
-      <p class="text-[15px] leading-loose text-ink/75 max-w-3xl">
-        6要素のうち「他者を感知する」「判断する」は、プレゼンス研修が扱う非言語情報の設計と直接つながります。
+    <!-- DiagonalSplit：navy基調 -->
+    <DiagonalSplit
+      image="/images/seminar-1.jpg"
+      imageAlt="研修実施の様子"
+      eyebrow="APPROACH"
+      headline="プレゼンス研修との関係。6要素のうち「他者を感知する」「判断する」は、非言語情報の設計と直接つながります。"
+    />
+
+    <section class="px-6 md:px-16 py-20" data-reveal>
+      <p class="text-[15px] leading-loose text-ink/75 max-w-3xl mb-8">
         AI時代の人間力研修を導入の入口とし、より実践的な訓練としてプレゼンス研修へ展開するケースが多くなっています。
       </p>
-      <a href="/service/presence" class="mt-8 inline-block text-sm text-navy border-b border-navy pb-0.5">
+      <a href="/service/presence" class="inline-block text-sm text-navy border-b border-navy pb-0.5">
         プレゼンス研修を見る →
       </a>
     </section>
