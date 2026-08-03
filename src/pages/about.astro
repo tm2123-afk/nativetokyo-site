@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import MagentaQuote from '../components/MagentaQuote.astro';
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -54,18 +55,25 @@ const personLd = {
       </div>
     </section>
 
+    <MagentaQuote
+      quote="実力や誠実さは、そのままでは相手に届かない。姿勢・声・視線・間を通じて、はじめて「そういう人だ」と認識される。"
+      attribution="NATIVETOKYO PHILOSOPHY"
+    />
+
     <!-- 代表 -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
       <p class="label text-magenta mb-5">REPRESENTATIVE</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
 
       <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
-        <img
-          src="/images/about-main.jpg"
-          alt="松本大志"
-          class="w-full aspect-[3/4] object-cover object-top border border-line"
-          width="700" height="933"
-        />
+        <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
+          <img
+            src="/images/about-main.jpg"
+            alt="松本大志"
+            class="w-full h-full object-cover object-top"
+            width="700" height="933"
+          />
+        </div>
 
         <div>
           <p class="font-mincho font-bold text-xl text-navy mb-1">松本 大志</p>
@@ -109,19 +117,23 @@ const personLd = {
     <section class="px-6 md:px-16 py-20 border-t border-line">
       <p class="label text-magenta mb-5">IN ACTION</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-10">研修・セミナーの様子</h2>
-      <div class="grid sm:grid-cols-2 gap-6">
-        <img
-          src="/images/seminar-1.jpg"
-          alt="法人向け研修の様子"
-          class="w-full aspect-[3/2] object-cover border border-line"
-          width="800" height="533" loading="lazy"
-        />
-        <img
-          src="/images/about-sub.jpg"
-          alt="登壇の様子"
-          class="w-full aspect-[3/2] object-cover border border-line"
-          width="800" height="533" loading="lazy"
-        />
+      <div class="grid sm:grid-cols-2 gap-6" data-reveal-group>
+        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
+          <img
+            src="/images/seminar-1.jpg"
+            alt="法人向け研修の様子"
+            class="w-full h-full object-cover"
+            width="800" height="533" loading="lazy"
+          />
+        </div>
+        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
+          <img
+            src="/images/about-sub.jpg"
+            alt="登壇の様子"
+            class="w-full h-full object-cover"
+            width="800" height="533" loading="lazy"
+          />
+        </div>
       </div>
     </section>
 

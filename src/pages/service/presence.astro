@@ -4,6 +4,7 @@ import Header from '../../components/Header.astro';
 import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
+import DiagonalSplit from '../../components/DiagonalSplit.astro';
 import Diagnosis from '../../components/Diagnosis.astro';
 
 const faqs = [
@@ -79,6 +80,13 @@ const faqLd = {
         ))}
       </div>
     </section>
+
+    <DiagonalSplit
+      image="/images/seminar-1.jpg"
+      imageAlt="研修風景"
+      eyebrow="WHY NOW"
+      headline="扱われ方は、能力ではなく設計で決まる。単発の研修ではなく、組織の基準として定着させます。"
+    />
 
     <!-- 診断 -->
     <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-20">
