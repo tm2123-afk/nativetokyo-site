@@ -1,15 +1,25 @@
 ---
-interface Props {
-  tags: string[];
-}
-const { tags } = Astro.props;
-const duplicatedTags = [...tags, ...tags, ...tags];
+const tags = [
+  '#評価ギャップ',
+  '#プレゼンス格差',
+  '#属人化の解消',
+  '#AI時代の人間力',
+  '#非言語コミュニケーション',
+  '#行動科学',
+  '#組織開発',
+  '#第一印象の設計',
+  '#見せ方の再現性',
+];
+const looped = [...tags, ...tags];
 ---
 
-<div class="hashtag-marquee" aria-hidden="true">
-  <div class="hm-track">
-    {duplicatedTags.map((tag) => (
-      <span class="hm-tag">#{tag}</span>
+<div class="hashtag-marquee">
+  <div class="hashtag-track">
+    {looped.map((tag, i) => (
+      <span class="hashtag-item">
+        <span class="hashtag-text">{tag}</span>
+        <span class="hashtag-dot" aria-hidden="true"></span>
+      </span>
     ))}
   </div>
 </div>
@@ -17,34 +27,59 @@ const duplicatedTags = [...tags, ...tags, ...tags];
 <style>
   .hashtag-marquee {
     overflow: hidden;
-    background: var(--color-navy);
-    border-top: 1px solid var(--color-navy-soft);
-    border-bottom: 1px solid var(--color-navy-soft);
-    padding: 16px 0;
+    background: var(--color-paper);
+    border-top: 1px solid var(--color-ink);
+    border-bottom: 1px solid var(--color-ink);
+    padding: 22px 0;
   }
-
-  .hm-track {
+  .hashtag-track {
     display: flex;
-    gap: 32px;
-    animation: marquee 40s linear infinite;
-    will-change: transform;
+    width: max-content;
+    gap: 0;
+    animation: hashtag-scroll 26s linear infinite;
+  }
+  .hashtag-marquee:hover .hashtag-track {
+    animation-play-state: paused;
   }
 
-  .hm-tag {
-    font-size: 14px;
-    letter-spacing: 0.08em;
-    color: var(--color-paper);
-    opacity: 0.5;
+  .hashtag-item {
+    display: flex;
+    align-items: center;
     white-space: nowrap;
-    flex-shrink: 0;
   }
 
-  @keyframes marquee {
+  /* 太字・大きめサイズで力強さを出す。ゴシックではなく明朝の極太で
+     "格" のブランド言語を保ったままインパクトを出す */
+  .hashtag-text {
+    font-family: var(--font-mincho);
+    font-weight: 800;
+    font-size: clamp(22px, 3vw, 34px);
+    letter-spacing: 0.01em;
+    color: var(--color-ink);
+    padding: 0 28px;
+    transition: color 0.2s ease;
+  }
+  .hashtag-item:nth-child(odd) .hashtag-text {
+    /* 交互にマゼンタを差し込んでリズムを作る */
+    color: var(--color-magenta);
+    -webkit-text-stroke: 0;
+  }
+
+  .hashtag-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--color-navy);
+    display: inline-block;
+    flex-shrink: 0;
+    transform: rotate(45deg);
+  }
+
+  @keyframes hashtag-scroll {
     from { transform: translateX(0); }
-    to { transform: translateX(-33.333%); }
+    to   { transform: translateX(-50%); }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hm-track { animation: none; }
+    .hashtag-track { animation: none; }
   }
 </style>
