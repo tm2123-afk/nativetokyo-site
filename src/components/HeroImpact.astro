@@ -1,0 +1,114 @@
+---
+// マゼンタ×紺×黒の平面幾何学アニメーション
+// steps()イージングで「静止→スナップ→静止」の格のある動きを作る
+---
+
+<div class="hero-impact" aria-hidden="true">
+  <svg viewBox="0 0 1400 780" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" class="hi-svg">
+    <defs>
+      <clipPath id="hi-frame">
+        <rect x="0" y="0" width="1400" height="780" />
+      </clipPath>
+    </defs>
+
+    <rect width="1400" height="780" fill="#FAFAF7" />
+
+    <g clip-path="url(#hi-frame)">
+      <!-- 大円：マゼンタ -->
+      <circle class="hi-shape hi-circle" cx="950" cy="380" r="340" fill="#E31C79" />
+
+      <!-- 同心リング：紺 -->
+      <g class="hi-shape hi-rings" transform-origin="1050px 480px">
+        <circle cx="1050" cy="480" r="260" fill="none" stroke="#1B2A4A" stroke-width="70" />
+        <circle cx="1050" cy="480" r="150" fill="none" stroke="#1B2A4A" stroke-width="46" />
+      </g>
+
+      <!-- 角パネル：黒 -->
+      <g class="hi-shape hi-panel1" transform-origin="1200px 250px">
+        <polygon points="1050,0 1300,0 1180,520 1000,480" fill="#141414" />
+      </g>
+
+      <g class="hi-shape hi-panel2" transform-origin="1300px 620px">
+        <polygon points="1150,780 1400,780 1400,480 1220,560" fill="#141414" />
+      </g>
+
+      <!-- 細い弧：マゼンタのアクセント -->
+      <g class="hi-shape hi-arc" transform-origin="820px 620px">
+        <circle cx="820" cy="620" r="180" fill="none" stroke="#E31C79" stroke-width="14" stroke-dasharray="180 900" />
+      </g>
+    </g>
+  </svg>
+</div>
+
+<style is:global>
+  .hero-impact {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .hi-svg {
+    width: 100%;
+    height: 100%;
+  }
+
+  .hi-shape {
+    animation-timing-function: steps(1, end);
+    animation-iteration-count: infinite;
+  }
+
+  /* 静止(1.8s)→瞬間スナップ→静止 のリズムを steps() で表現。
+     イージングを使わず、キーフレームの間で "ジャンプ" させることで
+     生成AI動画では出せなかった「格のある速い切り替え」を実現する */
+  .hi-circle {
+    animation-name: hi-circle-snap;
+    animation-duration: 6s;
+  }
+  @keyframes hi-circle-snap {
+    0%, 30%   { transform: rotate(0deg) scale(1); }
+    31%, 60%  { transform: rotate(8deg) scale(1.04); }
+    61%, 100% { transform: rotate(-4deg) scale(0.98); }
+  }
+
+  .hi-rings {
+    animation-name: hi-rings-snap;
+    animation-duration: 7.5s;
+  }
+  @keyframes hi-rings-snap {
+    0%, 40%   { transform: rotate(0deg); }
+    41%, 75%  { transform: rotate(-14deg); }
+    76%, 100% { transform: rotate(6deg); }
+  }
+
+  .hi-panel1 {
+    animation-name: hi-panel1-snap;
+    animation-duration: 5s;
+  }
+  @keyframes hi-panel1-snap {
+    0%, 50%   { transform: translate(0px, 0px); }
+    51%, 100% { transform: translate(-18px, 12px); }
+  }
+
+  .hi-panel2 {
+    animation-name: hi-panel2-snap;
+    animation-duration: 6.5s;
+  }
+  @keyframes hi-panel2-snap {
+    0%, 35%   { transform: translate(0px, 0px); }
+    36%, 70%  { transform: translate(14px, -10px); }
+    71%, 100% { transform: translate(-8px, 6px); }
+  }
+
+  .hi-arc {
+    animation-name: hi-arc-snap;
+    animation-duration: 9s;
+  }
+  @keyframes hi-arc-snap {
+    0%, 45%   { transform: rotate(0deg); }
+    46%, 100% { transform: rotate(120deg); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hi-shape { animation: none; }
+  }
+</style>

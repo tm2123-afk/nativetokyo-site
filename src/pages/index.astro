@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Insignia from '../components/Insignia.astro';
+import HeroImpact from '../components/HeroImpact.astro';
 
 const steps = [
   { num: '01', title: 'セミナー', body: '行動科学に基づく対人力学の基礎理論を、組織全体にインストールする。' },
@@ -22,6 +23,7 @@ const steps = [
   <main id="main">
     <!-- Hero -->
     <section class="relative px-6 md:px-16 pt-20 md:pt-32 pb-24 overflow-hidden">
+      <HeroImpact />
       <Insignia class="hidden md:block -top-52 -right-52 w-[600px] h-[600px]" />
 
       <div class="relative">
