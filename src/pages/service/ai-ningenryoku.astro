@@ -5,6 +5,7 @@ import Footer from '../../components/Footer.astro';
 import PageHero from '../../components/PageHero.astro';
 import CtaBand from '../../components/CtaBand.astro';
 import DiagonalSplit from '../../components/DiagonalSplit.astro';
+import HashtagMarquee from '../../components/HashtagMarquee.astro';
 
 const elements = [
   { n: '01', t: 'データを読む', d: '何が起きているかを、数字と事実で把握する。AIが出力した結果を鵜呑みにせず、前提を疑う視点を持つ。' },
@@ -30,6 +31,8 @@ const elements = [
       title="「共感力が大事」で、止まっていませんか。"
       lead="AI時代の人間力という言葉は広く語られていますが、多くは抽象論で終わっています。この研修では、人に残る能力を6つの要素に分解し、それぞれを行動レベルの具体策まで落とし込みます。"
     />
+
+    <HashtagMarquee />
 
     <!-- THE PROBLEM：navy全面帯 -->
     <section class="px-6 md:px-16 py-24 bg-navy" data-reveal>
