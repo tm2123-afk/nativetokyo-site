@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import Insignia from '../components/Insignia.astro';
 import HeroImpact from '../components/HeroImpact.astro';
 
 const steps = [
@@ -21,33 +20,34 @@ const steps = [
   <Header />
 
   <main id="main">
-    <!-- Hero -->
-    <section class="relative px-6 md:px-16 pt-20 md:pt-32 pb-24 overflow-hidden">
-      <HeroImpact />
-      <Insignia class="hidden md:block -top-52 -right-52 w-[600px] h-[600px]" />
 
-      <div class="relative">
-        <p class="label text-amber mb-6 flex items-center gap-3">
-          <span class="w-8 h-px bg-amber inline-block"></span>PRESENCE MANAGEMENT × 行動科学
+    <!-- Hero：案2スタイル。流体SVG背景＋明朝大見出し＋赤ボタン -->
+    <section class="relative min-h-[86vh] flex items-center overflow-hidden bg-paper">
+      <HeroImpact />
+
+      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl">
+        <p class="label text-magenta mb-7 flex items-center gap-3">
+          <span class="w-8 h-px bg-magenta inline-block"></span>PRESENCE MANAGEMENT × 行動科学
         </p>
 
-        <h1 class="font-mincho font-extrabold text-navy leading-[1.4] text-[clamp(30px,5.4vw,70px)] max-w-4xl">
+        <h1 class="font-mincho font-extrabold text-navy leading-[1.35] text-[clamp(36px,5.8vw,76px)]">
           実力ある人材が、正当に<br />
-          <span class="text-amber">「格」</span>で評価される組織へ。
+          <span class="text-magenta">「格」</span>で評価される組織へ。
         </h1>
 
-        <p class="mt-8 text-[16px] md:text-[17px] leading-loose text-ink/80 max-w-xl">
+        <p class="mt-10 text-[16px] md:text-[17px] leading-[2] text-ink/80 max-w-lg">
           「本音」と「行動」の非対称性を見抜き、関係性を最適化する。
           行動科学に基づいたプレゼンス設計の研修で、組織内の評価ギャップを可視化し、
           正当な評価が行き渡る仕組みをつくります。
         </p>
 
         <div class="mt-12 flex flex-col sm:flex-row gap-6 sm:items-center">
+          <!-- 主CTA：案2に合わせて赤ボタン -->
           <a
             href="/contact"
             data-ga="cta_contact_click"
             data-ga-location="hero"
-            class="label px-10 py-[18px] bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors text-center"
+            class="label px-10 py-[18px] bg-[#E31C79] text-white rounded-sm hover:bg-[#B3145C] transition-colors text-center shadow-sm"
           >法人向け研修について相談する</a>
           <a
             href="/service/presence#diagnosis"
@@ -59,13 +59,13 @@ const steps = [
       </div>
     </section>
 
-    <!-- Problem -->
+    <!-- THE GAP -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
       <div class="grid md:grid-cols-3 gap-10 md:gap-16">
         <div>
-          <p class="label text-amber mb-5">THE GAP</p>
+          <p class="label text-magenta mb-5">THE GAP</p>
           <p class="font-mincho font-bold text-xl md:text-2xl text-navy leading-[1.8]">
-            評価されるのは<br />「有能な人」ではなく<br />「有能に<span class="text-amber">見える</span>人」
+            評価されるのは<br />「有能な人」ではなく<br />「有能に<span class="text-magenta">見える</span>人」
           </p>
         </div>
         <p class="md:col-span-2 text-[15px] leading-loose text-ink/75 self-end">
@@ -76,12 +76,12 @@ const steps = [
       </div>
     </section>
 
-    <!-- Services -->
+    <!-- SERVICE -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-amber mb-5">SERVICE</p>
+      <p class="label text-magenta mb-5">SERVICE</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">提供している研修</h2>
       <div class="grid md:grid-cols-2 gap-px bg-line border border-line">
-        <a href="/service/presence" class="bg-paper p-8 md:p-10 group">
+        <a href="/service/presence" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors">
           <h3 class="font-mincho font-bold text-xl text-navy mb-4">プレゼンス研修</h3>
           <p class="text-sm leading-loose text-ink/70 mb-6">
             姿勢・声・視線・間・服装。非言語情報の設計を通じて、実力が正しく伝わる状態をつくる。
@@ -89,7 +89,7 @@ const steps = [
           </p>
           <span class="text-sm text-navy border-b border-navy pb-0.5">詳しく見る →</span>
         </a>
-        <a href="/service/ai-ningenryoku" class="bg-paper p-8 md:p-10 group">
+        <a href="/service/ai-ningenryoku" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors">
           <h3 class="font-mincho font-bold text-xl text-navy mb-4">AI時代の人間力研修</h3>
           <p class="text-sm leading-loose text-ink/70 mb-6">
             分析も生成もAIが担う時代に、人に残る価値とは何か。
@@ -100,9 +100,33 @@ const steps = [
       </div>
     </section>
 
+    <!-- 代表・実績ティザー -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <div class="grid md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
+        <img
+          src="/images/about-main.jpg"
+          alt="代表 松本大志"
+          class="w-full aspect-[3/4] object-cover object-top border border-line"
+          width="500" height="667" loading="lazy"
+        />
+        <div>
+          <p class="label text-magenta mb-5">REPRESENTATIVE</p>
+          <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-6 leading-relaxed">
+            扱われ方は、設計できる。
+          </h2>
+          <p class="text-[15px] leading-loose text-ink/75 mb-8">
+            NATIVETOKYOは、対人コミュニケーションにおける「本音」と「行動」の非対称性を研究し、
+            それを再現可能な技術として法人向けに提供している会社です。個人向けコンサルティングで
+            培った知見を、組織単位で機能する仕組みへと展開しています。
+          </p>
+          <a href="/about" class="text-sm text-navy border-b border-navy pb-0.5">私たちについて →</a>
+        </div>
+      </div>
+    </section>
+
     <!-- 4-stage model -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-amber mb-5">SERVICE MODEL</p>
+      <p class="label text-magenta mb-5">SERVICE MODEL</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-4">
         4段階で、組織のプレゼンスを設計する
       </h2>
@@ -138,10 +162,10 @@ const steps = [
         href="/contact"
         data-ga="cta_contact_click"
         data-ga-location="footer_band"
-        class="label px-10 py-[18px] bg-amber text-navy rounded-sm hover:opacity-90 transition-opacity inline-block"
+        class="label px-10 py-[18px] bg-[#E31C79] text-white rounded-sm hover:bg-[#B3145C] transition-colors inline-block"
       >お問い合わせ</a>
     </section>
-  </main>
 
+  </main>
   <Footer />
 </Layout>

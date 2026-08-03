@@ -55,6 +55,8 @@
   .hi-shape {
     animation-timing-function: steps(1, end);
     animation-iteration-count: infinite;
+    transform-box: fill-box;
+    transform-origin: center;
   }
 
   /* 静止(1.8s)→瞬間スナップ→静止 のリズムを steps() で表現。

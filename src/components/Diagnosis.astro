@@ -49,7 +49,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 <div class="border border-line bg-white/50" id="diagnosis-app" data-total-max={totalMax}>
   <!-- イントロ -->
   <div class="p-8 md:p-12 border-b border-line">
-    <p class="label text-amber mb-5">ORGANIZATIONAL DIAGNOSIS</p>
+    <p class="label text-magenta mb-5">ORGANIZATIONAL DIAGNOSIS</p>
     <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-5">組織プレゼンス診断</h2>
     <p class="text-[15px] leading-loose text-ink/75 max-w-2xl">
       貴社の社員・営業・広報・役員は、実力にふさわしい扱われ方をしているか。
@@ -62,7 +62,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     {layers.map((layer) => (
       <fieldset class="mb-12 last:mb-0">
         <legend class="mb-6">
-          <span class="label text-amber block mb-1.5">{layer.label} — {layer.note}</span>
+          <span class="label text-magenta block mb-1.5">{layer.label} — {layer.note}</span>
           <span class="font-mincho font-bold text-xl text-navy">{layer.name}</span>
           <span class="text-xs text-ink/45 ml-3">各{layer.weight}pt</span>
         </legend>
@@ -96,7 +96,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
   <!-- 結果 -->
   <div id="diagnosis-result" class="hidden p-8 md:p-12 border-t border-line">
-    <p class="label text-amber mb-5">RESULT</p>
+    <p class="label text-magenta mb-5">RESULT</p>
 
     <div class="flex items-baseline gap-4 mb-2">
       <span id="result-score" class="font-mincho font-extrabold text-[56px] leading-none text-navy">0</span>
@@ -129,7 +129,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
           href="/contact"
           data-ga="cta_contact_click"
           data-ga-location="diagnosis_result"
-          class="label px-10 py-[18px] bg-amber text-navy rounded-sm hover:opacity-90 transition-opacity text-center"
+          class="label px-10 py-[18px] bg-magenta text-navy rounded-sm hover:opacity-90 transition-opacity text-center"
         >詳細版の診断について相談する</a>
         <button
           type="button"

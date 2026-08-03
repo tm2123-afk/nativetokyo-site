@@ -35,7 +35,7 @@ const personLd = {
 
     <!-- 事業の考え方 -->
     <section class="px-6 md:px-16 py-20">
-      <p class="label text-amber mb-5">PHILOSOPHY</p>
+      <p class="label text-magenta mb-5">PHILOSOPHY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-8">なぜ「見せ方」なのか</h2>
       <div class="max-w-3xl space-y-6 text-[15px] leading-loose text-ink/80">
         <p>
@@ -56,14 +56,16 @@ const personLd = {
 
     <!-- 代表 -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-amber mb-5">REPRESENTATIVE</p>
+      <p class="label text-magenta mb-5">REPRESENTATIVE</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
 
       <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
-        <!-- 写真プレースホルダ -->
-        <div class="aspect-[3/4] bg-line/50 border border-line flex items-center justify-center">
-          <span class="text-xs text-ink/40">写真（準備中）</span>
-        </div>
+        <img
+          src="/images/about-main.jpg"
+          alt="松本大志"
+          class="w-full aspect-[3/4] object-cover object-top border border-line"
+          width="700" height="933"
+        />
 
         <div>
           <p class="font-mincho font-bold text-xl text-navy mb-1">松本 大志</p>
@@ -103,9 +105,29 @@ const personLd = {
       </div>
     </section>
 
+    <!-- 登壇・研修風景 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">IN ACTION</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">研修・セミナーの様子</h2>
+      <div class="grid sm:grid-cols-2 gap-6">
+        <img
+          src="/images/seminar-1.jpg"
+          alt="法人向け研修の様子"
+          class="w-full aspect-[3/2] object-cover border border-line"
+          width="800" height="533" loading="lazy"
+        />
+        <img
+          src="/images/about-sub.jpg"
+          alt="登壇の様子"
+          class="w-full aspect-[3/2] object-cover border border-line"
+          width="800" height="533" loading="lazy"
+        />
+      </div>
+    </section>
+
     <!-- 会社概要 -->
     <section class="px-6 md:px-16 py-20 border-t border-line">
-      <p class="label text-amber mb-5">COMPANY</p>
+      <p class="label text-magenta mb-5">COMPANY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-10">会社概要</h2>
       <dl class="max-w-3xl border-t border-line">
         {[

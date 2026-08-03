@@ -10,7 +10,8 @@
   --color-ink: #1C1C1C;
   --color-navy: #1B2A4A;
   --color-navy-soft: #2E3F63;
-  --color-amber: #C08A34;
+  --color-magenta: #E31C79;
+  --color-magenta-deep: #B3145C;
   --color-line: #E4E1D8;
 }
 
@@ -40,7 +41,7 @@ body {
 a:focus-visible,
 button:focus-visible,
 summary:focus-visible {
-  outline: 2px solid var(--color-amber);
+  outline: 2px solid var(--color-magenta);
   outline-offset: 3px;
 }
 
