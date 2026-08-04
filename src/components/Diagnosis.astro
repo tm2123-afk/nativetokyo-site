@@ -1,12 +1,13 @@
 ---
 // 法人向け組織プレゼンス診断
-// 3層構造（基礎／統一／格）× 各4問。配点 1pt / 2pt / 3pt。満点24pt。
+// 3段階 × 各4問。配点 1pt / 2pt / 3pt。満点24pt。
+// チャエン方式：結果はスコアと段階名のみ先に見せ、詳細は3項目フォーム入力後に表示する
 const layers = [
   {
     id: 1,
-    label: 'LAYER 1',
-    name: '基礎水準',
-    note: '減点が発生していないか',
+    label: '段階1',
+    name: '基本',
+    note: '内容以前で減点されていないか',
     weight: 1,
     questions: [
       '来客対応・商談に出る社員の身だしなみについて、社内に共有された基準がある',
@@ -17,9 +18,9 @@ const layers = [
   },
   {
     id: 2,
-    label: 'LAYER 2',
-    name: '統一感',
-    note: 'ブランドと一致しているか',
+    label: '段階2',
+    name: '印象の統一',
+    note: '会社のイメージと一致しているか',
     weight: 2,
     questions: [
       '社員の見た目・振る舞いが、自社のブランドイメージと一致している',
@@ -30,9 +31,9 @@ const layers = [
   },
   {
     id: 3,
-    label: 'LAYER 3',
-    name: '格',
-    note: '「任せたい」が発生しているか',
+    label: '段階3',
+    name: '信頼',
+    note: '「任せたい」が生まれているか',
     weight: 3,
     questions: [
       '役員・経営層について、社外から「貫禄がある」と評されることがある',
@@ -47,17 +48,18 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 ---
 
 <div class="border border-line bg-white/50" id="diagnosis-app" data-total-max={totalMax}>
-  <!-- イントロ -->
-  <div class="p-8 md:p-12 border-b border-line">
-    <p class="label text-magenta mb-5">ORGANIZATIONAL DIAGNOSIS</p>
-    <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-5">組織プレゼンス診断</h2>
+
+  <!-- STEP 1: イントロ -->
+  <div id="diagnosis-intro" class="p-8 md:p-12 border-b border-line">
+    <p class="label text-magenta mb-5">1分でわかる 組織の印象診断</p>
+    <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-5">組織の印象診断</h2>
     <p class="text-[15px] leading-loose text-ink/75 max-w-2xl">
-      貴社の社員・営業・広報・役員は、実力にふさわしい扱われ方をしているか。
-      12の設問で、組織のプレゼンス水準を3つの層から可視化します。所要時間は約1分です。
+      御社の社員は、取引先や応募者からどう見えているか。
+      12の質問で、組織の状態を3つの段階から確認できます。所要時間は約1分です。
     </p>
   </div>
 
-  <!-- 設問 -->
+  <!-- STEP 2: 設問 -->
   <form id="diagnosis-form" class="p-8 md:p-12">
     {layers.map((layer) => (
       <fieldset class="mb-12 last:mb-0">
@@ -94,19 +96,80 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     >診断結果を見る</button>
   </form>
 
-  <!-- 結果 -->
-  <div id="diagnosis-result" class="hidden p-8 md:p-12 border-t border-line">
-    <p class="label text-magenta mb-5">RESULT</p>
+  <!-- STEP 3: 結果（スコアと段階名のみ。詳細は非表示） -->
+  <div id="diagnosis-partial" class="hidden p-8 md:p-12 border-t border-line">
+    <p class="label text-magenta mb-5">結果</p>
 
     <div class="flex items-baseline gap-4 mb-2">
       <span id="result-score" class="font-mincho font-extrabold text-[56px] leading-none text-navy">0</span>
       <span class="text-ink/45 text-lg">/ {totalMax} pt</span>
     </div>
 
-    <h3 id="result-title" class="font-mincho font-bold text-2xl text-navy mt-6 mb-4"></h3>
+    <h3 id="result-title" class="font-mincho font-bold text-2xl text-navy mt-6 mb-10"></h3>
+
+    <div class="border-t border-line pt-8">
+      <p class="text-[15px] leading-loose text-ink/75 max-w-2xl mb-7">
+        この段階でやるべきことと、30項目の詳細チェックシートをお送りします。
+      </p>
+
+      <form
+        id="diagnosis-lead-form"
+        name="diagnosis-lead"
+        method="POST"
+        data-netlify="true"
+        netlify-honeypot="lead-bot-field"
+        class="max-w-md space-y-5"
+      >
+        <input type="hidden" name="form-name" value="diagnosis-lead" />
+        <input type="hidden" name="score" id="lead-score-field" value="" />
+        <input type="hidden" name="tier" id="lead-tier-field" value="" />
+        <p class="hidden">
+          <label>この項目は入力しないでください<input name="lead-bot-field" /></label>
+        </p>
+
+        <div>
+          <label for="lead-company" class="block text-[13px] text-ink/60 tracking-wide mb-1.5">
+            会社名 <span class="text-magenta">*</span>
+          </label>
+          <input
+            id="lead-company" name="company" type="text" required
+            class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
+          />
+        </div>
+        <div>
+          <label for="lead-name" class="block text-[13px] text-ink/60 tracking-wide mb-1.5">
+            お名前 <span class="text-magenta">*</span>
+          </label>
+          <input
+            id="lead-name" name="name" type="text" required
+            class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
+          />
+        </div>
+        <div>
+          <label for="lead-email" class="block text-[13px] text-ink/60 tracking-wide mb-1.5">
+            メールアドレス <span class="text-magenta">*</span>
+          </label>
+          <input
+            id="lead-email" name="email" type="email" required
+            class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
+          />
+        </div>
+
+        <button
+          type="submit"
+          data-ga="diagnosis_lead_submit"
+          class="label px-10 py-4 bg-magenta text-white rounded-sm hover:bg-[#B3145C] transition-colors"
+        >詳しい診断結果を見る</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- STEP 4: 詳細結果（フォーム送信後に表示） -->
+  <div id="diagnosis-full" class="hidden p-8 md:p-12 border-t border-line">
+    <p class="label text-magenta mb-5">詳細結果</p>
+
     <p id="result-body" class="text-[15px] leading-loose text-ink/80 max-w-2xl mb-10"></p>
 
-    <!-- 層別内訳 -->
     <div class="grid sm:grid-cols-3 gap-px bg-line border border-line mb-10 max-w-2xl">
       {layers.map((layer) => (
         <div class="bg-paper p-5">
@@ -119,114 +182,139 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       ))}
     </div>
 
-    <div class="border-t border-line pt-8">
-      <p class="text-[15px] leading-loose text-ink/75 max-w-2xl mb-7">
-        より詳細な30項目版の診断シートと、貴社の状況に合わせた改善の優先順位をご案内しています。
-        ご希望の方はお問い合わせください。
-      </p>
-      <div class="flex flex-col sm:flex-row gap-5 sm:items-center">
-        <a
-          href="/contact"
-          data-ga="cta_contact_click"
-          data-ga-location="diagnosis_result"
-          class="label px-10 py-[18px] bg-magenta text-navy rounded-sm hover:opacity-90 transition-opacity text-center"
-        >詳細版の診断について相談する</a>
-        <button
-          type="button"
-          id="diagnosis-retry"
-          class="text-sm text-navy border-b border-navy pb-0.5 w-fit"
-        >もう一度診断する</button>
-      </div>
+    <div class="flex flex-col sm:flex-row gap-5 sm:items-center">
+      <a
+        href="/contact"
+        data-ga="cta_contact_click"
+        data-ga-location="diagnosis_result"
+        class="label px-10 py-[18px] bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors text-center"
+      >研修について相談する</a>
+      <button
+        type="button"
+        id="diagnosis-retry"
+        class="text-sm text-navy border-b border-navy pb-0.5 w-fit"
+      >もう一度診断する</button>
     </div>
   </div>
 </div>
 
 <script>
   const app = document.getElementById('diagnosis-app');
+  const intro = document.getElementById('diagnosis-intro');
   const form = document.getElementById('diagnosis-form') as HTMLFormElement | null;
-  const result = document.getElementById('diagnosis-result');
+  const partial = document.getElementById('diagnosis-partial');
+  const full = document.getElementById('diagnosis-full');
+  const leadForm = document.getElementById('diagnosis-lead-form') as HTMLFormElement | null;
   const retry = document.getElementById('diagnosis-retry');
 
-  if (app && form && result) {
+  if (app && form && partial && full && leadForm) {
     const totalMax = Number(app.dataset.totalMax || 24);
 
     const tiers = [
       {
-        min: 0,
-        max: 8,
-        title: '減点が発生している状態',
-        body:
-          '基礎水準の段階で失点が起きている可能性が高い状態です。この層の課題は、能力や実績以前のところで評価を下げるため、営業・採用・広報のいずれにも影響します。逆に言えば、最も改善効果が出やすい領域でもあります。まず基準を明文化し、組織として共有するところから着手すべき段階です。',
+        min: 0, max: 8,
+        title: '内容以前で、評価を下げている可能性がある状態',
+        body: '基本的な身だしなみや所作の段階で失点が起きている状態です。この段階の課題は、営業・採用・広報のすべてに影響します。逆に言えば、最も改善効果が出やすい領域でもあります。まず社内で基準を明文化するところから着手すべき段階です。',
       },
       {
-        min: 9,
-        max: 14,
-        title: '減点はないが、印象が弱い状態',
-        body:
-          '大きな失点はないものの、「悪くはないが記憶に残らない」状態です。多くの企業がこの水準に留まります。ここから先は、個人の努力ではなくブランドとの整合を設計する段階になります。役職・役割ごとの基準を定め、対外的な場での一貫性を作ることが次の一手です。',
+        min: 9, max: 14,
+        title: '悪くはないが、記憶に残っていない状態',
+        body: '大きな失点はないものの、「印象が薄い」状態です。多くの企業がこの水準に留まります。ここから先は、個人の努力ではなく、役割ごとの基準を組織として決める段階になります。',
       },
       {
-        min: 15,
-        max: 19,
-        title: '一部で信頼が出ている状態',
-        body:
-          '特定の人物や場面では「任せたい」が発生しているものの、組織全体には広がっていない状態です。この段階で重要なのは属人化の解消です。誰か一人の資質に依存している状態を、再現可能な基準として組織に定着させる設計が必要になります。',
+        min: 15, max: 19,
+        title: '一部の社員では「任せたい」が生まれている状態',
+        body: '特定の人物では信頼が発生しているものの、組織全体には広がっていない状態です。この段階の課題は属人化の解消です。誰か一人の資質に依存している状態を、再現できる基準に変える必要があります。',
       },
       {
-        min: 20,
-        max: 99,
-        title: '組織として信頼が機能している状態',
-        body:
-          '提案内容以前の段階で信頼が発生している、優良な状態です。この水準にある組織の課題は、維持と継承に移ります。基準が明文化されずに暗黙知のまま運用されていると、人の入れ替わりで急速に劣化します。定期的な確認の仕組みをご検討ください。',
+        min: 20, max: 99,
+        title: '組織として機能している状態',
+        body: '提案内容を説明する前の段階で、信頼が生まれている優良な状態です。この水準の課題は維持と継承に移ります。基準が暗黙知のままだと、人の入れ替わりで急速に劣化します。定期的な確認の仕組みをご検討ください。',
       },
     ];
+
+    let currentTotal = 0;
+    let currentTier = tiers[0];
+    const byLayer: Record<string, number> = { '1': 0, '2': 0, '3': 0 };
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
 
       const boxes = form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
-      let total = 0;
-      const byLayer: Record<string, number> = { '1': 0, '2': 0, '3': 0 };
+      currentTotal = 0;
+      byLayer['1'] = 0; byLayer['2'] = 0; byLayer['3'] = 0;
 
       boxes.forEach((box) => {
         if (box.checked) {
           const w = Number(box.dataset.weight || 0);
           const l = box.dataset.layer || '0';
-          total += w;
+          currentTotal += w;
           if (byLayer[l] !== undefined) byLayer[l] += w;
         }
       });
 
-      const tier = tiers.find((t) => total >= t.min && total <= t.max) || tiers[0];
+      currentTier = tiers.find((t) => currentTotal >= t.min && currentTotal <= t.max) || tiers[0];
 
       const scoreEl = document.getElementById('result-score');
       const titleEl = document.getElementById('result-title');
-      const bodyEl = document.getElementById('result-body');
-      if (scoreEl) scoreEl.textContent = String(total);
-      if (titleEl) titleEl.textContent = tier.title;
-      if (bodyEl) bodyEl.textContent = tier.body;
+      if (scoreEl) scoreEl.textContent = String(currentTotal);
+      if (titleEl) titleEl.textContent = currentTier.title;
 
+      const scoreField = document.getElementById('lead-score-field') as HTMLInputElement | null;
+      const tierField = document.getElementById('lead-tier-field') as HTMLInputElement | null;
+      if (scoreField) scoreField.value = `${currentTotal} / ${totalMax}`;
+      if (tierField) tierField.value = currentTier.title;
+
+      intro?.classList.add('hidden');
+      form.classList.add('hidden');
+      partial.classList.remove('hidden');
+      partial.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+      if (typeof (window as any).gtag === 'function') {
+        (window as any).gtag('event', 'diagnosis_complete', {
+          score: currentTotal, max: totalMax, tier: currentTier.title,
+        });
+      }
+    });
+
+    leadForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const submitBtn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '送信中…'; }
+
+      try {
+        const formData = new FormData(leadForm);
+        await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData as any).toString(),
+        });
+      } catch (err) {
+        console.error('diagnosis lead submit failed', err);
+      }
+
+      const bodyEl = document.getElementById('result-body');
+      if (bodyEl) bodyEl.textContent = currentTier.body;
       Object.keys(byLayer).forEach((l) => {
         const el = document.querySelector(`[data-result-layer="${l}"]`);
         if (el) el.textContent = String(byLayer[l]);
       });
 
-      result.classList.remove('hidden');
-      form.classList.add('hidden');
-      result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      partial?.classList.add('hidden');
+      full?.classList.remove('hidden');
+      full?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'diagnosis_complete', {
-          score: total,
-          max: totalMax,
-          tier: tier.title,
-        });
+        (window as any).gtag('event', 'diagnosis_lead_captured', { tier: currentTier.title });
       }
     });
 
     retry?.addEventListener('click', () => {
       form.reset();
-      result.classList.add('hidden');
+      leadForm.reset();
+      full?.classList.add('hidden');
+      partial?.classList.add('hidden');
+      intro?.classList.remove('hidden');
       form.classList.remove('hidden');
       app.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
