@@ -1,0 +1,216 @@
+---
+const groups = [
+  {
+    category: '経営層・役員',
+    items: [
+      {
+        title: 'コンサル会社で昇進し、役員になった途端に営業を任された',
+        body: '分析と提案書で評価されてきた人が、初対面の相手と関係を作る場面に放り込まれる。何をどう変えればいいのか、服装の基準すら分からない。',
+      },
+      {
+        title: '社内での指示が、なぜか現場に浸透しない',
+        body: '言っている内容は正しい。しかし「この人が言うなら」という空気が生まれていない。役職と存在感が一致していない。',
+      },
+      {
+        title: '役員会での発言が、流される',
+        body: '準備した内容は良いのに、場の主導権が取れない。発言の順番、間の取り方、視線の置き方が設計されていない。',
+      },
+      {
+        title: '社外の会食で、明らかに格下に見られる',
+        body: '相手企業の役員と同席した際、扱いが違う。年齢や実績ではなく、その場での振る舞いが原因になっている。',
+      },
+      {
+        title: '取材や登壇が増えたが、見え方に自信がない',
+        body: '写真や動画に残る場面で、意図した印象になっていない。指摘してくれる人も社内にいない。',
+      },
+    ],
+  },
+  {
+    category: '営業・提案職',
+    items: [
+      {
+        title: '提案の中身は評価されるのに、最後で負ける',
+        body: 'コンペで内容は褒められた。それでも他社が選ばれる。「価格」と報告されているが、実際の理由は違う可能性がある。',
+      },
+      {
+        title: '若手が顧客先で、年次相応にしか扱われない',
+        body: '実力はあるのに「若い人」として扱われる。同行した上司にばかり話しかけられる。',
+      },
+      {
+        title: '初回訪問で、次のアポイントが取れない',
+        body: '話は聞いてもらえる。しかし「また会いたい」に至らない。断られる理由が言語化されないまま繰り返される。',
+      },
+      {
+        title: 'オンライン商談で、対面より明らかに反応が悪い',
+        body: '画面越しでは伝わる情報が限られる。その前提での見せ方が設計されていない。',
+      },
+      {
+        title: '営業メンバー間の成果の差が、説明できない',
+        body: '商品も資料もトークスクリプトも同じ。それでも差が出る部分を、誰も特定できていない。',
+      },
+    ],
+  },
+  {
+    category: '人事・組織づくり',
+    items: [
+      {
+        title: '面接官の印象が、応募者にどう映っているか把握していない',
+        body: '面接官の振る舞いは、そのまま企業イメージとして受け取られる。辞退理由に表れない部分で母集団の質に影響している。',
+      },
+      {
+        title: '会社の顔として出せる人材が、1人に固定化している',
+        body: '展示会、登壇、取材。「あの人しか出せない」状態は、その人が抜けた瞬間に機能不全になる。',
+      },
+      {
+        title: '評価制度が成果だけを見ており、「伝わり方」を扱えていない',
+        body: '成果を出す人が持っている要素の一部が、評価基準に入っていない。だから再現性のある育成ができない。',
+      },
+      {
+        title: '身だしなみの基準がなく、指導が属人的',
+        body: '上司によって言うことが違う。基準がないため、注意されると理不尽に感じられてしまう。',
+      },
+      {
+        title: 'リモート中心になり、若手が先輩の振る舞いを見て覚える機会を失った',
+        body: 'これまで自然に伝承されていた部分が、意図的に教えないと引き継がれなくなっている。',
+      },
+    ],
+  },
+  {
+    category: '接客・サービス業',
+    items: [
+      {
+        title: '制服はあるが、その中での見せ方に基準がない',
+        body: '服装は統一されている。しかし姿勢、表情、距離の取り方は個人任せ。同じ制服でも顧客の印象は大きく変わる。',
+      },
+      {
+        title: '外国人のお客様への対応で、非言語の基準が分からない',
+        body: '言葉が通じない場面でこそ、表情・ジェスチャー・距離感が判断材料になる。ここに指針がない。',
+      },
+      {
+        title: 'スタッフ間で、対応品質にばらつきがある',
+        body: 'マニュアルはある。しかし「感じの良さ」の部分がマニュアル化されていないため、個人差が出る。',
+      },
+      {
+        title: 'クレームの内容が「態度」であることが多い',
+        body: '何を言ったかではなく、どう見えたかが原因になっている。しかし改善方法が分からない。',
+      },
+    ],
+  },
+  {
+    category: '専門職・技術職',
+    items: [
+      {
+        title: '専門性が高いほど「話が通じない人」と思われる',
+        body: '知識があるほど説明が複雑になる。相手の理解度に合わせた伝え方が設計されていない。',
+      },
+      {
+        title: '顧客対応の場面で、社内と同じ振る舞いをしてしまう',
+        body: '技術部門から顧客折衝に出る際、モードの切り替えができていない。',
+      },
+      {
+        title: '資格や実績は十分なのに、指名で仕事が来ない',
+        body: '実力は認められている。しかし「この人に頼みたい」という感情が発生していない。',
+      },
+    ],
+  },
+];
+---
+
+<div class="scenario-groups">
+  {groups.map((group) => (
+    <section class="scenario-group">
+      <h3 class="scenario-cat">
+        <span class="scenario-cat-bar" aria-hidden="true"></span>
+        {group.category}
+      </h3>
+
+      <div class="scenario-grid" data-reveal-group>
+        {group.items.map((item) => (
+          <article class="scenario-card" data-reveal>
+            <div class="scenario-card-top" aria-hidden="true"></div>
+            <h4 class="scenario-title">{item.title}</h4>
+            <p class="scenario-body">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
+</div>
+
+<style>
+  .scenario-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 72px;
+  }
+
+  .scenario-cat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    font-family: var(--font-mincho);
+    font-weight: 700;
+    font-size: 20px;
+    color: var(--color-navy);
+    margin-bottom: 28px;
+  }
+  .scenario-cat-bar {
+    width: 34px;
+    height: 3px;
+    background: var(--color-magenta);
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .scenario-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  @media (min-width: 640px) {
+    .scenario-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (min-width: 1024px) {
+    .scenario-grid { grid-template-columns: repeat(3, 1fr); }
+  }
+
+  .scenario-card {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    padding: 26px 24px 28px;
+    position: relative;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
+  }
+  .scenario-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-magenta);
+    box-shadow: 0 14px 32px rgba(27, 42, 74, 0.10);
+  }
+
+  /* カード上部のアクセントバー */
+  .scenario-card-top {
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    width: 46px;
+    height: 4px;
+    background: var(--color-magenta);
+  }
+
+  .scenario-title {
+    font-family: var(--font-mincho);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 1.65;
+    color: var(--color-navy);
+    margin: 6px 0 14px;
+  }
+
+  .scenario-body {
+    font-size: 13px;
+    line-height: 1.95;
+    color: rgba(28, 28, 28, 0.72);
+  }
+</style>
