@@ -114,13 +114,9 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
       <form
         id="diagnosis-lead-form"
-        name="diagnosis-lead"
         method="POST"
-        data-netlify="true"
-        netlify-honeypot="lead-bot-field"
         class="max-w-md space-y-5"
       >
-        <input type="hidden" name="form-name" value="diagnosis-lead" />
         <input type="hidden" name="score" id="lead-score-field" value="" />
         <input type="hidden" name="tier" id="lead-tier-field" value="" />
         <p class="hidden">
@@ -282,15 +278,17 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       const submitBtn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '送信中…'; }
 
+      let sendOk = true;
       try {
         const formData = new FormData(leadForm);
-        await fetch('/', {
+        const res = await fetch('/api/diagnosis-lead', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: new URLSearchParams(formData as any).toString(),
+          body: formData,
         });
+        sendOk = res.ok;
       } catch (err) {
         console.error('diagnosis lead submit failed', err);
+        sendOk = false;
       }
 
       const bodyEl = document.getElementById('result-body');
