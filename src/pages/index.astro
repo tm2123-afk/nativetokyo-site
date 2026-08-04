@@ -4,170 +4,153 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import HeroImpact from '../components/HeroImpact.astro';
 import HashtagMarquee from '../components/HashtagMarquee.astro';
-
-const steps = [
-  { num: '01', title: 'セミナー', body: '行動科学に基づく対人力学の基礎理論を、組織全体にインストールする。' },
-  { num: '02', title: '実践', body: '個別のケースに落とし込み、具体的な言動・アピアランスへ反映させる。' },
-  { num: '03', title: 'ガイドライン策定', body: '組織固有の基準として明文化し、属人化させずに定着させる。' },
-  { num: '04', title: '定期監査', body: '運用状況を継続的に確認し、形骸化を防ぐ。' },
-];
+import GiantWord from '../components/GiantWord.astro';
+import Insignia from '../components/Insignia.astro';
 ---
 
 <Layout
-  title="行動科学で「格」を設計する、法人向けプレゼンス研修"
-  description="実力があるのに軽く扱われる。その差は能力ではなく「見せ方」の設計です。行動科学に基づくプレゼンス研修とAI時代の人間力研修で、組織内の評価ギャップを可視化します。合同会社NATIVETOKYO。"
+  title="「また会いたい」と思われる社員は、育てられる"
+  description="第一印象は、生まれ持ったセンスではありません。プレゼンスマネジメント研修は、見た目・話し方・立ち居振る舞いを行動科学にもとづいて設計し、組織として再現できる形に落とし込みます。合同会社NATIVETOKYO。"
   path="/"
 >
   <Header />
 
   <main id="main">
 
-    <!-- Hero：案2スタイル。流体SVG背景＋明朝大見出し＋赤ボタン -->
+    <!-- Hero -->
     <section class="relative min-h-[86vh] flex items-center overflow-hidden bg-paper">
       <HeroImpact />
 
-      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl" data-reveal>
+      <div class="relative z-10 px-6 md:px-16 py-24 max-w-5xl">
         <p class="label text-magenta mb-7 flex items-center gap-3">
-          <span class="w-8 h-px bg-magenta inline-block"></span>PRESENCE MANAGEMENT × 行動科学
+          <span class="w-8 h-px bg-magenta inline-block"></span>PRESENCE MANAGEMENT ／ 法人向け研修
         </p>
 
-        <h1 class="font-mincho font-extrabold text-navy leading-[1.35] text-[clamp(36px,5.8vw,76px)]">
-          実力ある人材が、正当に<br />
-          <span class="text-magenta">「格」</span>で評価される組織へ。
+        <h1 class="font-mincho font-extrabold text-navy leading-[1.4] text-[clamp(32px,5.4vw,68px)]">
+          「また会いたい」と<br />思われる社員は、<br />育てられる。
         </h1>
 
         <p class="mt-10 text-[16px] md:text-[17px] leading-[2] text-ink/80 max-w-lg">
-          「本音」と「行動」の非対称性を見抜き、関係性を最適化する。
-          行動科学に基づいたプレゼンス設計の研修で、組織内の評価ギャップを可視化し、
-          正当な評価が行き渡る仕組みをつくります。
+          第一印象は、生まれ持ったセンスではありません。
+          見た目・話し方・立ち居振る舞いには、相手の判断を左右する法則があります。
+          プレゼンスマネジメントは、その法則を行動科学にもとづいて分解し、
+          組織として再現できる形に落とし込む研修です。
         </p>
 
         <div class="mt-12 flex flex-col sm:flex-row gap-6 sm:items-center">
-          <!-- 主CTA：案2に合わせて赤ボタン -->
-          <a
-            href="/contact"
-            data-ga="cta_contact_click"
-            data-ga-location="hero"
-            class="label px-10 py-[18px] bg-[#E31C79] text-white rounded-sm hover:bg-[#B3145C] transition-colors text-center shadow-sm"
-          >法人向け研修について相談する</a>
           <a
             href="/service/presence#diagnosis"
             data-ga="cta_diagnosis_click"
             data-ga-location="hero"
+            class="label px-10 py-[18px] bg-magenta text-white rounded-sm hover:bg-[#B3145C] transition-colors text-center shadow-sm"
+          >1分で組織の印象を診断する</a>
+          <a
+            href="/contact"
+            data-ga="cta_contact_click"
+            data-ga-location="hero"
             class="text-sm text-navy border-b border-navy pb-0.5 w-fit"
-          >組織プレゼンス診断を受ける →</a>
+          >研修について相談する →</a>
         </div>
       </div>
     </section>
 
     <HashtagMarquee />
 
-    <!-- THE GAP -->
-    <section class="px-6 md:px-16 py-20" data-reveal>
-      <div class="grid md:grid-cols-3 gap-10 md:gap-16">
-        <div>
-          <p class="label text-magenta mb-5">THE GAP</p>
+    <!-- 課題 -->
+    <section class="relative px-6 md:px-16 py-24 border-t border-line overflow-hidden" data-reveal-group>
+      <GiantWord word="PRESENCE" class="-top-4 -left-6 opacity-60" />
+
+      <div class="relative z-10 grid md:grid-cols-3 gap-10 md:gap-16">
+        <div data-reveal>
+          <p class="label text-magenta mb-5">課題</p>
           <p class="font-mincho font-bold text-xl md:text-2xl text-navy leading-[1.8]">
-            評価されるのは<br />「有能な人」ではなく<br />「有能に<span class="text-magenta">見える</span>人」
+            提案の中身は良いのに、<br />なぜか<span class="text-magenta">選ばれない</span>。
           </p>
         </div>
-        <p class="md:col-span-2 text-[15px] leading-loose text-ink/75 self-end">
-          会議で発言が正当に扱われない。若手や中堅の実力が、社内外での扱われ方に反映されていない。
-          こうした評価ギャップの多くは、能力不足ではなく「見せ方」の設計不足によって生まれています。
-          NATIVETOKYOは、この構造を行動科学のフレームで可視化し、組織として再現可能な形に落とし込みます。
+        <p class="md:col-span-2 text-[15px] leading-loose text-ink/75 self-end" data-reveal>
+          商談で、内容は伝えたはずなのに受注につながらない。若手が顧客先で、実力よりも軽く扱われている。
+          会議で正しいことを言っているのに、意見が流れていく。こうした場面の多くは、能力の問題ではありません。
+          「その人がどう見えているか」が設計されていないだけです。
         </p>
       </div>
     </section>
 
-    <!-- SERVICE -->
-    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
-      <p class="label text-magenta mb-5">SERVICE</p>
-      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">提供している研修</h2>
-      <div class="grid md:grid-cols-2 gap-px bg-line border border-line">
-        <a href="/service/presence" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors">
-          <h3 class="font-mincho font-bold text-xl text-navy mb-4">プレゼンス研修</h3>
+    <!-- ビジョン -->
+    <section class="px-6 md:px-16 py-24 border-t border-line bg-navy text-paper" data-reveal-group>
+      <p class="label text-magenta mb-5" data-reveal>ビジョン</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl mb-8 max-w-xl leading-relaxed" data-reveal>
+        見せ方は、感覚ではなく技術です。
+      </h2>
+      <p class="text-[15px] leading-loose text-paper/75 max-w-2xl" data-reveal>
+        人は、相手がどういう人物かを短時間で判断します。その判断材料の大半は、話した内容ではなく、
+        姿勢・声・視線・服装から得た情報です。これは避けられない仕組みです。だからこそ、意図的に設計する価値があります。
+        私たちが扱うのは、その場しのぎの話し方テクニックではありません。なぜその印象が生まれるのかを構造から理解し、
+        組織として同じ基準を持てる状態をつくることです。
+      </p>
+    </section>
+
+    <!-- サービス -->
+    <section class="relative px-6 md:px-16 py-24 border-t border-line overflow-hidden">
+      <Insignia class="hidden lg:block -bottom-24 -right-24 w-72 h-72 opacity-70" />
+      <p class="label text-magenta mb-5 relative z-10">サービス</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12 relative z-10">2つの研修</h2>
+      <div class="relative z-10 grid md:grid-cols-2 gap-px bg-line border border-line" data-reveal-group>
+        <a href="/service/presence" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors" data-reveal>
+          <h3 class="font-mincho font-bold text-xl text-navy mb-4">プレゼンスマネジメント研修</h3>
           <p class="text-sm leading-loose text-ink/70 mb-6">
-            姿勢・声・視線・間・服装。非言語情報の設計を通じて、実力が正しく伝わる状態をつくる。
-            組織単位で基準を揃え、属人化させずに定着させます。
+            見た目・声・姿勢・視線の使い方を扱います。内容以前で減点されているのか、印象が弱いだけなのか、
+            任せたいと思われているのか。3段階で現状を診断し、段階に応じた改善を組み立てます。
           </p>
           <span class="text-sm text-navy border-b border-navy pb-0.5">詳しく見る →</span>
         </a>
-        <a href="/service/ai-ningenryoku" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors">
+        <a href="/service/ai-ningenryoku" class="bg-paper p-8 md:p-10 group hover:bg-white/80 transition-colors" data-reveal>
           <h3 class="font-mincho font-bold text-xl text-navy mb-4">AI時代の人間力研修</h3>
           <p class="text-sm leading-loose text-ink/70 mb-6">
-            分析も生成もAIが担う時代に、人に残る価値とは何か。
-            抽象的な「共感力」ではなく、再現可能な行動レベルまで分解して設計します。
+            AIが分析も文章作成もこなす時代に、人に残る仕事は何か。「共感力が大事」で終わらせず、
+            6つの能力に分解して、明日から実行できる行動レベルまで具体化します。
           </p>
           <span class="text-sm text-navy border-b border-navy pb-0.5">詳しく見る →</span>
         </a>
       </div>
     </section>
 
-    <!-- 代表・実績ティザー -->
-    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
-      <div class="grid md:grid-cols-[1fr_1.3fr] gap-10 md:gap-16 items-center">
-        <div class="photo-duo aspect-[3/4] border border-line">
-          <img
-            src="/images/about-main.jpg"
-            alt="代表 松本大志"
-            class="w-full h-full object-cover object-top"
-            width="500" height="667" loading="lazy"
-          />
-        </div>
-        <div>
-          <p class="label text-magenta mb-5">REPRESENTATIVE</p>
-          <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-6 leading-relaxed">
-            扱われ方は、設計できる。
-          </h2>
-          <p class="text-[15px] leading-loose text-ink/75 mb-8">
-            NATIVETOKYOは、対人コミュニケーションにおける「本音」と「行動」の非対称性を研究し、
-            それを再現可能な技術として法人向けに提供している会社です。個人向けコンサルティングで
-            培った知見を、組織単位で機能する仕組みへと展開しています。
-          </p>
-          <a href="/about" class="text-sm text-navy border-b border-navy pb-0.5">私たちについて →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- 4-stage model -->
-    <section class="px-6 md:px-16 py-20 border-t border-line" data-reveal>
-      <p class="label text-magenta mb-5">SERVICE MODEL</p>
-      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-4">
-        4段階で、組織のプレゼンスを設計する
-      </h2>
-      <p class="text-sm text-ink/70 leading-loose max-w-2xl mb-14">
-        単発の研修で終わらせず、基準の明文化と定期的な確認までを含めて設計します。
-        導入の入口はセミナー1回からでも構いません。
-      </p>
-
-      <ol class="grid sm:grid-cols-2 lg:grid-cols-4 border-t border-line">
-        {steps.map((step, i) => (
-          <li class={`pt-8 pb-6 pr-6 ${i > 0 ? 'lg:border-l border-line lg:pl-8' : ''}`}>
-            <span
-              class="font-mincho text-[34px] leading-none text-transparent mb-6 block"
-              style="-webkit-text-stroke: 1px #1B2A4A;"
-              aria-hidden="true"
-            >{step.num}</span>
-            <h3 class="font-bold text-base text-navy mb-3">{step.title}</h3>
-            <p class="text-[13px] leading-loose text-ink/70">{step.body}</p>
-          </li>
-        ))}
-      </ol>
-    </section>
-
-    <!-- Final CTA -->
-    <section class="px-6 md:px-16 py-24 border-t border-line bg-navy text-paper" data-reveal>
+    <!-- 診断への導線 -->
+    <section class="px-6 md:px-16 py-24 border-t border-line bg-magenta text-paper" data-reveal>
+      <p class="label text-paper/80 mb-5">無料診断</p>
       <h2 class="font-mincho font-bold text-2xl md:text-3xl mb-6 max-w-xl leading-relaxed">
-        まずは貴社の課題感を、お聞かせください。
+        まず、現状を数値で確認してください。
       </h2>
-      <p class="text-sm text-paper/70 mb-10 max-w-lg leading-loose">
-        四半期単位のスポット導入から、年間パートナーシップまで。組織の規模と課題に合わせてご提案します。
+      <p class="text-sm text-paper/80 mb-10 max-w-lg leading-loose">
+        12の質問に答えるだけで、組織の印象がどの段階にあるかが分かります。所要時間は約1分。
+      </p>
+      <a
+        href="/service/presence#diagnosis"
+        data-ga="cta_diagnosis_click"
+        data-ga-location="index_diagnosis_band"
+        class="label px-10 py-[18px] bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors inline-block"
+      >診断をはじめる</a>
+    </section>
+
+    <!-- プロジェクト -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">プロジェクト</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-10">導入事例</h2>
+      <a href="/works" class="text-sm text-navy border-b border-navy pb-0.5 inline-block">事例を見る →</a>
+    </section>
+
+    <!-- 最終CTA -->
+    <section class="px-6 md:px-16 py-24 border-t border-line">
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl mb-6 max-w-xl leading-relaxed text-navy">
+        まずは、御社の課題をお聞かせください。
+      </h2>
+      <p class="text-sm text-ink/70 mb-10 max-w-lg leading-loose">
+        1回のセミナーから、年間契約まで。規模と課題に応じてご提案します。お見積りは無料です。
       </p>
       <a
         href="/contact"
         data-ga="cta_contact_click"
         data-ga-location="footer_band"
-        class="label px-10 py-[18px] bg-[#E31C79] text-white rounded-sm hover:bg-[#B3145C] transition-colors inline-block"
+        class="label px-10 py-[18px] bg-magenta text-white rounded-sm hover:bg-[#B3145C] transition-colors inline-block"
       >お問い合わせ</a>
     </section>
 

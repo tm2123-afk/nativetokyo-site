@@ -5,9 +5,6 @@ import Footer from '../components/Footer.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
 import MagentaQuote from '../components/MagentaQuote.astro';
-import Insignia from '../components/Insignia.astro';
-import PhotoCollage from '../components/PhotoCollage.astro';
-import HashtagMarquee from '../components/HashtagMarquee.astro';
 
 const personLd = {
   '@context': 'https://schema.org',
@@ -23,7 +20,7 @@ const personLd = {
 
 <Layout
   title="私たちについて"
-  description="合同会社NATIVETOKYO 代表 松本大志。行動科学に基づく対人力学とプレゼンス設計を、法人向け研修として提供しています。会社概要と代表プロフィール。"
+  description="合同会社NATIVETOKYO 代表 松本大志。行動科学にもとづく見せ方の設計を、法人向け研修として提供しています。会社概要と代表プロフィール。"
   path="/about"
   breadcrumbs={[{ name: '私たちについて', path: '/about' }]}
   jsonLd={personLd}
@@ -33,47 +30,44 @@ const personLd = {
   <main id="main">
     <PageHero
       eyebrow="ABOUT"
-      title="扱われ方は、設計できる。"
-      lead="NATIVETOKYOは、対人コミュニケーションにおける「本音」と「行動」の非対称性を研究し、それを再現可能な技術として法人向けに提供している会社です。"
+      title="見せ方は、感覚ではなく技術です。"
+      lead="NATIVETOKYOは、対人コミュニケーションを感覚論で終わらせず、行動科学の知見にもとづいた再現可能な技術として提供している会社です。"
     />
 
-    <HashtagMarquee />
-
     <!-- 事業の考え方 -->
-    <section class="px-6 md:px-16 py-20" data-reveal>
+    <section class="px-6 md:px-16 py-20">
       <p class="label text-magenta mb-5">PHILOSOPHY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-8">なぜ「見せ方」なのか</h2>
       <div class="max-w-3xl space-y-6 text-[15px] leading-loose text-ink/80">
         <p>
-          人が発する情報の多くは、本音そのものではなく「その場に適応するための行動」です。
-          表面的な傾聴だけでは、相手の真のニーズには辿り着けません。
+          どれだけ真面目に取り組んでも、どれだけ実力があっても、
+          それが相手に伝わらなければ評価は変わりません。
         </p>
         <p>
-          同時に、こちら側が発している情報も同じ構造を持っています。
-          実力や誠実さは、そのままでは相手に届きません。姿勢・声・視線・間といった非言語情報を通じて、
-          はじめて「そういう人だ」と認識されます。
+          姿勢、声、視線、服装。人はこうした言葉以外の情報から、
+          相手がどういう人かを短時間で判断しています。これは避けられない仕組みであり、
+          だからこそ設計する価値があります。
         </p>
         <p>
-          この非対称性を理解し、意図的に設計すること。それがNATIVETOKYOの扱う領域です。
-          精神論でも、テクニック集でもなく、行動科学のフレームで再現可能にすることを重視しています。
+          私たちが扱うのは、話し方のテクニック集ではありません。
+          なぜその印象が生まれるのかを構造から理解し、
+          組織として同じ基準を持てる状態をつくることです。
         </p>
       </div>
     </section>
 
     <MagentaQuote
-      quote="実力や誠実さは、そのままでは相手に届かない。姿勢・声・視線・間を通じて、はじめて「そういう人だ」と認識される。"
-      attribution="NATIVETOKYO PHILOSOPHY"
+      quote="実力があることと、実力があるように見えることは、別のスキルです。後者は、教えることができます。"
+      attribution="NATIVETOKYO"
     />
 
-    <!-- 代表：背景色＋Insignia -->
-    <section class="px-6 md:px-16 py-20 bg-paper relative overflow-hidden" data-reveal>
-      <Insignia class="absolute -bottom-32 -right-32 w-[500px] h-[500px] opacity-10" />
-      <div class="relative z-10">
-        <p class="label text-magenta mb-5">REPRESENTATIVE</p>
-        <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
+    <!-- 代表 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">REPRESENTATIVE</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-12">代表プロフィール</h2>
 
-        <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
-          <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
+      <div class="grid md:grid-cols-[280px_1fr] gap-10 md:gap-16 max-w-4xl">
+        <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
           <img
             src="/images/about-main.jpg"
             alt="松本大志"
@@ -88,7 +82,7 @@ const personLd = {
 
           <div class="space-y-5 text-[15px] leading-loose text-ink/80">
             <p>
-              聖光学院卒業後、ロンドン芸術大学にてファッションPRを修学。
+              聖光学院卒業後、University of the Arts London にてファッションPRを修学。
               その後、Wharton School、University of Michigan にてコミュニケーション戦略・行動科学を学ぶ。
             </p>
             <p>
@@ -97,9 +91,8 @@ const personLd = {
               対人コミュニケーションにおける「理解される／されない」の構造に関心を持つ。
             </p>
             <p>
-              帰国後、個人向けのコンサルティングを中心に活動。
-              延べ多数のクライアントに対し、対人関係・ビジネスシーンでのプレゼンス設計を支援してきた。
-              現在は、その知見を組織単位で再現可能にする法人向け研修へ展開している。
+              帰国後はエグゼクティブ層を対象とした対人戦略コンサルティングを中心に活動。
+              現在は、その知見を組織単位で再現可能にする法人研修へ展開している。
             </p>
           </div>
 
@@ -118,33 +111,34 @@ const personLd = {
           </div>
         </div>
       </div>
-      </div>
     </section>
 
-    <!-- 登壇・研修風景：navy背景 -->
-    <section class="px-6 md:px-16 py-20 bg-navy" data-reveal>
+    <!-- 登壇・研修風景 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
       <p class="label text-magenta mb-5">IN ACTION</p>
-      <h2 class="font-mincho font-bold text-2xl text-paper mb-10">研修・セミナーの様子</h2>
-      <div class="grid sm:grid-cols-2 gap-12 md:gap-16 max-w-6xl">
-        <div data-reveal>
-          <PhotoCollage
-            image="/images/seminar-1.jpg"
-            imageAlt="法人向け研修の様子"
-            variant="left"
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">研修・セミナーの様子</h2>
+      <div class="grid sm:grid-cols-2 gap-6" data-reveal-group>
+        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
+          <img
+            src="/images/seminar-1.jpg"
+            alt="法人向け研修の様子"
+            class="w-full h-full object-cover"
+            width="800" height="533" loading="lazy"
           />
         </div>
-        <div data-reveal>
-          <PhotoCollage
-            image="/images/about-sub.jpg"
-            imageAlt="登壇の様子"
-            variant="right"
+        <div class="photo-duo aspect-[3/2] border border-line" data-reveal>
+          <img
+            src="/images/about-sub.jpg"
+            alt="登壇の様子"
+            class="w-full h-full object-cover"
+            width="800" height="533" loading="lazy"
           />
         </div>
       </div>
     </section>
 
     <!-- 会社概要 -->
-    <section class="px-6 md:px-16 py-20" data-reveal>
+    <section class="px-6 md:px-16 py-20 border-t border-line">
       <p class="label text-magenta mb-5">COMPANY</p>
       <h2 class="font-mincho font-bold text-2xl text-navy mb-10">会社概要</h2>
       <dl class="max-w-3xl border-t border-line">
