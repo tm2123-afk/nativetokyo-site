@@ -7,11 +7,21 @@ import CtaBand from '../../components/CtaBand.astro';
 import Insignia from '../../components/Insignia.astro';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
-  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+  const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+  );
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: {
+      post,
+      // 回遊とクロール導線のため、自分以外の新しい記事を最大3件渡す
+      related: posts.filter((p) => p.id !== post.id).slice(0, 3),
+    },
+  }));
 }
 
-const { post } = Astro.props;
+const { post, related } = Astro.props;
 const { Content } = await render(post);
 
 const fmt = (d: Date) =>
@@ -84,6 +94,39 @@ const articleLd = {
         </div>
       </div>
     </article>
+
+    {related.length > 0 && (
+      <section class="px-6 md:px-16 pb-16 md:pb-20">
+        <div class="max-w-3xl">
+          <p class="label text-magenta mb-5">READ NEXT</p>
+          <ul class="border-t border-line">
+            {related.map((p) => (
+              <li class="border-b border-line">
+                <a
+                  href={`/blog/${p.id}/`}
+                  class="block py-6 group transition-transform hover:translate-x-2"
+                  data-ga="related_post_click"
+                  data-ga-location={post.id}
+                >
+                  <time datetime={p.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
+                    {fmt(p.data.pubDate)}
+                  </time>
+                  <p class="font-mincho font-bold text-[17px] text-navy mt-2 group-hover:text-magenta transition-colors">
+                    {p.data.title}
+                  </p>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="/blog"
+            class="inline-block mt-8 text-sm text-navy border-b border-navy pb-0.5"
+            data-ga="to_blog_index"
+            data-ga-location={post.id}
+          >記事一覧を見る →</a>
+        </div>
+      </section>
+    )}
 
     <CtaBand location="blog_post" />
   </main>

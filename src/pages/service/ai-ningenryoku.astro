@@ -13,6 +13,39 @@ const elements = [
   { t: '他者を感知する', d: '相手が何を感じ、何を言わずにいるかを読む。非言語情報から仮説を立てる技術。' },
   { t: '判断する', d: '正解のない状況で、責任を持って決める。最終的に人にしか担えない領域。' },
 ];
+
+const faqs = [
+  {
+    q: '「AI時代の人間力」とは、具体的に何を指しますか？',
+    a: '共感力やコミュニケーション力といった単一の能力ではなく、データを読む・構造で分析する・原理から考える・経験を蓄積する・他者を感知する・判断する、の6要素の組み合わせとして扱います。抽象語のままでは訓練できないため、要素ごとに行動レベルまで分解した上で演習を設計します。',
+  },
+  {
+    q: '一般的なコミュニケーション研修と何が違いますか？',
+    a: '話し方や傾聴のテクニックではなく、判断の質と、その判断が相手にどう伝わるかを扱います。また「気をつけましょう」で終わらせず、組織としての基準を明文化し、日常業務のどの場面で何を実行するかまで落とし込む点が異なります。',
+  },
+  {
+    q: 'どの階層に向いていますか？',
+    a: '意思決定と対人接触の量が多い層、具体的には管理職・営業職・経営層で効果が出やすい傾向があります。若手向けには要素を絞った短時間構成での実施も可能です。',
+  },
+  {
+    q: '効果はどのように測りますか？',
+    a: '事前・事後で同一の項目を測り、変化を数値で確認します。研修の満足度だけでは行動変容を捉えられないため、対象となる行動を事前に定義した上で実施することを推奨しています。',
+  },
+  {
+    q: '社内のAIリテラシー研修と併せて実施できますか？',
+    a: '可能です。ツールの使い方を扱うAIリテラシー研修と、AIに任せた後に人が担う判断・対人領域を扱う本研修は、内容が重複せず補完関係にあります。実施順や役割分担については個別にご相談ください。',
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
 ---
 
 <Layout
@@ -20,6 +53,7 @@ const elements = [
   description="分析も生成もAIが担う時代に、人に残る価値とは何か。抽象的な「共感力が大事」で終わらせず、再現可能な行動レベルまで分解して設計する法人向け研修です。"
   path="/service/ai-ningenryoku"
   breadcrumbs={[{ name: 'AI時代の人間力研修', path: '/service/ai-ningenryoku' }]}
+  jsonLd={faqLd}
 >
   <Header />
 
@@ -69,6 +103,33 @@ const elements = [
       <a href="/service/presence" class="mt-8 inline-block text-sm text-navy border-b border-navy pb-0.5">
         プレゼンスマネジメント研修を見る →
       </a>
+    </section>
+
+    <!-- FAQ -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">FAQ</p>
+      <h2 class="font-mincho font-bold text-2xl text-navy mb-10">よくあるご質問</h2>
+      <div class="max-w-3xl border-t border-line">
+        {faqs.map((f) => (
+          <details class="border-b border-line group">
+            <summary class="py-6 flex justify-between items-start gap-6 text-[15px] font-medium text-navy">
+              {f.q}
+              <span class="text-magenta shrink-0 text-xl leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <p class="pb-6 text-sm leading-loose text-ink/70">{f.a}</p>
+          </details>
+        ))}
+      </div>
+      <p class="mt-10 text-sm text-ink/70">
+        考え方の詳細は
+        <a
+          href="/blog/ai-jidai-no-ningenryoku"
+          class="text-navy border-b border-navy pb-0.5"
+          data-ga="service_to_article"
+          data-ga-location="ai_ningenryoku_faq"
+        >「AI時代の人間力」とは何か</a>
+        で解説しています。
+      </p>
     </section>
 
     <CtaBand location="ai_ningenryoku_page" />
