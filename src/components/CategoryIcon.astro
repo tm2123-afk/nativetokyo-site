@@ -1,0 +1,62 @@
+---
+// カテゴリごとのシンプルな幾何学ラインアイコン。
+// 写真は使わず、サイトの他要素（HeroImpact等）と同じ
+// フラット図形のトーンに合わせている。
+interface Props {
+  name: 'executive' | 'sales' | 'hr' | 'service' | 'expert' | 'legal';
+  class?: string;
+}
+const { name, class: className = '' } = Astro.props;
+---
+
+{name === 'executive' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <rect x="10" y="20" width="28" height="18" stroke="currentColor" stroke-width="2" />
+    <path d="M18 20v-5a6 6 0 0 1 12 0v5" stroke="currentColor" stroke-width="2" />
+    <circle cx="24" cy="29" r="2.5" fill="currentColor" />
+  </svg>
+)}
+
+{name === 'sales' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <path d="M8 32l10-10 7 7 15-15" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+    <path d="M32 14h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="square" />
+  </svg>
+)}
+
+{name === 'hr' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <circle cx="17" cy="16" r="5" stroke="currentColor" stroke-width="2" />
+    <circle cx="32" cy="20" r="5" stroke="currentColor" stroke-width="2" />
+    <path d="M8 36c0-6 4-10 9-10s9 4 9 10" stroke="currentColor" stroke-width="2" />
+    <path d="M24 36c0-5.5 3.6-9 8-9s8 3.5 8 9" stroke="currentColor" stroke-width="2" />
+  </svg>
+)}
+
+{name === 'service' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <path d="M8 30a16 16 0 0 1 32 0" stroke="currentColor" stroke-width="2" />
+    <rect x="6" y="30" width="6" height="7" stroke="currentColor" stroke-width="2" />
+    <rect x="36" y="30" width="6" height="7" stroke="currentColor" stroke-width="2" />
+    <path d="M20 37h8" stroke="currentColor" stroke-width="2" />
+  </svg>
+)}
+
+{name === 'expert' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <circle cx="24" cy="24" r="6" stroke="currentColor" stroke-width="2" />
+    <path
+      d="M24 10v4M24 34v4M38 24h-4M14 24h-4M33.5 14.5l-2.8 2.8M17.3 30.7l-2.8 2.8M33.5 33.5l-2.8-2.8M17.3 17.3l-2.8-2.8"
+      stroke="currentColor"
+      stroke-width="2"
+    />
+  </svg>
+)}
+
+{name === 'legal' && (
+  <svg viewBox="0 0 48 48" fill="none" class={className} aria-hidden="true">
+    <path d="M24 8v32M15 40h18" stroke="currentColor" stroke-width="2" />
+    <path d="M9 16h12M9 16l-5 9h10l-5-9zM33 16h12M33 16l-5 9h10l-5-9z" stroke="currentColor" stroke-width="2" stroke-linejoin="round" />
+    <path d="M24 8l-9 8M24 8l9 8" stroke="currentColor" stroke-width="2" />
+  </svg>
+)}

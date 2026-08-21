@@ -1,0 +1,37 @@
+diff --git a/src/pages/about.astro b/src/pages/about.astro
+index 7254252..699390d 100644
+--- a/src/pages/about.astro
++++ b/src/pages/about.astro
+@@ -82,8 +82,9 @@ const personLd = {
+ 
+           <div class="space-y-5 text-[15px] leading-loose text-ink/80">
+             <p>
+-              聖光学院卒業後、University of the Arts London にてファッションPRを修学。
+-              その後、Wharton School、University of Michigan にてコミュニケーション戦略・行動科学を学ぶ。
++              聖光学院卒業後、University of the Arts London にてファッションPRを学ぶ。
++              その後、Wharton School、University of Michigan の
++              プログラムでコミュニケーション戦略・行動科学を学ぶ。
+             </p>
+             <p>
+               ロンドン滞在中、マイノリティとして長期の孤立を経験。
+@@ -96,19 +97,7 @@ const personLd = {
+             </p>
+           </div>
+ 
+-          <!-- 実績数値プレースホルダ -->
+-          <div class="mt-10 grid grid-cols-2 sm:grid-cols-3 gap-px bg-line border border-line">
+-            {[
+-              { n: '準備中', l: '個人セッション実績' },
+-              { n: '準備中', l: '活動年数' },
+-              { n: '準備中', l: '法人導入' },
+-            ].map((s) => (
+-              <div class="bg-paper p-5 text-center">
+-                <p class="font-mincho font-bold text-lg text-navy">{s.n}</p>
+-                <p class="text-[11px] text-ink/55 mt-1.5">{s.l}</p>
+-              </div>
+-            ))}
+-          </div>
++          <!-- 実績数値は非公開方針のため、このブロックは表示しない -->
+         </div>
+       </div>
+     </section>
