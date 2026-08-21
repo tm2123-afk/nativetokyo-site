@@ -1,0 +1,78 @@
+diff --git a/src/content.config.ts b/src/content.config.ts
+index e5879f4..6f1d425 100644
+--- a/src/content.config.ts
++++ b/src/content.config.ts
+@@ -9,6 +9,8 @@ const blog = defineCollection({
+     pubDate: z.coerce.date(),
+     updatedDate: z.coerce.date().optional(),
+     draft: z.boolean().default(false),
++    image: z.string().optional(),
++    imageAlt: z.string().optional(),
+   }),
+ });
+ 
+diff --git a/src/pages/blog/[...slug].astro b/src/pages/blog/[...slug].astro
+index 7871f06..26fc876 100644
+--- a/src/pages/blog/[...slug].astro
++++ b/src/pages/blog/[...slug].astro
+@@ -57,6 +57,7 @@ const articleLd = {
+     { name: post.data.title, path: `/blog/${post.id}/` },
+   ]}
+   jsonLd={articleLd}
++  ogImage={post.data.image ?? undefined}
+ >
+   <Header />
+ 
+@@ -77,6 +78,15 @@ const articleLd = {
+     <article class="px-6 md:px-16 py-16 md:py-20">
+       <div class="max-w-3xl">
+ 
++        {post.data.image && (
++          <img
++            src={post.data.image}
++            alt={post.data.imageAlt || post.data.title}
++            class="w-full aspect-[16/9] object-cover mb-14 border border-line"
++            width="1200" height="675"
++          />
++        )}
++
+         <div class="prose-nt">
+           <Content />
+         </div>
+diff --git a/src/pages/blog/index.astro b/src/pages/blog/index.astro
+index 9aefb9e..2d79c35 100644
+--- a/src/pages/blog/index.astro
++++ b/src/pages/blog/index.astro
+@@ -40,14 +40,24 @@ const fmt = (d: Date) =>
+         <ul class="relative z-10 max-w-3xl border-t border-line" data-reveal-group>
+           {posts.map((post) => (
+             <li class="border-b border-line" data-reveal>
+-              <a href={`/blog/${post.id}/`} class="block py-8 group transition-transform hover:translate-x-2">
+-                <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
+-                  {fmt(post.data.pubDate)}
+-                </time>
+-                <h2 class="font-mincho font-bold text-lg md:text-xl text-navy mt-3 mb-3 group-hover:text-magenta transition-colors">
+-                  {post.data.title}
+-                </h2>
+-                <p class="text-sm leading-loose text-ink/70">{post.data.description}</p>
++              <a href={`/blog/${post.id}/`} class="flex gap-6 py-8 group transition-transform hover:translate-x-2">
++                {post.data.image && (
++                  <img
++                    src={post.data.image}
++                    alt={post.data.imageAlt || post.data.title}
++                    class="w-28 h-28 sm:w-36 sm:h-36 object-cover shrink-0 border border-line"
++                    width="144" height="144" loading="lazy"
++                  />
++                )}
++                <div class="min-w-0">
++                  <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
++                    {fmt(post.data.pubDate)}
++                  </time>
++                  <h2 class="font-mincho font-bold text-lg md:text-xl text-navy mt-3 mb-3 group-hover:text-magenta transition-colors">
++                    {post.data.title}
++                  </h2>
++                  <p class="text-sm leading-loose text-ink/70">{post.data.description}</p>
++                </div>
+               </a>
+             </li>
+           ))}
