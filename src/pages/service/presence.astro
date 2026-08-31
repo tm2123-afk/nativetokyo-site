@@ -42,6 +42,21 @@ const faqLd = {
       lead="実力があるのに、それが相手に伝わっていない社員はいませんか。プレゼンスマネジメント研修では、見た目・声・姿勢・視線といった「言葉以外の情報」を扱います。感覚的なアドバイスではなく、3段階の診断で現状を数値化し、どこから直せば効果が出るかを明確にします。"
     />
 
+    <!-- ヒーロー直下の診断CTA：上から読む人が気づけるように -->
+    <div class="px-6 md:px-16 pb-16">
+      <a
+        href="#diagnosis"
+        data-ga="cta_diagnosis_click"
+        data-ga-location="presence_top"
+        class="block max-w-3xl border-2 border-magenta bg-magenta/5 rounded-sm px-8 py-6 hover:bg-magenta/10 transition-colors"
+      >
+        <p class="label text-magenta mb-2">まずはここから</p>
+        <p class="font-mincho font-bold text-lg text-navy">
+          1分の組織診断で、今の状態を確認する →
+        </p>
+      </a>
+    </div>
+
     <!-- 課題 -->
     <section class="px-6 md:px-16 py-20">
       <p class="label text-magenta mb-5">SYMPTOMS</p>
@@ -89,7 +104,10 @@ const faqLd = {
     />
 
     <!-- 診断 -->
-    <section id="diagnosis" class="px-6 md:px-16 py-20 border-t border-line scroll-mt-20">
+    <section id="diagnosis" class="px-6 md:px-16 py-24 border-t-4 border-magenta bg-navy/[0.03] scroll-mt-20">
+      <div class="text-center mb-10">
+        <p class="label text-magenta mb-3">↓ ここから1分診断がスタートします</p>
+      </div>
       <Diagnosis />
     </section>
 
