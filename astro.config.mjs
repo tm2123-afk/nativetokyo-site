@@ -11,6 +11,13 @@ export default defineConfig({
       filter: (page) => !page.includes('/thanks'),
     }),
   ],
+  markdown: {
+    // コードブロックは実際のコードではなく日本語の図解に使っている。
+    // Shikiのデフォルトテーマ(github-dark)がインラインstyleで
+    // 強制的に配色を上書きしてしまうため、シンタックスハイライトを
+    // 無効化し、CSS側(prose-nt)の配色をそのまま反映させる
+    syntaxHighlight: false,
+  },
   build: {
     // CSSをHTMLにインライン化。和文サイトはCSSが小さいので
     // リクエストが1本減る方が速い。副次的にfile://でも表示できる
