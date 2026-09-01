@@ -167,11 +167,25 @@ const articleLd = {
   /* 対比・変換の流れを示す図解ブロック。矢印を使った
      短いテキストの視覚的まとめに使用する */
   .prose-nt pre {
-    background: rgba(27, 42, 74, 0.04);
-    border-left: 3px solid var(--color-magenta);
-    padding: 28px 32px;
+    position: relative;
+    background: rgba(27, 42, 74, 0.035);
+    border: 1px solid rgba(27, 42, 74, 0.15);
+    padding: 34px 32px 28px;
     overflow-x: auto;
-    margin: 36px 0;
+    margin: 40px 0;
+  }
+  .prose-nt pre::before {
+    content: 'SUMMARY';
+    position: absolute;
+    top: -10px;
+    left: 24px;
+    background: var(--color-navy);
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    padding: 3px 10px;
   }
   .prose-nt pre code {
     font-family: inherit;
@@ -180,8 +194,8 @@ const articleLd = {
     padding: 0;
     color: var(--color-navy);
     font-size: 15px;
-    font-weight: 500;
-    line-height: 2.2;
+    font-weight: 600;
+    line-height: 2.3;
     white-space: pre-wrap;
   }
   .prose-nt code {
