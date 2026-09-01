@@ -164,13 +164,12 @@ const articleLd = {
   .prose-nt a { color: var(--color-navy); text-decoration: underline; text-underline-offset: 3px; }
   .prose-nt a:hover { color: var(--color-magenta); }
 
-  /* コードブロック：矢印を使った変換の流れなど、
-     整形が必要な短いテキストにのみ使用する */
+  /* 対比・変換の流れを示す図解ブロック。矢印を使った
+     短いテキストの視覚的まとめに使用する */
   .prose-nt pre {
-    background: var(--color-paper);
-    border-top: 2px solid var(--color-navy);
-    border-bottom: 1px solid var(--color-line);
-    padding: 28px 24px;
+    background: rgba(27, 42, 74, 0.04);
+    border-left: 3px solid var(--color-magenta);
+    padding: 28px 32px;
     overflow-x: auto;
     margin: 36px 0;
   }
@@ -180,8 +179,9 @@ const articleLd = {
     border: none;
     padding: 0;
     color: var(--color-navy);
-    font-size: 14px;
-    line-height: 2.1;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 2.2;
     white-space: pre-wrap;
   }
   .prose-nt code {
