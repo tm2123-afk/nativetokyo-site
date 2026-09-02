@@ -1,4 +1,8 @@
 ---
+interface Props {
+  showLegalLinks?: boolean;
+}
+const { showLegalLinks = false } = Astro.props;
 const year = new Date().getFullYear();
 ---
 
@@ -30,11 +34,19 @@ const year = new Date().getFullYear();
         <li><a href="/about" class="hover:text-navy">私たちについて</a></li>
         <li><a href="/blog" class="hover:text-navy">ブログ</a></li>
         <li><a href="/contact" class="hover:text-navy">お問い合わせ</a></li>
-        <li><a href="/legal" class="hover:text-navy">特定商取引法に基づく表記</a></li>
-        <li><a href="/privacy" class="hover:text-navy">プライバシーポリシー</a></li>
       </ul>
     </div>
   </div>
 
-  <p class="mt-16 text-xs text-ink/40">© {year} NATIVETOKYO LLC.</p>
+  <p class="mt-16 text-xs text-ink/40">
+    © {year} NATIVETOKYO LLC.
+    {showLegalLinks && (
+      <>
+        <span class="mx-2">/</span>
+        <a href="/legal" class="hover:text-navy">特定商取引法に基づく表記</a>
+        <span class="mx-2">/</span>
+        <a href="/privacy" class="hover:text-navy">プライバシーポリシー</a>
+      </>
+    )}
+  </p>
 </footer>
