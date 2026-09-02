@@ -9,8 +9,7 @@ import MagentaQuote from '../components/MagentaQuote.astro';
 const personLd = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: '松本大志',
-  alternateName: 'Taishi Matsumoto',
+  name: 'ネフェル森依',
   jobTitle: '代表',
   worksFor: { '@type': 'Organization', name: '合同会社NATIVETOKYO', url: 'https://nativetokyo.jp' },
   knowsAbout: ['プレゼンスマネジメント', '対人コミュニケーション', '行動科学', '組織開発'],
@@ -20,7 +19,7 @@ const personLd = {
 
 <Layout
   title="私たちについて"
-  description="合同会社NATIVETOKYO 代表 松本大志。行動科学にもとづく見せ方の設計を、法人向け研修として提供しています。会社概要と代表プロフィール。"
+  description="合同会社NATIVETOKYO 代表 ネフェル森依。行動科学にもとづく見せ方の設計を、法人向け研修として提供しています。会社概要と代表プロフィール。"
   path="/about"
   breadcrumbs={[{ name: '私たちについて', path: '/about' }]}
   jsonLd={personLd}
@@ -70,15 +69,15 @@ const personLd = {
         <div class="photo-duo aspect-[3/4] border border-line" data-reveal>
           <img
             src="/images/about-main.jpg"
-            alt="松本大志"
+            alt="ネフェル森依"
             class="w-full h-full object-cover object-top"
             width="700" height="933"
           />
         </div>
 
         <div>
-          <p class="font-mincho font-bold text-xl text-navy mb-1">松本 大志</p>
-          <p class="text-sm text-ink/60 mb-8">Taishi Matsumoto ／ 合同会社NATIVETOKYO 代表</p>
+          <p class="font-mincho font-bold text-xl text-navy mb-1">ネフェル森依</p>
+          <p class="text-sm text-ink/60 mb-8">Nefer Morie ／ 合同会社NATIVETOKYO 代表</p>
 
           <div class="space-y-5 text-[15px] leading-loose text-ink/80">
             <p>
@@ -133,7 +132,7 @@ const personLd = {
       <dl class="max-w-3xl border-t border-line">
         {[
           ['商号', '合同会社NATIVETOKYO（NATIVETOKYO LLC.）'],
-          ['代表', '松本 大志'],
+          ['代表', 'ネフェル森依'],
           ['所在地', '〒150-0045 東京都渋谷区神泉町10-15'],
           ['連絡先', 'info@nativetokyo.jp'],
           ['事業内容', '法人向け研修事業／コミュニケーション領域のコンサルティング'],
@@ -149,5 +148,5 @@ const personLd = {
     <CtaBand location="about_page" />
   </main>
 
-  <Footer />
+  <Footer showLegalLinks />
 </Layout>
