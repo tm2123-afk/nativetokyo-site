@@ -55,7 +55,7 @@ imageAlt: "オフィスで書類を確認する人事担当者"
 **1. 判断が不要な水準まで具体化する**
 
 <div class="graphic">
-<p class="graphic-label">対比</p>
+<p class="graphic-label">運用されない規定と、運用される規定</p>
 <div class="graphic-body">運用されない：「業務にふさわしい清潔感のある服装」
 運用される：「顧客訪問時は襟のあるシャツを着用する」
 　　　　　　「髪が目にかからない状態を保つ」</div>

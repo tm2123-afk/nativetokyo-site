@@ -20,7 +20,7 @@ Notion Labs Japanが2026年9月4日に公開した「グローバルAI変革調�
 議論を進める前に、AIが実際に肩代わりしている作業を具体的に並べます。
 
 <div class="graphic">
-<p class="graphic-label">整理</p>
+<p class="graphic-label">AIが代替できる作業と、代替できない作業</p>
 <div class="graphic-body">■ AIが代替できる
 　情報を集める／調べる
 　分析する／比較する
@@ -50,7 +50,7 @@ Notion Labs Japanが2026年9月4日に公開した「グローバルAI変革調�
 代わりに相関したのは次の3つです。
 
 <div class="graphic">
-<p class="graphic-label">整理</p>
+<p class="graphic-label">集合知と相関した3つの要因</p>
 <div class="graphic-body">社会的感受性（相手の心情を読み取る力）　r = 0.26
 発言の偏り（一人が支配するほど低下）　　r = -0.41
 女性の比率　　　　　　　　　　　　　　 r = 0.23</div>
@@ -71,7 +71,7 @@ Notion Labs Japanが2026年9月4日に公開した「グローバルAI変革調�
 つまり、こういうことになります。
 
 <div class="graphic">
-<p class="graphic-label">整理</p>
+<p class="graphic-label">AIが底上げする能力と、成果を予測する能力</p>
 <div class="graphic-body">AIが底上げする能力
 　→ チームの成果とは、ほとんど相関しない
 

@@ -42,7 +42,7 @@ imageAlt: "クライアントと初回面談をする士業の男性"
 「見た目を良くする」ではありません。整えるべきものは3つあり、順序があります。
 
 <div class="graphic">
-<p class="graphic-label">整理</p>
+<p class="graphic-label">プレゼンスを構成する3つの層</p>
 <div class="graphic-body">① アピアランス（服装・髪型・清潔感）
 　　＝土台。ここが崩れていると他が見られない
 　　↓
@@ -74,7 +74,7 @@ imageAlt: "クライアントと初回面談をする士業の男性"
 そしてここが、メラビアンの法則が本来意味を持つ場面です。
 
 <div class="graphic">
-<p class="graphic-label">対比</p>
+<p class="graphic-label">言葉と態度が一致している場合と、矛盾している場合</p>
 <div class="graphic-body">一致している場合
 「この方法をお勧めします」＋ 相手を見て、姿勢が安定している
 → 内容がそのまま伝わる

@@ -52,7 +52,7 @@ imageAlt: "オフィスでノートPCを使うビジネスパーソン"
 そして、感覚での評価は必ず主観の表明になります。
 
 <div class="graphic">
-<p class="graphic-label">対比</p>
+<p class="graphic-label">基準の有無で、指摘はこう変わる</p>
 <div class="graphic-body">基準がある場合：
 「顧客訪問時は襟のあるシャツ、という基準に該当していない」
 → 基準の確認
@@ -97,7 +97,7 @@ imageAlt: "オフィスでノートPCを使うビジネスパーソン"
 評価結果を、本人が行動に変換できる形で返します。
 
 <div class="graphic">
-<p class="graphic-label">対比</p>
+<p class="graphic-label">機能しないフィードバックと、機能するフィードバック</p>
 <div class="graphic-body">機能しない：「頼りない印象を与えている」
 　→ 人格への評価。何をすればいいか分からない
 

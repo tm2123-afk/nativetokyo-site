@@ -58,7 +58,7 @@ AIによって仕事の形が変わり続けている状況で、「完全に準
 **やること**：分けるべきは「方向性」と「手段」です。
 
 <div class="graphic">
-<p class="graphic-label">対比</p>
+<p class="graphic-label">方向性は断定し、手段には留保をつける</p>
 <div class="graphic-body">方向性 → 断定する
 　「この領域には投資を続ける」
 
