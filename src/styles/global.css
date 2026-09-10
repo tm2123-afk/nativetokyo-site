@@ -111,3 +111,33 @@ details > summary::-webkit-details-marker { display: none; }
     transform: none;
   }
 }
+
+/* 図解ブロック内のサブ見出し */
+.graphic-sub {
+  display: inline-block;
+  font-size: 1.15em;
+  font-weight: 700;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 0.15em;
+  margin: 1.8em 0 0.7em;
+  line-height: 1.4;
+}
+
+.graphic-sub:first-child {
+  margin-top: 0;
+}
+
+/* 図解ブロック内のサブ見出し */
+.graphic-sub {
+  display: inline-block;
+  font-size: 1.15em;
+  font-weight: 700;
+  border-bottom: 2px solid currentColor;
+  padding-bottom: 0.15em;
+  margin: 1.8em 0 0.7em;
+  line-height: 1.4;
+}
+
+.graphic-sub:first-child {
+  margin-top: 0;
+}
