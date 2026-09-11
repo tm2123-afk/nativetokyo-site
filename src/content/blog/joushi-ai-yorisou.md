@@ -83,4 +83,4 @@ NVIDIAのCEOであるジェンスン・フアン氏は、これからの時代�
 
 NATIVETOKYOでは、1つ目の層を[AI時代の人間力研修](/service/ai-ningenryoku/)で、2つ目の層を[プレゼンス研修](/service/presence/)で扱っています。
 
-自社の管理職が今どの状態にあるか、まずは[1分の診断](/service/presence#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact/)からどうぞ。
+自社の管理職が今どの状態にあるか、まずは[1分の診断](/service/presence/#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact/)からどうぞ。

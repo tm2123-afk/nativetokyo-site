@@ -125,4 +125,4 @@ Woolleyの研究には、追試で確認された知見があります。グル�
 
 NATIVETOKYOでは、この領域を[プレゼンス研修](/service/presence/)および[AI時代の人間力研修](/service/ai-ningenryoku/)として扱っています。
 
-自社の現状は、まず[1分の診断](/service/presence#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact/)からどうぞ。
+自社の現状は、まず[1分の診断](/service/presence/#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact/)からどうぞ。
