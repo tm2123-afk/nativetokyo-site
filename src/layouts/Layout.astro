@@ -23,7 +23,7 @@ const {
 
 const siteName = 'NATIVETOKYO';
 const siteUrl = 'https://nativetokyo.jp';
-const canonical = new URL(path, siteUrl).toString();
+const canonical = new URL(path.endsWith('/') ? path : path + '/', siteUrl).toString();
 const fullTitle = path === '/' ? `${siteName} | ${title}` : `${title} | ${siteName}`;
 const GA_ID = 'G-3T4ZWVDF7H';
 
