@@ -75,7 +75,7 @@ imageAlt: "会議室でホワイトボードを前に考えているビジネス
   <text x="340" y="336" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#1B2A4A" fill-opacity="0.7">経験を結びつけて生む</text>
 </svg>
 
-NATIVETOKYOでは、真ん中の層を[プレゼンス研修](/service/presence)で、その上の組織マネジメントの層を[AI時代の人間力研修](/service/ai-ningenryoku)で扱っています。
+NATIVETOKYOでは、真ん中の層を[プレゼンス研修](/service/presence/)で、その上の組織マネジメントの層を[AI時代の人間力研修](/service/ai-ningenryoku/)で扱っています。
 
 ## 組織として扱う場合の注意点
 
@@ -87,4 +87,4 @@ NATIVETOKYOでは、真ん中の層を[プレゼンス研修](/service/presence)
 
 積み上がる構造だからこそ、どの層に課題があるかを見極めてから着手する必要があります。
 
-自社の状況がどの層に当てはまるか、まずはご相談ください。[お問い合わせ](/contact)から承っています。
+自社の状況がどの層に当てはまるか、まずはご相談ください。[お問い合わせ](/contact/)から承っています。

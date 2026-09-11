@@ -1,10 +1,10 @@
 ---
 const navItems = [
-  { label: 'プレゼンス研修', href: '/service/presence' },
-  { label: 'AI時代の人間力', href: '/service/ai-ningenryoku' },
-  { label: 'よくある課題', href: '/works' },
-  { label: '私たちについて', href: '/about' },
-  { label: 'ブログ', href: '/blog' },
+  { label: 'プレゼンス研修', href: '/service/presence/' },
+  { label: 'AI時代の人間力', href: '/service/ai-ningenryoku/' },
+  { label: 'よくある課題', href: '/works/' },
+  { label: '私たちについて', href: '/about/' },
+  { label: 'ブログ', href: '/blog/' },
 ];
 const current = Astro.url.pathname;
 ---
@@ -30,7 +30,7 @@ const current = Astro.url.pathname;
 
     <div class="flex items-center gap-3">
       <a
-        href="/contact"
+        href="/contact/"
         data-ga="cta_contact_click"
         data-ga-location="header"
         class="hidden sm:inline-block label px-6 py-2.5 bg-[#E31C79] text-white rounded-sm hover:bg-[#B3145C] transition-colors"
@@ -51,7 +51,7 @@ const current = Astro.url.pathname;
             <a href={item.href} class="block px-5 py-3 text-sm text-ink/80 hover:bg-line/40">{item.label}</a>
           ))}
           <a
-            href="/contact"
+            href="/contact/"
             data-ga="cta_contact_click"
             data-ga-location="mobile_nav"
             class="block px-5 py-3 text-sm text-magenta font-medium border-t border-line mt-2 pt-4"

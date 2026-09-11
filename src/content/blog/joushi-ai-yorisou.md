@@ -81,6 +81,6 @@ NVIDIAのCEOであるジェンスン・フアン氏は、これからの時代�
 
 [「発想力とプレゼンス、実は同じ問題を扱っている」](/blog/hassouryoku-presence)でも書いた通り、この2つは並列ではなく積み上がる関係にあります。理解する力が土台にあり、その上に伝わる形が乗ります。
 
-NATIVETOKYOでは、1つ目の層を[AI時代の人間力研修](/service/ai-ningenryoku)で、2つ目の層を[プレゼンス研修](/service/presence)で扱っています。
+NATIVETOKYOでは、1つ目の層を[AI時代の人間力研修](/service/ai-ningenryoku/)で、2つ目の層を[プレゼンス研修](/service/presence/)で扱っています。
 
-自社の管理職が今どの状態にあるか、まずは[1分の診断](/service/presence#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact)からどうぞ。
+自社の管理職が今どの状態にあるか、まずは[1分の診断](/service/presence#diagnosis)でご確認いただけます。詳しいご相談は[お問い合わせ](/contact/)からどうぞ。
