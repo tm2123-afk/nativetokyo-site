@@ -1,0 +1,63 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../../layouts/Layout.astro';
+import Header from '../../../components/Header.astro';
+import Footer from '../../../components/Footer.astro';
+import PageHero from '../../../components/PageHero.astro';
+import CtaBand from '../../../components/CtaBand.astro';
+import GiantWord from '../../../components/GiantWord.astro';
+import BlogList from '../../../components/BlogList.astro';
+
+// 1ページあたりの記事数。変えるときはここだけ直す
+export const PAGE_SIZE = 12;
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog', ({ data }) => !data.draft))
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+  const lastPage = Math.ceil(posts.length / PAGE_SIZE);
+
+  // 1ページ目は /blog/ が担当するので、2ページ目から作る
+  return Array.from({ length: Math.max(0, lastPage - 1) }, (_, i) => {
+    const page = i + 2;
+    return {
+      params: { page: String(page) },
+      props: {
+        posts: posts.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE),
+        currentPage: page,
+        lastPage,
+      },
+    };
+  });
+}
+
+const { posts, currentPage, lastPage } = Astro.props;
+---
+
+<Layout
+  title={`ブログ（${currentPage}ページ目）`}
+  description={`扱われ方・見せ方・対人コミュニケーションについて、行動科学の観点から具体策を書いています。${currentPage}ページ目の記事一覧です。`}
+  path={`/blog/page/${currentPage}`}
+  breadcrumbs={[
+    { name: 'ブログ', path: '/blog' },
+    { name: `${currentPage}ページ目`, path: `/blog/page/${currentPage}` },
+  ]}
+>
+  <Header />
+
+  <main id="main">
+    <PageHero
+      eyebrow="BLOG"
+      title="見せ方の具体策"
+      lead={`記事一覧 ${currentPage}ページ目`}
+    />
+
+    <section class="relative px-6 md:px-16 py-16 overflow-hidden">
+      <GiantWord word="INSIGHT" class="-top-6 -right-10 opacity-50" />
+      <BlogList posts={posts} currentPage={currentPage} lastPage={lastPage} />
+    </section>
+
+    <CtaBand location="blog_index" />
+  </main>
+
+  <Footer />
+</Layout>
