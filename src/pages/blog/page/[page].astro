@@ -13,7 +13,7 @@ export const PAGE_SIZE = 12;
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog', ({ data }) => !data.draft))
-    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+    .sort((a, b) => Number(b.data.pinned) - Number(a.data.pinned) || b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
   const lastPage = Math.ceil(posts.length / PAGE_SIZE);
 
   // 1ページ目は /blog/ が担当するので、2ページ目から作る

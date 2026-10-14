@@ -30,6 +30,9 @@ const pages = Array.from({ length: lastPage }, (_, i) => i + 1);
           />
         )}
         <div class="min-w-0">
+          {post.data.pinned && (
+            <span class="inline-block text-[11px] tracking-wide text-white bg-magenta px-2 py-0.5 mr-3">まず読んでほしい記事</span>
+          )}
           <time datetime={post.data.pubDate.toISOString()} class="text-xs text-ink/50 tracking-wide">
             {fmt(post.data.pubDate)}
           </time>

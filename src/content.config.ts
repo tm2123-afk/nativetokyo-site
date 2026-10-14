@@ -9,6 +9,8 @@ const blog = defineCollection({
     pubDate: z.coerce.date(),
     updatedDate: z.coerce.date().optional(),
     draft: z.boolean().default(false),
+    // true の記事はブログ一覧の1ページ目の一番上に固定表示する
+    pinned: z.boolean().default(false),
     image: z.string().optional(),
     imageAlt: z.string().optional(),
   }),
