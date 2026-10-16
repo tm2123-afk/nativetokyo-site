@@ -61,7 +61,7 @@ const breadcrumbLd = breadcrumbs.length
         '@type': 'ListItem',
         position: i + 1,
         name: b.name,
-        item: new URL(b.path, siteUrl).toString(),
+        item: new URL(b.path.endsWith('/') ? b.path : b.path + '/', siteUrl).toString(),
       })),
     }
   : null;
