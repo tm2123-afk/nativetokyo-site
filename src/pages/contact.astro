@@ -26,7 +26,7 @@ import PageHero from '../components/PageHero.astro';
         action="/api/contact"
         data-astro-reload
         class="max-w-2xl space-y-8"
-        data-ga="form_start"
+        id="contact-form"
       >
         <p class="hidden">
           <label>この項目は入力しないでください<input name="bot-field" /></label>
@@ -95,8 +95,6 @@ import PageHero from '../components/PageHero.astro';
 
         <button
           type="submit"
-          data-ga="form_submit"
-          data-ga-location="contact_page"
           class="label px-12 py-4 bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors"
         >送信する</button>
       </form>
@@ -104,4 +102,16 @@ import PageHero from '../components/PageHero.astro';
   </main>
 
   <Footer />
+
+  <script is:inline>
+    document.getElementById('contact-form')?.addEventListener('submit', function () {
+      var topic = (document.getElementById('topic') || {}).value || 'unknown';
+      if (typeof window.gtag !== 'function') return;
+      if (topic === 'other') {
+        window.gtag('event', 'contact_other', { topic: topic });
+      } else {
+        window.gtag('event', 'lead_inquiry', { topic: topic });
+      }
+    });
+  </script>
 </Layout>

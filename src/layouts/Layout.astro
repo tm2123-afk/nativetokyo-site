@@ -103,7 +103,8 @@ const breadcrumbLd = breadcrumbs.length
   <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
   <script define:vars={{ GA_ID }} is:inline>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
+    // define:vars はこのscriptを関数で包むため、gtagをwindowに置かないと他のscriptから呼べない
+    window.gtag = function(){ window.dataLayer.push(arguments); };
     gtag('js', new Date());
     gtag('config', GA_ID);
   </script>
