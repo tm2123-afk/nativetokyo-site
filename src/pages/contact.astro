@@ -70,10 +70,10 @@ import PageHero from '../components/PageHero.astro';
             id="topic" name="topic"
             class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
           >
-            <option value="seimitsu">30項目の精密診断（初回無料）</option>
             <option value="presence">プレゼンスマネジメント研修</option>
             <option value="ai_ningenryoku">AI時代の人間力研修</option>
             <option value="both">両方／どちらか分からない</option>
+            <option value="seimitsu">30項目の精密診断（初回無料）</option>
             <option value="other">その他</option>
           </select>
         </div>
@@ -106,7 +106,7 @@ import PageHero from '../components/PageHero.astro';
 
   <script is:inline>
     // /contact/?topic=seimitsu で来たときは、相談内容を自動で選んでおく
-    (function () {
+    function prefillFromUrl() {
       var t = new URLSearchParams(location.search).get('topic');
       var sel = document.getElementById('topic');
       var msg = document.getElementById('message');
@@ -114,7 +114,9 @@ import PageHero from '../components/PageHero.astro';
       if (t === 'seimitsu' && msg && !msg.value) {
         msg.value = '30項目の精密診断を希望します。\nご都合のよい日時の候補：\n';
       }
-    })();
+    }
+    prefillFromUrl();
+    window.addEventListener('pageshow', prefillFromUrl);
     document.getElementById('contact-form')?.addEventListener('submit', function () {
       var topic = (document.getElementById('topic') || {}).value || 'unknown';
       if (typeof window.gtag !== 'function') return;
