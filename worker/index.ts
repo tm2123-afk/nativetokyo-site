@@ -27,6 +27,15 @@ async function sendEmail(env: Env, payload: Record<string, unknown>) {
   });
 }
 
+const SIGNATURE = `
+  <hr style="border:none;border-top:1px solid #ddd;margin:24px 0">
+  <p style="font-size:13px;color:#555;line-height:1.8">
+    NATIVETOKYO<br>
+    マツモトタイシ<br>
+    <a href="https://nativetokyo.jp/">https://nativetokyo.jp/</a><br>
+    ※このメールは送信専用です。ご返信いただいた場合も、担当者に届きます。
+  </p>`;
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   const formData = await request.formData();
 
@@ -72,6 +81,23 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     return new Response('送信に失敗しました。時間をおいて再度お試しください。', { status: 502 });
   }
 
+  // お客様への自動返信（失敗しても、問い合わせ自体は受け付け済みとして扱う）
+  const autoReply = await sendEmail(env, {
+    from: 'NATIVETOKYO <info@nativetokyo.jp>',
+    to: [email],
+    reply_to: 'info@nativetokyo.jp',
+    subject: '【NATIVETOKYO】お問い合わせを受け付けました',
+    html: `
+      <p>${escapeHtml(company)}<br>${escapeHtml(name)} 様</p>
+      <p>このたびは、NATIVETOKYOにお問い合わせいただき、ありがとうございます。<br>
+      以下の内容で受け付けました。通常2営業日以内に、担当者よりご連絡いたします。</p>
+      <p><strong>ご関心のある領域：</strong>${escapeHtml(topicLabel[topic] || topic)}</p>
+      <p><strong>ご相談内容：</strong><br>${escapeHtml(message).replace(/\n/g, '<br>')}</p>
+      ${SIGNATURE}
+    `,
+  });
+  if (!autoReply.ok) console.error('Auto-reply error:', await autoReply.text());
+
   return Response.redirect(new URL('/thanks', request.url).toString(), 303);
 }
 
@@ -111,6 +137,27 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
       <p><strong>診断結果：</strong>${escapeHtml(tier)}</p>
     `,
   });
+
+  if (res.ok) {
+    // お客様への診断結果メール（失敗しても、画面には結果を表示する）
+    const autoReply = await sendEmail(env, {
+      from: 'NATIVETOKYO 診断 <info@nativetokyo.jp>',
+      to: [email],
+      reply_to: 'info@nativetokyo.jp',
+      subject: '【NATIVETOKYO】プレゼンス診断の結果',
+      html: `
+        <p>${escapeHtml(company)}<br>${escapeHtml(name)} 様</p>
+        <p>プレゼンス診断にご回答いただき、ありがとうございます。結果は以下のとおりです。</p>
+        <p><strong>診断スコア：</strong>${escapeHtml(score)}</p>
+        <p><strong>診断結果：</strong>${escapeHtml(tier)}</p>
+        <p>どこから整えると効果が出やすいかは、社員の方の状態や業種によって変わります。<br>
+        結果の詳しい読み方や、自社に合わせた進め方をお知りになりたい場合は、このメールにそのままご返信いただくか、<br>
+        <a href="https://nativetokyo.jp/contact/">お問い合わせページ</a>からご相談ください。</p>
+        ${SIGNATURE}
+      `,
+    });
+    if (!autoReply.ok) console.error('Auto-reply error:', await autoReply.text());
+  }
 
   if (!res.ok) {
     console.error('Resend error:', await res.text());
