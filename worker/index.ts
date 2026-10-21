@@ -117,6 +117,7 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
   const email = formData.get('email')?.toString() || '';
   const score = formData.get('score')?.toString() || '';
   const tier = formData.get('tier')?.toString() || '';
+  const optin = formData.get('optin')?.toString() === 'yes';
 
   if (!company || !name || !email) {
     return new Response(JSON.stringify({ ok: false, error: 'missing_fields' }), {
@@ -163,6 +164,23 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
       `,
     });
     if (!autoReply.ok) console.error('Auto-reply error:', await autoReply.text());
+
+    // メールの受け取りに同意した人だけ、Resendの自動配信（5日間のメール）を開始する
+    if (optin) {
+      const ev = await fetch('https://api.resend.com/events/send', {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          event: 'diagnosis.completed',
+          email,
+          payload: { company, name, tier, score },
+        }),
+      });
+      if (!ev.ok) console.error('Automation event error:', await ev.text());
+    }
   }
 
   if (!res.ok) {

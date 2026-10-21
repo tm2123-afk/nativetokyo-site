@@ -109,7 +109,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
     <div class="border-t border-line pt-8">
       <p class="text-[15px] leading-loose text-ink/75 max-w-2xl mb-7">
-        この段階でやるべきことと、30項目の詳細チェックシートをお送りします。
+        詳しい結果を表示し、同じ内容をメールでもお送りします。
       </p>
 
       <form
@@ -150,6 +150,11 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
             class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none"
           />
         </div>
+
+        <label class="flex gap-3 items-start text-[13px] leading-relaxed text-ink/70 cursor-pointer">
+          <input type="checkbox" name="optin" value="yes" checked class="mt-1 shrink-0" />
+          <span>プレゼンスに関する情報（5日間のメールと、その後の月2回のメールマガジン）を受け取る。配信はいつでも停止できます。</span>
+        </label>
 
         <button
           type="submit"
