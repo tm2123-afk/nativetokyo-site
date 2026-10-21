@@ -87,9 +87,34 @@ const articleLd = {
           />
         )}
 
-        <div class="prose-nt">
+        <div class="prose-nt" id="post-body">
           <Content />
         </div>
+
+        <!-- 記事の途中に入れる診断への入り口。
+             JavaScriptで記事の途中（見出しが4つ以上なら3つ目、それ以外は最後の見出し）の直前に移動する。
+             JavaScriptが動かない環境では、記事の直後にそのまま表示される -->
+        <aside class="mid-cta" id="mid-cta">
+          <p class="mid-cta-label">1分チェック</p>
+          <p class="mid-cta-text">自社の社員のプレゼンスが、今どの段階にあるか。1分のチェックで分かります。</p>
+          <a
+            href="/service/presence/#diagnosis"
+            class="mid-cta-button"
+            data-ga="cta_diagnosis_click"
+            data-ga-location="blog_mid"
+          >1分チェックを受ける →</a>
+        </aside>
+        <script is:inline>
+          (function () {
+            var body = document.getElementById('post-body');
+            var cta = document.getElementById('mid-cta');
+            if (!body || !cta) return;
+            var h2s = body.querySelectorAll(':scope > h2');
+            if (h2s.length < 2) return;
+            var target = h2s.length >= 4 ? h2s[2] : h2s[h2s.length - 1];
+            body.insertBefore(cta, target);
+          })();
+        </script>
 
         <!-- 著者 -->
         <div class="mt-20 border border-line p-7 flex gap-5 items-start">

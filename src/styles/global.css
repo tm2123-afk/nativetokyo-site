@@ -141,3 +141,34 @@ details > summary::-webkit-details-marker { display: none; }
 .graphic-sub:first-child {
   margin-top: 0;
 }
+
+/* 記事の途中に入る診断への入り口 */
+.mid-cta {
+  margin: 3rem 0;
+  padding: 1.75rem 1.75rem 2rem;
+  border: 1px solid var(--color-navy);
+  background: #fff;
+}
+.mid-cta-label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--color-magenta);
+  margin: 0 0 0.5rem;
+}
+.mid-cta-text {
+  margin: 0 0 1.25rem;
+  line-height: 1.9;
+}
+.mid-cta-button {
+  display: inline-block;
+  padding: 0.85rem 1.75rem;
+  background: var(--color-navy);
+  color: var(--color-paper) !important;
+  font-weight: 700;
+  text-decoration: none !important;
+  transition: background 0.2s ease;
+}
+.mid-cta-button:hover {
+  background: var(--color-magenta);
+}

@@ -55,7 +55,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-5">組織の印象診断</h2>
     <p class="text-[15px] leading-loose text-ink/75 max-w-2xl">
       御社の社員は、取引先や応募者からどう見えているか。
-      12の質問で、組織の状態を3つの段階から確認できます。所要時間は約1分です。
+      組織の状態を、3つの段階から確認できます。所要時間は約1分です。
     </p>
   </div>
 
@@ -166,6 +166,15 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
     <p id="result-body" class="text-[15px] leading-loose text-ink/80 max-w-2xl mb-10"></p>
 
+    <div class="border border-navy bg-white p-6 md:p-8 mb-10 max-w-2xl">
+      <p class="label text-magenta mb-3">次のステップ</p>
+      <p class="font-mincho font-bold text-navy text-lg mb-3">30項目の精密診断（通常30,000円 → 初回無料）</p>
+      <p class="text-sm leading-loose text-ink/70">
+        清潔感・トーン・ステータスの3つの段階、30項目で、社員のプレゼンスを個別に確認します。
+        30分のオンライン面談で、結果と「どこから直すと効果が大きいか」を直接お伝えします。
+      </p>
+    </div>
+
     <div class="grid sm:grid-cols-3 gap-px bg-line border border-line mb-10 max-w-2xl">
       {layers.map((layer) => (
         <div class="bg-paper p-5">
@@ -180,11 +189,11 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
     <div class="flex flex-col sm:flex-row gap-5 sm:items-center">
       <a
-        href="/contact/"
-        data-ga="cta_contact_click"
+        href="/contact/?topic=seimitsu"
+        data-ga="cta_seimitsu_click"
         data-ga-location="diagnosis_result"
         class="label px-10 py-[18px] bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors text-center"
-      >研修について相談する</a>
+      >30項目の精密診断を申し込む（初回無料）</a>
       <button
         type="button"
         id="diagnosis-retry"

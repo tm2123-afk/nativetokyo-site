@@ -33,7 +33,7 @@ const SIGNATURE = `
     NATIVETOKYO<br>
     マツモトタイシ<br>
     <a href="https://nativetokyo.jp/">https://nativetokyo.jp/</a><br>
-    ※このメールは送信専用です。ご返信いただいた場合も、担当者に届きます。
+    ご不明な点は、このメールにそのままご返信ください。
   </p>`;
 
 async function handleContact(request: Request, env: Env): Promise<Response> {
@@ -55,6 +55,7 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   }
 
   const topicLabel: Record<string, string> = {
+    seimitsu: '30項目の精密診断（初回無料）',
     presence: 'プレゼンスマネジメント研修',
     ai_ningenryoku: 'AI時代の人間力研修',
     both: '両方／どちらか分からない',
@@ -150,9 +151,14 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
         <p>プレゼンス診断にご回答いただき、ありがとうございます。結果は以下のとおりです。</p>
         <p><strong>診断スコア：</strong>${escapeHtml(score)}</p>
         <p><strong>診断結果：</strong>${escapeHtml(tier)}</p>
-        <p>どこから整えると効果が出やすいかは、社員の方の状態や業種によって変わります。<br>
-        結果の詳しい読み方や、自社に合わせた進め方をお知りになりたい場合は、このメールにそのままご返信いただくか、<br>
-        <a href="https://nativetokyo.jp/contact/">お問い合わせページ</a>からご相談ください。</p>
+        <p>どこから整えると効果が出やすいかは、社員の方の状態や業種によって変わります。</p>
+        <p style="border:1px solid #1B2A4A;padding:16px;margin:24px 0">
+          <strong>30項目の精密診断（通常30,000円 → 初回無料）</strong><br>
+          清潔感・トーン・ステータスの3つの段階、30項目で、社員のプレゼンスを個別に確認します。<br>
+          30分のオンライン面談で、結果と「どこから直すと効果が大きいか」を直接お伝えします。<br><br>
+          <strong>このメールに「精密診断希望」とご返信いただくだけで、お申し込みいただけます。</strong><br>
+          ご都合のよい日時の候補を、いくつか添えていただけるとスムーズです。
+        </p>
         ${SIGNATURE}
       `,
     });
