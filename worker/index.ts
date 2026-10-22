@@ -135,8 +135,8 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
       <p><strong>会社名：</strong>${escapeHtml(company)}</p>
       <p><strong>お名前：</strong>${escapeHtml(name)}</p>
       <p><strong>メールアドレス：</strong>${escapeHtml(email)}</p>
-      <p><strong>診断スコア：</strong>${escapeHtml(score)}</p>
-      <p><strong>診断結果：</strong>${escapeHtml(tier)}</p>
+      <p><strong>スコア：</strong>${escapeHtml(score)}</p>
+      <p><strong>結果：</strong>${escapeHtml(tier)}</p>
     `,
   });
 
@@ -146,13 +146,13 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
       from: 'NATIVETOKYO 診断 <info@nativetokyo.jp>',
       to: [email],
       reply_to: 'info@nativetokyo.jp',
-      subject: '【NATIVETOKYO】プレゼンス診断の結果',
+      subject: '【NATIVETOKYO】1分チェックの結果',
       html: `
         <p>${escapeHtml(company)}<br>${escapeHtml(name)} 様</p>
-        <p>プレゼンス診断にご回答いただき、ありがとうございます。結果は以下のとおりです。</p>
-        <p><strong>診断スコア：</strong>${escapeHtml(score)}</p>
-        <p><strong>診断結果：</strong>${escapeHtml(tier)}</p>
-        <p>どこから整えると効果が出やすいかは、社員の方の状態や業種によって変わります。</p>
+        <p>1分チェックにご回答いただき、ありがとうございます。結果は以下のとおりです。</p>
+        <p><strong>スコア：</strong>${escapeHtml(score)}</p>
+        <p><strong>結果：</strong>${escapeHtml(tier)}</p>
+        <p>${escapeHtml(tierComment(tier))}</p>
         <p style="border:1px solid #1B2A4A;padding:16px;margin:24px 0">
           <strong>30項目の精密診断（通常30,000円 → 初回無料）</strong><br>
           清潔感・トーン・ステータスの3つの段階、30項目で、社員のプレゼンスを個別に確認します。<br>
@@ -264,4 +264,20 @@ function day1Paragraphs(tier: string): Record<string, string> {
   const out: Record<string, string> = {};
   DAY1[key].forEach((t, i) => (out[`d1_${i + 1}`] = t));
   return out;
+}
+
+// 診断結果メールで、結果の下に添える一言
+const TIER_COMMENT: Record<string, string> = {
+  '内容以前で、評価を下げている可能性がある状態':
+    '提案の中身を見てもらう前に、見た目で減点されている可能性があります。ただし、一番早く変われる段階でもあります。',
+  '悪くはないが、記憶に残っていない状態':
+    '減点はありません。ただ、選ばれる理由にもなっていません。商談の3日後、相手は御社の担当者の名前を覚えているでしょうか。',
+  '一部の社員では「任せたい」が生まれている状態':
+    '御社の評価は、一部の社員の属人的な力に支えられています。その人が異動したとき、同じように取引してもらえるかどうかが分かれ目です。',
+  '組織として機能している状態':
+    '信頼が生まれる状態ができています。気をつけたいのは、会社としてのスタンダードができていないと、人が入れ替わったときに崩壊することです。',
+};
+
+function tierComment(tier: string): string {
+  return TIER_COMMENT[tier] ?? '';
 }
