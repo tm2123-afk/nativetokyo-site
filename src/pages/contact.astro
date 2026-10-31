@@ -31,6 +31,8 @@ import PageHero from '../components/PageHero.astro';
         <p class="hidden">
           <label>この項目は入力しないでください<input name="bot-field" /></label>
         </p>
+        <input type="hidden" name="ts" id="contact-ts" value="" />
+        <input type="hidden" name="js" id="contact-js" value="" />
 
         <div>
           <label for="company" class="block text-[13px] text-ink/60 tracking-wide mb-2">
@@ -117,7 +119,14 @@ import PageHero from '../components/PageHero.astro';
     }
     prefillFromUrl();
     window.addEventListener('pageshow', prefillFromUrl);
+    // 迷惑送信の対策：ページを開いた時刻と、JavaScriptを通ったことを記録する
+    (function () {
+      var ts = document.getElementById('contact-ts');
+      if (ts) ts.value = String(Date.now());
+    })();
     document.getElementById('contact-form')?.addEventListener('submit', function () {
+      var js = document.getElementById('contact-js');
+      if (js) js.value = '1';
       var topic = (document.getElementById('topic') || {}).value || 'unknown';
       if (typeof window.gtag !== 'function') return;
       if (topic === 'other') {

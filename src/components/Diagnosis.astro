@@ -122,6 +122,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
         <p class="hidden">
           <label>この項目は入力しないでください<input name="lead-bot-field" /></label>
         </p>
+        <input type="hidden" name="ts" id="lead-ts-field" value="" />
 
         <div>
           <label for="lead-company" class="block text-[13px] text-ink/60 tracking-wide mb-1.5">
@@ -287,6 +288,10 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       }
     });
 
+    // 迷惑送信の対策：ページを開いた時刻を記録する
+    const tsField = document.getElementById('lead-ts-field') as HTMLInputElement | null;
+    if (tsField) tsField.value = String(Date.now());
+
     leadForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       const submitBtn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
@@ -295,6 +300,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       let sendOk = true;
       try {
         const formData = new FormData(leadForm);
+        formData.set('js', '1');
         const res = await fetch('/api/diagnosis-lead', {
           method: 'POST',
           body: formData,

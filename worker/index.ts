@@ -38,11 +38,30 @@ const SIGNATURE = `
     ご不明な点は、このメールにそのままご返信ください。
   </p>`;
 
+
+// 迷惑送信（ボット）の判定。当てはまったら、何も送らずに「受け付けた」ように返す
+function isSpam(formData: FormData, honeypot: string): string | null {
+  if (formData.get(honeypot)) return 'honeypot';
+  // ページのJavaScriptを通らずに直接送られたもの
+  if (formData.get('js')?.toString() !== '1') return 'no_js';
+  // ページを開いてから送信までが短すぎる（人間は数秒以上かかる）
+  const ts = Number(formData.get('ts')?.toString() || '0');
+  const elapsed = Date.now() - ts;
+  if (!ts || elapsed < 4000 || elapsed > 24 * 60 * 60 * 1000) return 'timing';
+  const text = ['company', 'name', 'message'].map((k) => formData.get(k)?.toString() || '').join(' ');
+  // 日本語が1文字も含まれていない
+  if (!/[\u3040-\u30ff\u4e00-\u9fff]/.test(text)) return 'no_japanese';
+  // URLが3つ以上
+  if ((text.match(/https?:\/\//g) || []).length >= 3) return 'many_urls';
+  return null;
+}
+
 async function handleContact(request: Request, env: Env): Promise<Response> {
   const formData = await request.formData();
 
-  const botField = formData.get('bot-field');
-  if (botField) {
+  const spam = isSpam(formData, 'bot-field');
+  if (spam) {
+    console.log('spam blocked (contact):', spam);
     return Response.redirect(new URL('/thanks', request.url).toString(), 303);
   }
 
@@ -107,8 +126,9 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
 async function handleDiagnosisLead(request: Request, env: Env): Promise<Response> {
   const formData = await request.formData();
 
-  const botField = formData.get('lead-bot-field');
-  if (botField) {
+  const spam = isSpam(formData, 'lead-bot-field');
+  if (spam) {
+    console.log('spam blocked (diagnosis):', spam);
     return new Response(JSON.stringify({ ok: true }), {
       headers: { 'Content-Type': 'application/json' },
     });
