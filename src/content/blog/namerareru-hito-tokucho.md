@@ -116,6 +116,10 @@ Hall らが2005年に発表した分析があります。立場の上下と、�
 </div>
 </div>
 
+**出典**
+
+- [Hall, Coats & LeBeau (2005). Nonverbal behavior and the vertical dimension of social relations: A meta-analysis. Psychological Bulletin](https://www.wisebrain.org/media/Papers/NonverbCommVerticalRels.pdf)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、声やしぐさから話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。

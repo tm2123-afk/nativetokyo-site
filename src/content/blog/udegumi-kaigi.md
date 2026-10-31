@@ -122,6 +122,11 @@ Fetterman らが2015年に発表した研究があります。大学生を2つ�
 </div>
 </div>
 
+**出典**
+
+- [Fetterman, Bair & Robinson (2015). Submissive, inhibited, avoidant, and escape motivated: The correlates and consequences of arm-crossing. Motivation Science](https://repository.essex.ac.uk/15644/)
+- [Friedman & Elliot (2008). The effect of arm crossing on persistence and performance. European Journal of Social Psychology（BPS Research Digestによる紹介）](https://bps.org.uk/research-digest/fold-your-arms-boost-your-performance)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、しぐさや姿勢から話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。

@@ -111,6 +111,10 @@ imageAlt: "オフィスで身だしなみを確認するビジネスパーソン
 </div>
 </div>
 
+**出典**
+
+- [厚生労働省 あかるい職場応援団「パワーハラスメントの定義」](https://www.no-harassment.mhlw.go.jp/foundation/harassment_list/power-hara)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、服装や身だしなみから話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。

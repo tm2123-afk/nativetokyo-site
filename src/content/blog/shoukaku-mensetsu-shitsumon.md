@@ -131,6 +131,10 @@ imageAlt: "会議室で、役員を前に落ち着いて昇格面接に答えて
 </div>
 </div>
 
+**出典**
+
+- [Barrick, Shaffer & DeGrassi (2009). What you see may not be what you get: Relationships among self-presentation tactics and ratings of interview and job performance. Journal of Applied Psychology](https://psytopaca.asso-web.com/uploaded/barrick-et-al-jap-2009-self-presentation-tactics-and-ratings-of-interview-and-job-performance.pdf)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、服装や振る舞いから話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。昇格を控えた方の個別指導も行っています。

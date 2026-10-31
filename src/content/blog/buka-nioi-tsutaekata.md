@@ -140,6 +140,11 @@ imageAlt: "会議室で、上司が部下と1対1で落ち着いて話してい�
 </div>
 </div>
 
+**出典**
+
+- [日本ハラスメントリスク管理協会「職場の臭い（におい）に関する実態調査」](https://prtimes.jp/main/html/rd/p/000000025.000073801.html)
+- [厚生労働省 あかるい職場応援団「パワーハラスメントの定義」](https://www.no-harassment.mhlw.go.jp/foundation/harassment_list/power-hara)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、身だしなみから話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。社内では言いにくい項目も、外部の立場から本人に伝えます。

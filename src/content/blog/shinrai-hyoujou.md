@@ -109,6 +109,12 @@ imageAlt: "商談の席で、穏やかな表情で相手の話を聞いている
 </div>
 </div>
 
+**出典**
+
+- [Willis & Todorov (2006). First impressions: Making up your mind after a 100-ms exposure to a face. Psychological Science](https://pubmed.ncbi.nlm.nih.gov/16866745/)
+- [Oosterhof & Todorov (2008). The functional basis of face evaluation. PNAS](https://collaborate.princeton.edu/en/publications/the-functional-basis-of-face-evaluation/)
+- [Oosterhof & Todorov (2009). Shared perceptual basis of emotional expressions and trustworthiness impressions from faces. Emotion](https://collaborate.princeton.edu/en/publications/shared-perceptual-basis-of-emotional-expressions-and-trustworthin/)
+
 ---
 
 NATIVETOKYOの[プレゼンス研修](/service/presence/)では、表情や姿勢から話し方まで、**実力が周りに伝わるプレゼンス**を身につけます。
