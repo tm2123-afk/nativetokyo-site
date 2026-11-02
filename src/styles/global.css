@@ -172,3 +172,31 @@ details > summary::-webkit-details-marker { display: none; }
 .mid-cta-button:hover {
   background: var(--color-magenta);
 }
+
+/* 記事内の比較写真（NG例とOK例を横に並べる） */
+.photo-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 2em 0;
+}
+.photo-compare figure {
+  margin: 0;
+}
+.photo-compare img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  display: block;
+}
+.photo-compare figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-navy);
+}
+.photo-compare figure:first-child figcaption {
+  color: var(--color-magenta-deep);
+}
