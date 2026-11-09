@@ -200,3 +200,42 @@ details > summary::-webkit-details-marker { display: none; }
 .photo-compare figure:first-child figcaption {
   color: var(--color-magenta-deep);
 }
+
+/* YouTube埋め込み（16:9） */
+.video-embed {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  margin: 1.5em 0 0.5em;
+  background: #000;
+}
+.video-embed iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+.video-caption {
+  font-size: 13px;
+  color: #666;
+  margin: 0 0 1.5em;
+}
+
+/* 引用画像 */
+.quote-figure {
+  margin: 1.5em 0;
+}
+.quote-figure img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.quote-figure figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  color: #666;
+}
+.quote-figure figcaption a {
+  color: inherit;
+}
