@@ -2,7 +2,9 @@
 // プレゼンス診断（個人／法人の2種類）
 // どちらも 3段階 × 各4問。配点 1pt / 2pt / 3pt。満点24pt。
 // 結果はスコアと段階名のみ先に見せ、詳細はフォーム入力後に表示する
-// 最初に表示するのは「個人」。URLに ?type=corp が付いていれば「法人」から始める
+// 最初に表示する種類は defaultKind で決める（既定は個人）。URLに ?type=corp / ?type=personal があればそちらを優先
+interface Props { defaultKind?: 'personal' | 'corporate'; }
+const { defaultKind = 'personal' } = Astro.props;
 
 const sets = {
   personal: [
@@ -73,7 +75,7 @@ const kinds = [
 const totalMax = 24;
 ---
 
-<div class="border border-line bg-white shadow-xl" id="diagnosis-app" data-total-max={totalMax} data-kind="personal">
+<div class="border border-line bg-white shadow-xl" id="diagnosis-app" data-total-max={totalMax} data-kind={defaultKind}>
 
   <!-- STEP 1: イントロと、個人／法人の切り替え -->
   <div id="diagnosis-intro" class="p-8 md:p-12 border-b border-line">
@@ -86,21 +88,21 @@ const totalMax = 24;
           type="button"
           role="tab"
           data-kind-tab={k.key}
-          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-selected={k.key === defaultKind ? 'true' : 'false'}
           class="kind-tab label px-5 py-3 text-[13px] whitespace-nowrap transition-colors"
         >{k.tab}</button>
       ))}
     </div>
 
-    {kinds.map((k, i) => (
-      <p data-kind-only={k.key} class:list={['text-[15px] leading-loose text-ink/75 max-w-2xl', { hidden: i !== 0 }]}>{k.lead}</p>
+    {kinds.map((k) => (
+      <p data-kind-only={k.key} class:list={['text-[15px] leading-loose text-ink/75 max-w-2xl', { hidden: k.key !== defaultKind }]}>{k.lead}</p>
     ))}
   </div>
 
   <!-- STEP 2: 設問（個人と法人の2組。表示していない組は採点しない） -->
   <form id="diagnosis-form" class="p-8 md:p-12">
     {Object.entries(sets).map(([kind, layers]) => (
-      <div data-kind-only={kind} class:list={{ hidden: kind !== 'personal' }}>
+      <div data-kind-only={kind} class:list={{ hidden: kind !== defaultKind }}>
         {layers.map((layer) => (
           <fieldset class="mb-12 last:mb-0">
             <legend class="mb-6">
@@ -329,7 +331,8 @@ const totalMax = 24;
     document.querySelectorAll<HTMLElement>('[data-kind-tab]').forEach((el) => {
       el.addEventListener('click', () => setKind(el.dataset.kindTab as Kind));
     });
-    if (new URLSearchParams(location.search).get('type') === 'corp') setKind('corporate');
+    const typeParam = new URLSearchParams(location.search).get('type');
+    setKind(typeParam === 'corp' ? 'corporate' : typeParam === 'personal' ? 'personal' : (app.dataset.kind as Kind) || 'personal');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();

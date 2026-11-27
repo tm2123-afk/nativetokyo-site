@@ -22,7 +22,7 @@ const { image, imageAlt, eyebrow, headline, focusX = 68 } = Astro.props;
   <div class="ds-color">
     <div class="ds-ring" aria-hidden="true"></div>
     <p class="label text-paper/80 mb-5 relative z-10">{eyebrow}</p>
-    <p class="font-mincho font-extrabold text-[clamp(24px,3.2vw,38px)] leading-[1.6] text-paper relative z-10">
+    <p class="font-mincho font-extrabold text-[clamp(24px,3.2vw,38px)] leading-[1.6] text-paper relative z-10 [word-break:auto-phrase]">
       {headline}
     </p>
   </div>

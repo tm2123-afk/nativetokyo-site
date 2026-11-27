@@ -1,0 +1,351 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import Diagnosis from '../../components/Diagnosis.astro';
+import DiagonalSplit from '../../components/DiagonalSplit.astro';
+
+const faqs = [
+  { q: '会社の研修ではなく、個人でも申し込めますか？', a: 'はい。経営者や役員の方から、昇進や転職を控えた方まで、個人でお申し込みいただけます。' },
+  { q: '30分の個別診断は、本当に無料ですか？', a: '初回は無料です。診断のあとに、個別指導や同行が必要かどうかをご提案しますが、お申し込みいただかなくても構いません。' },
+  { q: '何を準備すればいいですか？', a: '準備はいりません。お申し込みのあと、日程と一緒に、30項目のチェック（5分ほど）をお送りします。' },
+  { q: 'オンラインでも受けられますか？', a: '個別診断はオンラインで行います。個別指導は、オンラインと対面のどちらにも対応しています。スーツ・服選びの同行は、対面で行います。' },
+  { q: '服を買うことが前提ですか？', a: '前提ではありません。今持っている服のサイズを直す、組み合わせを変えるだけで変わることも多くあります。買い足す場合も、まず何を買うべきかを決めてから選びます。' },
+  { q: '見た目だけを指導するのですか？', a: '見た目に加えて、姿勢、声、視線、話し始めの間まで扱います。服装だけを整えても、振る舞いが合っていないと、服だけが浮いて見えるからです。' },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+
+const menus = [
+  { no: '01', topic: 'personal', name: '30分の個別診断', tag: 'オンライン・初回無料',
+    body: '清潔感、トーン、ステータスの30項目で、今のあなたのプレゼンスを確かめます。どこから直すと一番変わるかを、30分の面談で直接お伝えします。',
+    cta: '個別診断を申し込む' },
+  { no: '02', topic: 'personal_coaching', name: 'プレゼンスの個別指導', tag: 'オンライン・対面',
+    body: '服装、パーソナルカラー、骨格のタイプに合う形から、姿勢、声、話し方まで。昇進、登壇、大事な商談など、次に迎える場面に見合ったプレゼンスを、一緒に作ります。',
+    cta: '個別指導について相談する' },
+  { no: '03', topic: 'shopping', name: 'スーツ・服選びの同行', tag: '対面',
+    body: 'スーツのオーダーから、吊るしのスーツのサイズ直しまで、店に同行して一緒に選びます。何を買うか、どこを直すかをその場で決めるので、買ったのに着ない服が増えません。',
+    cta: '同行について相談する' },
+];
+
+const ctaClass = 'label inline-block px-10 py-[18px] bg-magenta text-white rounded-sm hover:bg-[#B3145C] transition-colors text-center shadow-sm';
+---
+
+<Layout
+  title="個人のプレゼンス個別指導｜30分の個別診断（初回無料）"
+  description="失礼ではない。でも、印象に残らない。周りと同じ黒いスーツ、吊るしのままのサイズ。30分の個別診断（オンライン・初回無料）で、あなたがどこから直すと一番変わるかをお伝えします。個別指導、スーツ・服選びの同行も。"
+  path="/service/personal"
+  breadcrumbs={[{ name: '個人の方へ', path: '/service/personal' }]}
+  jsonLd={faqLd}
+>
+  <Header />
+
+  <main id="main">
+
+    <!-- 1. ファーストビュー：結論と申し込みボタン -->
+    <section class="px-6 md:px-16 pt-16 md:pt-24 pb-16 border-b border-line" id="lp-hero">
+      <p class="label text-magenta mb-5 flex items-center gap-3">
+        <span class="w-8 h-px bg-magenta inline-block"></span>FOR INDIVIDUALS
+      </p>
+      <h1 class="font-mincho font-extrabold text-navy leading-[1.45] text-[clamp(28px,4.2vw,48px)] max-w-3xl [word-break:auto-phrase]">
+        失礼ではない。でも、印象に残らない。その見た目を、変える。
+      </h1>
+      <p class="mt-7 text-[15px] md:text-base leading-loose text-ink/75 max-w-2xl">
+        周りと同じ黒いスーツ、吊るしのままのサイズ、無難に選んだ服。誰にも注意されない代わりに、誰の記憶にも残りません。
+        30分の個別診断で、あなたがどこから直すと一番変わるかを、直接お伝えします。
+      </p>
+      <div class="mt-10 flex flex-col sm:flex-row gap-5 sm:items-center">
+        <a href="#apply" data-topic="personal" data-ga="cta_personal_diagnosis_click" data-ga-location="personal_hero" class={ctaClass}>
+          30分の無料診断を申し込む
+        </a>
+        <a href="#diagnosis" data-ga="cta_diagnosis_click" data-ga-location="personal_hero" class="text-sm text-navy border-b border-navy pb-0.5 w-fit">
+          先に1分で、今の段階を確かめる
+        </a>
+      </div>
+      <p class="mt-5 text-xs text-ink/55">オンライン・30分・初回無料。準備はいりません。ご提案は、受けなくても構いません。</p>
+    </section>
+
+    <!-- 2. 悩み -->
+    <section class="px-6 md:px-16 py-20">
+      <p class="label text-magenta mb-5">SYMPTOMS</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-10">こんな状態では、ありませんか</h2>
+      <ul class="grid sm:grid-cols-2 gap-x-12 gap-y-5 max-w-4xl">
+        {[
+          'スーツを買うとき、いつも黒か、無難な色を選んでいる',
+          '昇進したのに、見た目はプレイヤーの頃のまま',
+          '取引先で、実際の年齢や役職より下に見られる',
+          '自分に似合う色や、体型に合う形を知らない',
+          '吊るしのスーツを、サイズを直さずに着ている',
+          '登壇や大事な商談の前に、見た目と話し方を整えておきたい',
+        ].map((item) => (
+          <li class="flex gap-3 text-[15px] leading-loose text-ink/80 border-b border-line pb-4">
+            <span class="text-magenta shrink-0">—</span>{item}
+          </li>
+        ))}
+      </ul>
+      <p class="mt-10 font-mincho font-bold text-navy text-lg md:text-xl max-w-3xl leading-relaxed">
+        どれも、失礼ではありません。でも、一目置かれることもありません。
+      </p>
+    </section>
+
+    <!-- 3. なぜ自分では変えられないのか -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">WHY</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">なぜ、自分では変えられないのか</h2>
+      <div class="grid md:grid-cols-3 gap-px bg-line border border-line">
+        {[
+          { t: '自分の姿は、自分では見えない', d: '鏡に映るのは、いつも同じ距離と角度の、正面の自分だけです。相手が見ている横顔、後ろ姿、座ったときの姿は、自分では確かめられません。' },
+          { t: '店員の役目は、服を売ること', d: '店員は、似合う服を勧めてくれます。でも、あなたが取引先や部下からどう見えるか、役職に見合っているかまでは、考えてくれません。' },
+          { t: '雑誌やSNSは、流行が基準', d: '流行の服は、休日には役に立ちます。でも、仕事の服を決めるのは、流行ではなく、あなたの体と、役職と、会う相手です。' },
+        ].map((x) => (
+          <div class="bg-paper p-7">
+            <h3 class="font-bold text-navy mb-3 text-[15px]">{x.t}</h3>
+            <p class="text-[13px] leading-loose text-ink/70">{x.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <!-- 4. 見方 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">OUR VIEW</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-6">流行ではなく、あなたの体と、役職で選ぶ</h2>
+      <p class="text-[15px] leading-loose text-ink/75 max-w-2xl mb-12">NATIVETOKYOでは、似合う服を3つの物差しで決めます。</p>
+      <div class="grid md:grid-cols-3 gap-px bg-line border border-line">
+        {[
+          { t: 'パーソナルカラー', d: '肌、目、髪の色に合う色の系統。同じ紺や白でも、合う濃さは人によって違います。顔色が明るく見える色を選びます。' },
+          { t: '骨格のタイプ', d: '体の厚みや骨格によって、合うジャケットの形やラペルの幅、パンツの丈が変わります。サイズ感と生地を整えたうえで、形を選びます。' },
+          { t: 'MOVE', d: '場に合っているか（Match）、1つに絞れているか（One）、体に合っているか（Volume）、輪郭が出ているか（Edge）。プレゼンスを見る4つの要素です。' },
+        ].map((x) => (
+          <div class="bg-paper p-7">
+            <h3 class="font-bold text-navy mb-3 text-[15px]">{x.t}</h3>
+            <p class="text-[13px] leading-loose text-ink/70">{x.d}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+
+    <DiagonalSplit
+      image="/images/about-main.jpg"
+      imageAlt="スーツを着て、ネクタイの結び目を整えるマツモトタイシ"
+      eyebrow="PERSONAL"
+      headline="服装、姿勢、声、話し方まで。あなたの役職に見合ったプレゼンスを、一緒に作る。"
+      focusX={50}
+    />
+
+    <!-- 5. 30分で分かること＋申し込み -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">WHAT YOU GET</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">30分の個別診断で、分かること</h2>
+      <ol class="grid md:grid-cols-3 gap-6 mb-12">
+        {[
+          { t: '今のあなたの点数', d: '清潔感、トーン、ステータスの30項目で、どこで点を落としているかが分かります。' },
+          { t: 'どこから直すと、一番変わるか', d: '全部を一度に変える必要はありません。あなたの場合に、最初に手をつける1か所を決めます。' },
+          { t: '次に買う1着、直す1着', d: '今持っている服で、何を直せば使えるか。次に買うなら、何を、どの色と形で選ぶかまで決めます。' },
+        ].map((x, i) => (
+          <li class="border border-line bg-white p-7">
+            <p class="font-mincho font-extrabold text-magenta text-2xl mb-3">0{i + 1}</p>
+            <h3 class="font-mincho font-bold text-navy text-lg mb-3">{x.t}</h3>
+            <p class="text-[14px] leading-loose text-ink/75">{x.d}</p>
+          </li>
+        ))}
+      </ol>
+      <div class="flex flex-col sm:flex-row gap-5 sm:items-center">
+        <a href="#apply" data-topic="personal" data-ga="cta_personal_diagnosis_click" data-ga-location="personal_whatyouget" class={ctaClass}>
+          30分の無料診断を申し込む
+        </a>
+        <p class="text-xs text-ink/55">お申し込みは、お名前とメールアドレスだけで完了します。</p>
+      </div>
+    </section>
+
+    <!-- 6. 1分の診断（まだ迷っている人向け） -->
+    <section id="diagnosis" class="px-6 md:px-16 py-20 md:py-24 bg-navy scroll-mt-20">
+      <div class="text-center mb-10">
+        <p class="label text-white/70 mb-3">申し込む前に・所要時間 約1分</p>
+        <h2 class="font-mincho font-bold text-2xl md:text-3xl text-white">まず、今の段階を確かめる</h2>
+      </div>
+      <Diagnosis defaultKind="personal" />
+    </section>
+
+    <!-- 7. メニュー -->
+    <section class="px-6 md:px-16 py-20">
+      <p class="label text-magenta mb-5">MENU</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">メニュー</h2>
+      <div class="grid md:grid-cols-3 gap-6">
+        {menus.map((m) => (
+          <div class="border border-line bg-white p-7 flex flex-col">
+            <p class="font-mincho font-extrabold text-magenta text-2xl mb-3">{m.no}</p>
+            <h3 class="font-mincho font-bold text-navy text-lg mb-1">{m.name}</h3>
+            <p class="text-xs text-ink/50 mb-5">{m.tag}</p>
+            <p class="text-[14px] leading-loose text-ink/75 mb-8 flex-1">{m.body}</p>
+            <a
+              href="#apply"
+              data-topic={m.topic}
+              data-ga={`cta_${m.topic}_click`}
+              data-ga-location="personal_menu"
+              class="label px-6 py-3.5 bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors text-center"
+            >{m.cta}</a>
+          </div>
+        ))}
+      </div>
+      <p class="text-xs text-ink/50 mt-6">※ 個別指導と同行の料金は、個別診断のあとに、内容と回数に合わせてご案内します。</p>
+    </section>
+
+    <!-- 8. 流れ -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">FLOW</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-12">お申し込みから、面談まで</h2>
+      <ol class="grid md:grid-cols-4 gap-px bg-line border border-line">
+        {[
+          { t: 'お申し込み', d: 'このページの下のフォームから。お名前とメールアドレスだけで完了します。' },
+          { t: '日程のご連絡', d: '2営業日以内に、面談の日程の候補をメールでお送りします。' },
+          { t: '30項目のチェック', d: '面談の前に、5分ほどのチェックにお答えいただきます。' },
+          { t: '30分の個別診断', d: 'オンラインで、どこから直すと一番変わるかをお伝えします。' },
+        ].map((s, i) => (
+          <li class="bg-paper p-6">
+            <p class="font-mincho font-extrabold text-magenta text-xl mb-2">{i + 1}</p>
+            <p class="font-bold text-navy text-[15px] mb-2">{s.t}</p>
+            <p class="text-[13px] leading-loose text-ink/70">{s.d}</p>
+          </li>
+        ))}
+      </ol>
+    </section>
+
+    <!-- 9. 担当 -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">PROFILE</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-8">担当</h2>
+      <div class="flex gap-6 items-start max-w-3xl">
+        <img src="/images/author.jpg" alt="マツモトタイシ" class="w-20 h-20 rounded-full object-cover shrink-0" width="80" height="80" loading="lazy" />
+        <div>
+          <p class="font-mincho font-bold text-navy text-lg mb-1">マツモトタイシ</p>
+          <p class="text-sm text-ink/60 mb-4">合同会社NATIVETOKYO 代表</p>
+          <p class="text-[14px] leading-loose text-ink/75">
+            University of the Arts London にてファッションPRを学ぶ。その後、Wharton School、University of Michigan のプログラムでコミュニケーション戦略・行動科学を学ぶ。
+            エグゼクティブ層を対象とした対人戦略コンサルティングを経て、現在は法人研修と、個人の方の個別指導を行っている。
+          </p>
+          <a href="/about/" class="inline-block mt-4 text-sm text-navy border-b border-navy pb-0.5">詳しいプロフィール</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. FAQ -->
+    <section class="px-6 md:px-16 py-20 border-t border-line">
+      <p class="label text-magenta mb-5">FAQ</p>
+      <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-10">よくあるご質問</h2>
+      <div class="max-w-3xl border-t border-line">
+        {faqs.map((f) => (
+          <details class="border-b border-line group">
+            <summary class="py-6 flex justify-between items-start gap-6 text-[15px] font-medium text-navy">
+              {f.q}
+              <span class="text-magenta shrink-0 text-xl leading-none group-open:rotate-45 transition-transform">+</span>
+            </summary>
+            <p class="pb-6 text-sm leading-loose text-ink/70">{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+
+    <!-- 11. 申し込みフォーム（このページの中で完結させる） -->
+    <section id="apply" class="px-6 md:px-16 py-20 md:py-24 bg-navy text-paper scroll-mt-20">
+      <div class="max-w-2xl">
+        <p class="label text-white/70 mb-4">APPLY</p>
+        <h2 class="font-mincho font-bold text-2xl md:text-3xl mb-5 leading-relaxed">
+          まずは、30分の個別診断から。
+        </h2>
+        <p class="text-sm text-paper/75 mb-10 leading-loose">
+          オンライン・初回無料です。お名前とメールアドレスだけで、お申し込みが完了します。2営業日以内に、日程の候補をお送りします。
+        </p>
+
+        <form method="POST" action="/api/contact" data-astro-reload id="apply-form" class="space-y-6 bg-white text-ink p-7 md:p-10">
+          <p class="hidden"><label>この項目は入力しないでください<input name="bot-field" /></label></p>
+          <input type="hidden" name="ts" id="apply-ts" value="" />
+          <input type="hidden" name="js" id="apply-js" value="" />
+          <input type="hidden" name="message" id="apply-message" value="" />
+
+          <div>
+            <label for="apply-name" class="block text-[13px] text-ink/60 tracking-wide mb-2">お名前 <span class="text-magenta">*</span></label>
+            <input id="apply-name" name="name" type="text" required autocomplete="name" class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none" />
+          </div>
+          <div>
+            <label for="apply-email" class="block text-[13px] text-ink/60 tracking-wide mb-2">メールアドレス <span class="text-magenta">*</span></label>
+            <input id="apply-email" name="email" type="email" required autocomplete="email" class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none" />
+          </div>
+          <div>
+            <label for="apply-topic" class="block text-[13px] text-ink/60 tracking-wide mb-2">ご希望</label>
+            <select id="apply-topic" name="topic" class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none">
+              <option value="personal">30分の個別診断（オンライン・初回無料）</option>
+              <option value="personal_coaching">プレゼンスの個別指導について相談したい</option>
+              <option value="shopping">スーツ・服選びの同行について相談したい</option>
+            </select>
+          </div>
+          <div>
+            <label for="apply-note" class="block text-[13px] text-ink/60 tracking-wide mb-2">ご都合のよい日時、気になっていること（任意）</label>
+            <textarea id="apply-note" rows="4" placeholder="例：平日の夜なら対応できます。来月、昇進して初めての役員会があります。" class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none resize-y"></textarea>
+          </div>
+          <p class="text-xs text-ink/55 leading-relaxed">
+            ご入力いただいた個人情報は、お問い合わせへの対応のみに利用します。詳しくは<a href="/privacy/" class="underline hover:text-navy">プライバシーポリシー</a>をご確認ください。
+          </p>
+          <button type="submit" class={`${ctaClass} w-full`}>申し込む（無料）</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- スマホ：画面の下に固定する申し込みボタン（ファーストビューとフォームが見えている間は隠す） -->
+  <div id="sticky-cta" class="lg:hidden fixed bottom-0 inset-x-0 z-40 p-3 bg-paper/95 border-t border-line translate-y-full transition-transform">
+    <a href="#apply" data-topic="personal" data-ga="cta_personal_diagnosis_click" data-ga-location="personal_sticky" class={`${ctaClass} w-full py-4`}>
+      30分の無料診断を申し込む
+    </a>
+  </div>
+
+  <Footer />
+
+  <script is:inline>
+    (function () {
+      var form = document.getElementById('apply-form');
+      var topic = document.getElementById('apply-topic');
+      var ts = document.getElementById('apply-ts');
+      if (ts) ts.value = String(Date.now());
+
+      // 各ボタンから来たとき、フォームの「ご希望」を合わせておく
+      document.querySelectorAll('a[href="#apply"][data-topic]').forEach(function (a) {
+        a.addEventListener('click', function () {
+          if (topic && topic.querySelector('option[value="' + a.dataset.topic + '"]')) topic.value = a.dataset.topic;
+        });
+      });
+
+      // 送信時：任意欄の内容を、受付の判定が通る形で message にまとめる
+      form && form.addEventListener('submit', function () {
+        var js = document.getElementById('apply-js');
+        if (js) js.value = '1';
+        var label = topic ? topic.options[topic.selectedIndex].text : '';
+        var note = (document.getElementById('apply-note') || {}).value || '';
+        var msg = document.getElementById('apply-message');
+        if (msg) msg.value = '【個人の方へページから】' + label + 'を希望します。\n' + note;
+        if (typeof window.gtag === 'function') {
+          window.gtag('event', 'lead_inquiry', { topic: topic ? topic.value : 'personal', location: 'personal_lp' });
+        }
+      });
+
+      // スマホの固定ボタン：ファーストビューと申し込みフォームが見えている間は隠す
+      var sticky = document.getElementById('sticky-cta');
+      var hero = document.getElementById('lp-hero');
+      var apply = document.getElementById('apply');
+      if (sticky && hero && apply && 'IntersectionObserver' in window) {
+        var heroIn = true, applyIn = false;
+        var update = function () { sticky.classList.toggle('translate-y-full', heroIn || applyIn); };
+        new IntersectionObserver(function (e) { heroIn = e[0].isIntersecting; update(); }).observe(hero);
+        new IntersectionObserver(function (e) { applyIn = e[0].isIntersecting; update(); }).observe(apply);
+      }
+    })();
+  </script>
+</Layout>
