@@ -1,93 +1,133 @@
 ---
-// 法人向け組織プレゼンス診断
-// 3段階 × 各4問。配点 1pt / 2pt / 3pt。満点24pt。
-// チャエン方式：結果はスコアと段階名のみ先に見せ、詳細は3項目フォーム入力後に表示する
-const layers = [
-  {
-    id: 1,
-    label: '段階1',
-    name: '基本',
-    note: '内容以前で減点されていないか',
-    weight: 1,
-    questions: [
-      '来客対応・商談に出る社員の身だしなみについて、社内に共有された基準がある',
-      '対外的な場に出る社員の服装が、シワ・汚れ・サイズ不適合なく保たれている',
-      '見た目や所作について、社内で指摘し合える関係性がある',
-      '採用面接に出る社員の印象が、応募者から見てどう映るかを検討したことがある',
-    ],
-  },
-  {
-    id: 2,
-    label: '段階2',
-    name: '印象の統一',
-    note: '会社のイメージと一致しているか',
-    weight: 2,
-    questions: [
-      '社員の見た目・振る舞いが、自社のブランドイメージと一致している',
-      '役職や役割に応じた「ふさわしい見せ方」の目安が共有されている',
-      '登壇・展示会・取材など対外の場での見せ方に、一貫性がある',
-      '広報・営業など「会社の顔」となる社員の印象が、意図して設計されている',
-    ],
-  },
-  {
-    id: 3,
-    label: '段階3',
-    name: '信頼',
-    note: '「任せたい」が生まれているか',
-    weight: 3,
-    questions: [
-      '役員・経営層について、社外から「貫禄がある」と評されることがある',
-      '初対面の商談で、相手が自然にこちらのペースに合わせる場面がある',
-      '若手社員が顧客先で、年次に関わらず対等に扱われている',
-      '提案内容を詳しく説明する前の段階で「御社に任せたい」と言われることがある',
-    ],
-  },
-];
+// プレゼンス診断（個人／法人の2種類）
+// どちらも 3段階 × 各4問。配点 1pt / 2pt / 3pt。満点24pt。
+// 結果はスコアと段階名のみ先に見せ、詳細はフォーム入力後に表示する
+// 最初に表示するのは「個人」。URLに ?type=corp が付いていれば「法人」から始める
 
-const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
+const sets = {
+  personal: [
+    {
+      id: 1, label: '段階1', name: '基本', note: '中身を見てもらう前に、損をしていないか', weight: 1,
+      questions: [
+        'スーツやジャケットは、店で自分の体に合わせてサイズを直してある',
+        '出かける前に、服のシワや毛玉、靴の汚れを確かめる習慣がある',
+        '髪、眉、爪、ひげを、決まった頻度で整えている',
+        '仕事の服を、社内の日、取引先に行く日、格が必要な日で分けている',
+      ],
+    },
+    {
+      id: 2, label: '段階2', name: '印象', note: '相手の記憶に残っているか', weight: 2,
+      questions: [
+        '自分に似合う色（顔色が明るく見える色）を知っていて、その色で服を選んでいる',
+        '自分の体型に合うジャケットの形を知っている',
+        '服や持ち物に、自分の印象を決める「1点」がある',
+        '周りの同僚と、同じ服装に見えない',
+      ],
+    },
+    {
+      id: 3, label: '段階3', name: '信頼', note: '一目置かれているか', weight: 3,
+      questions: [
+        '初対面の相手から、実際の年齢や役職より上に見られることが多い',
+        '会議で話し始めると、周りが手を止めて聞く',
+        '説明を詳しくする前に、相手から「任せたい」と言われたことがある',
+        '服装やたたずまいを、社外の人からほめられたことがある',
+      ],
+    },
+  ],
+  corporate: [
+    {
+      id: 1, label: '段階1', name: '基本', note: '内容以前で減点されていないか', weight: 1,
+      questions: [
+        '来客対応・商談に出る社員の身だしなみについて、社内に共有された基準がある',
+        '対外的な場に出る社員の服装が、シワ・汚れ・サイズ不適合なく保たれている',
+        '見た目や所作について、社内で指摘し合える関係性がある',
+        '採用面接に出る社員の印象が、応募者から見てどう映るかを検討したことがある',
+      ],
+    },
+    {
+      id: 2, label: '段階2', name: '印象の統一', note: '会社のイメージと一致しているか', weight: 2,
+      questions: [
+        '社員の見た目・振る舞いが、自社のブランドイメージと一致している',
+        '役職や役割に応じた「ふさわしい見せ方」の目安が共有されている',
+        '登壇・展示会・取材など対外の場での見せ方に、一貫性がある',
+        '広報・営業など「会社の顔」となる社員の印象が、意図して設計されている',
+      ],
+    },
+    {
+      id: 3, label: '段階3', name: '信頼', note: '「任せたい」が生まれているか', weight: 3,
+      questions: [
+        '役員・経営層について、社外から「貫禄がある」と評されることがある',
+        '初対面の商談で、相手が自然にこちらのペースに合わせる場面がある',
+        '若手社員が顧客先で、年次に関わらず対等に扱われている',
+        '提案内容を詳しく説明する前の段階で「御社に任せたい」と言われることがある',
+      ],
+    },
+  ],
+};
+
+const kinds = [
+  { key: 'personal', tab: '個人で受ける', lead: 'あなたが、取引先や社内からどう見えているか。今の状態を、3つの段階から確認できます。所要時間は約1分です。' },
+  { key: 'corporate', tab: '会社で受ける', lead: '御社の社員は、取引先や応募者からどう見えているか。組織の状態を、3つの段階から確認できます。所要時間は約1分です。' },
+] as const;
+
+const totalMax = 24;
 ---
 
-<div class="border border-line bg-white shadow-xl" id="diagnosis-app" data-total-max={totalMax}>
+<div class="border border-line bg-white shadow-xl" id="diagnosis-app" data-total-max={totalMax} data-kind="personal">
 
-  <!-- STEP 1: イントロ -->
+  <!-- STEP 1: イントロと、個人／法人の切り替え -->
   <div id="diagnosis-intro" class="p-8 md:p-12 border-b border-line">
-    <p class="label text-magenta mb-5">1分でわかる 組織の印象診断</p>
-    <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-5">組織の印象診断</h2>
-    <p class="text-[15px] leading-loose text-ink/75 max-w-2xl">
-      御社の社員は、取引先や応募者からどう見えているか。
-      組織の状態を、3つの段階から確認できます。所要時間は約1分です。
-    </p>
+    <p class="label text-magenta mb-5">1分でわかる プレゼンス診断</p>
+    <h2 class="font-mincho font-bold text-2xl md:text-3xl text-navy mb-6">プレゼンス診断</h2>
+
+    <div class="flex gap-0 mb-6 border border-navy w-fit" role="tablist">
+      {kinds.map((k, i) => (
+        <button
+          type="button"
+          role="tab"
+          data-kind-tab={k.key}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          class="kind-tab label px-5 py-3 text-[13px] whitespace-nowrap transition-colors"
+        >{k.tab}</button>
+      ))}
+    </div>
+
+    {kinds.map((k, i) => (
+      <p data-kind-only={k.key} class:list={['text-[15px] leading-loose text-ink/75 max-w-2xl', { hidden: i !== 0 }]}>{k.lead}</p>
+    ))}
   </div>
 
-  <!-- STEP 2: 設問 -->
+  <!-- STEP 2: 設問（個人と法人の2組。表示していない組は採点しない） -->
   <form id="diagnosis-form" class="p-8 md:p-12">
-    {layers.map((layer) => (
-      <fieldset class="mb-12 last:mb-0">
-        <legend class="mb-6">
-          <span class="label text-magenta block mb-1.5">{layer.label} — {layer.note}</span>
-          <span class="font-mincho font-bold text-xl text-navy">{layer.name}</span>
-          <span class="text-xs text-ink/45 ml-3">各{layer.weight}pt</span>
-        </legend>
-
-        <ul class="space-y-0 border-t border-line">
-          {layer.questions.map((q, qi) => (
-            <li class="border-b border-line">
-              <label class="flex items-start gap-4 py-4 cursor-pointer group">
-                <input
-                  type="checkbox"
-                  data-weight={layer.weight}
-                  data-layer={layer.id}
-                  name={`q-${layer.id}-${qi}`}
-                  class="mt-1 w-[18px] h-[18px] accent-[#1B2A4A] shrink-0 cursor-pointer"
-                />
-                <span class="text-[15px] leading-relaxed text-ink/85 group-hover:text-navy transition-colors">
-                  {q}
-                </span>
-              </label>
-            </li>
-          ))}
-        </ul>
-      </fieldset>
+    {Object.entries(sets).map(([kind, layers]) => (
+      <div data-kind-only={kind} class:list={{ hidden: kind !== 'personal' }}>
+        {layers.map((layer) => (
+          <fieldset class="mb-12 last:mb-0">
+            <legend class="mb-6">
+              <span class="label text-magenta block mb-1.5">{layer.label} — {layer.note}</span>
+              <span class="font-mincho font-bold text-xl text-navy">{layer.name}</span>
+              <span class="text-xs text-ink/45 ml-3">各{layer.weight}pt</span>
+            </legend>
+            <ul class="space-y-0 border-t border-line">
+              {layer.questions.map((q, qi) => (
+                <li class="border-b border-line">
+                  <label class="flex items-start gap-4 py-4 cursor-pointer group">
+                    <input
+                      type="checkbox"
+                      data-weight={layer.weight}
+                      data-layer={layer.id}
+                      data-set={kind}
+                      name={`${kind}-q-${layer.id}-${qi}`}
+                      class="mt-1 w-[18px] h-[18px] accent-[#1B2A4A] shrink-0 cursor-pointer"
+                    />
+                    <span class="text-[15px] leading-relaxed text-ink/85 group-hover:text-navy transition-colors">{q}</span>
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </fieldset>
+        ))}
+      </div>
     ))}
 
     <button
@@ -96,15 +136,13 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     >診断結果を見る</button>
   </form>
 
-  <!-- STEP 3: 結果（スコアと段階名のみ。詳細は非表示） -->
+  <!-- STEP 3: 結果（スコアと段階名のみ） -->
   <div id="diagnosis-partial" class="hidden p-8 md:p-12 border-t border-line">
     <p class="label text-magenta mb-5">結果</p>
-
     <div class="flex items-baseline gap-4 mb-2">
       <span id="result-score" class="font-mincho font-extrabold text-[56px] leading-none text-navy">0</span>
       <span class="text-ink/45 text-lg">/ {totalMax} pt</span>
     </div>
-
     <h3 id="result-title" class="font-mincho font-bold text-2xl text-navy mt-6 mb-10"></h3>
 
     <div class="border-t border-line pt-8">
@@ -112,24 +150,21 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
         詳しい結果を表示し、同じ内容をメールでもお送りします。
       </p>
 
-      <form
-        id="diagnosis-lead-form"
-        method="POST"
-        class="max-w-md space-y-5"
-      >
+      <form id="diagnosis-lead-form" method="POST" class="max-w-md space-y-5">
         <input type="hidden" name="score" id="lead-score-field" value="" />
         <input type="hidden" name="tier" id="lead-tier-field" value="" />
+        <input type="hidden" name="kind" id="lead-kind-field" value="personal" />
         <p class="hidden">
           <label>この項目は入力しないでください<input name="lead-bot-field" /></label>
         </p>
         <input type="hidden" name="ts" id="lead-ts-field" value="" />
 
-        <div>
+        <div id="lead-company-wrap" class="hidden">
           <label for="lead-company" class="block text-[13px] text-ink/60 tracking-wide mb-1.5">
             会社名 <span class="text-magenta">*</span>
           </label>
           <input
-            id="lead-company" name="company" type="text" required
+            id="lead-company" name="company" type="text"
             class="w-full border border-line bg-white px-4 py-3 text-[15px] focus:border-navy outline-none"
           />
         </div>
@@ -166,13 +201,20 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     </div>
   </div>
 
-  <!-- STEP 4: 詳細結果（フォーム送信後に表示） -->
+  <!-- STEP 4: 詳細結果 -->
   <div id="diagnosis-full" class="hidden p-8 md:p-12 border-t border-line">
     <p class="label text-magenta mb-5">詳細結果</p>
-
     <p id="result-body" class="text-[15px] leading-loose text-ink/80 max-w-2xl mb-10"></p>
 
-    <div class="border border-navy bg-white p-6 md:p-8 mb-10 max-w-2xl">
+    <div data-kind-only="personal" class="border border-navy bg-white p-6 md:p-8 mb-10 max-w-2xl">
+      <p class="label text-magenta mb-3">次のステップ</p>
+      <p class="font-mincho font-bold text-navy text-lg mb-3">30分の個別診断（オンライン・初回無料）</p>
+      <p class="text-sm leading-loose text-ink/70">
+        服装、色、体型に合う形、姿勢と話し方まで、あなたのプレゼンスを個別に確認します。
+        結果と「どこから直すと一番変わるか」を、30分のオンライン面談で直接お伝えします。
+      </p>
+    </div>
+    <div data-kind-only="corporate" class="hidden border border-navy bg-white p-6 md:p-8 mb-10 max-w-2xl">
       <p class="label text-magenta mb-3">次のステップ</p>
       <p class="font-mincho font-bold text-navy text-lg mb-3">30項目の精密診断（通常30,000円 → 初回無料）</p>
       <p class="text-sm leading-loose text-ink/70">
@@ -182,9 +224,9 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
     </div>
 
     <div class="grid sm:grid-cols-3 gap-px bg-line border border-line mb-10 max-w-2xl">
-      {layers.map((layer) => (
+      {sets.personal.map((layer) => (
         <div class="bg-paper p-5">
-          <p class="text-[11px] text-ink/50 tracking-wide mb-2">{layer.name}</p>
+          <p class="text-[11px] text-ink/50 tracking-wide mb-2" data-layer-name={layer.id}>{layer.name}</p>
           <p class="font-mincho font-bold text-navy">
             <span data-result-layer={layer.id}>0</span>
             <span class="text-ink/40 text-sm"> / {layer.questions.length * layer.weight}</span>
@@ -195,19 +237,21 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
     <div class="flex flex-col sm:flex-row gap-5 sm:items-center">
       <a
-        href="/contact/?topic=seimitsu"
+        href="/contact/?topic=personal"
+        id="diagnosis-next-cta"
         data-ga="cta_seimitsu_click"
         data-ga-location="diagnosis_result"
         class="label px-10 py-[18px] bg-navy text-paper rounded-sm hover:bg-navy-soft transition-colors text-center"
-      >30項目の精密診断を申し込む（初回無料）</a>
-      <button
-        type="button"
-        id="diagnosis-retry"
-        class="text-sm text-navy border-b border-navy pb-0.5 w-fit"
-      >もう一度診断する</button>
+      >30分の個別診断を申し込む（初回無料）</a>
+      <button type="button" id="diagnosis-retry" class="text-sm text-navy border-b border-navy pb-0.5 w-fit">もう一度診断する</button>
     </div>
   </div>
 </div>
+
+<style>
+  .kind-tab { background: #fff; color: #1B2A4A; }
+  .kind-tab[aria-selected='true'] { background: #1B2A4A; color: #fff; }
+</style>
 
 <script>
   const app = document.getElementById('diagnosis-app');
@@ -218,53 +262,89 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
   const leadForm = document.getElementById('diagnosis-lead-form') as HTMLFormElement | null;
   const retry = document.getElementById('diagnosis-retry');
 
+  type Kind = 'personal' | 'corporate';
+  type Tier = { min: number; max: number; title: string; body: string };
+
+  const TIERS: Record<Kind, Tier[]> = {
+    personal: [
+      { min: 0, max: 8, title: '中身を見てもらう前に、損をしている可能性がある状態',
+        body: 'サイズや手入れといった基本の段階で、相手の評価を下げている可能性があります。実力や話の中身を見てもらう前に、見た目で判断されている状態です。ただし、一番早く変われる段階でもあります。まずはスーツのサイズを体に合わせて直すことと、出かける前の確認を習慣にするところから始めてください。' },
+      { min: 9, max: 14, title: '失礼ではないが、印象に残っていない状態',
+        body: '大きな失点はありません。でも、周りと同じ服装で、相手の記憶に残っていない状態です。多くのビジネスパーソンが、ここにいます。ここから先は、自分に似合う色、体型に合う形、そして印象を決める1点を、自分で選べるようになる段階です。' },
+      { min: 15, max: 19, title: '場面によっては、一目置かれている状態',
+        body: '見た目の基本と印象は、整っています。一目置かれる場面もありますが、まだ安定していません。この段階の課題は、服装だけでなく、姿勢、声、話し始めの間まで含めて、どの場面でも同じプレゼンスを出せるようにすることです。' },
+      { min: 20, max: 99, title: '見た目と振る舞いで、信頼が生まれている状態',
+        body: '話の中身を説明する前に、信頼が生まれている状態です。この先の課題は、役職や場面が変わったときに、それに見合ったプレゼンスへ合わせ直していくことです。' },
+    ],
+    corporate: [
+      { min: 0, max: 8, title: '内容以前で、評価を下げている可能性がある状態',
+        body: '基本的な身だしなみや所作の段階で失点が起きている状態です。この段階の課題は、営業・採用・広報のすべてに影響します。逆に言えば、最も改善効果が出やすい領域でもあります。まず社内で基準を明文化するところから着手すべき段階です。' },
+      { min: 9, max: 14, title: '悪くはないが、記憶に残っていない状態',
+        body: '大きな失点はないものの、「印象が薄い」状態です。多くの企業がこの水準に留まります。ここから先は、個人の努力ではなく、役割ごとの基準を組織として決める段階になります。' },
+      { min: 15, max: 19, title: '一部の社員では「任せたい」が生まれている状態',
+        body: '特定の人物では信頼が発生しているものの、組織全体には広がっていない状態です。この段階の課題は属人化の解消です。誰か一人の資質に依存している状態を、再現できる基準に変える必要があります。' },
+      { min: 20, max: 99, title: '組織として機能している状態',
+        body: '提案内容を説明する前の段階で、信頼が生まれている優良な状態です。この水準の課題は維持と継承に移ります。基準が暗黙知のままだと、人の入れ替わりで急速に劣化します。定期的な確認の仕組みをご検討ください。' },
+    ],
+  };
+  const LAYER_NAMES: Record<Kind, string[]> = {
+    personal: ['基本', '印象', '信頼'],
+    corporate: ['基本', '印象の統一', '信頼'],
+  };
+  const NEXT: Record<Kind, { href: string; text: string }> = {
+    personal: { href: '/contact/?topic=personal', text: '30分の個別診断を申し込む（初回無料）' },
+    corporate: { href: '/contact/?topic=seimitsu', text: '30項目の精密診断を申し込む（初回無料）' },
+  };
+
   if (app && form && partial && full && leadForm) {
     const totalMax = Number(app.dataset.totalMax || 24);
-
-    const tiers = [
-      {
-        min: 0, max: 8,
-        title: '内容以前で、評価を下げている可能性がある状態',
-        body: '基本的な身だしなみや所作の段階で失点が起きている状態です。この段階の課題は、営業・採用・広報のすべてに影響します。逆に言えば、最も改善効果が出やすい領域でもあります。まず社内で基準を明文化するところから着手すべき段階です。',
-      },
-      {
-        min: 9, max: 14,
-        title: '悪くはないが、記憶に残っていない状態',
-        body: '大きな失点はないものの、「印象が薄い」状態です。多くの企業がこの水準に留まります。ここから先は、個人の努力ではなく、役割ごとの基準を組織として決める段階になります。',
-      },
-      {
-        min: 15, max: 19,
-        title: '一部の社員では「任せたい」が生まれている状態',
-        body: '特定の人物では信頼が発生しているものの、組織全体には広がっていない状態です。この段階の課題は属人化の解消です。誰か一人の資質に依存している状態を、再現できる基準に変える必要があります。',
-      },
-      {
-        min: 20, max: 99,
-        title: '組織として機能している状態',
-        body: '提案内容を説明する前の段階で、信頼が生まれている優良な状態です。この水準の課題は維持と継承に移ります。基準が暗黙知のままだと、人の入れ替わりで急速に劣化します。定期的な確認の仕組みをご検討ください。',
-      },
-    ];
-
+    let kind: Kind = 'personal';
     let currentTotal = 0;
-    let currentTier = tiers[0];
+    let currentTier: Tier = TIERS.personal[0];
     const byLayer: Record<string, number> = { '1': 0, '2': 0, '3': 0 };
+
+    const companyWrap = document.getElementById('lead-company-wrap');
+    const companyInput = document.getElementById('lead-company') as HTMLInputElement | null;
+    const kindField = document.getElementById('lead-kind-field') as HTMLInputElement | null;
+    const nextCta = document.getElementById('diagnosis-next-cta') as HTMLAnchorElement | null;
+
+    function setKind(k: Kind) {
+      kind = k;
+      app!.dataset.kind = k;
+      document.querySelectorAll<HTMLElement>('[data-kind-only]').forEach((el) => {
+        el.classList.toggle('hidden', el.dataset.kindOnly !== k);
+      });
+      document.querySelectorAll<HTMLElement>('[data-kind-tab]').forEach((el) => {
+        el.setAttribute('aria-selected', el.dataset.kindTab === k ? 'true' : 'false');
+      });
+      companyWrap?.classList.toggle('hidden', k !== 'corporate');
+      if (companyInput) companyInput.required = k === 'corporate';
+      if (kindField) kindField.value = k;
+      if (nextCta) { nextCta.href = NEXT[k].href; nextCta.textContent = NEXT[k].text; }
+      document.querySelectorAll<HTMLElement>('[data-layer-name]').forEach((el) => {
+        el.textContent = LAYER_NAMES[k][Number(el.dataset.layerName) - 1];
+      });
+    }
+
+    document.querySelectorAll<HTMLElement>('[data-kind-tab]').forEach((el) => {
+      el.addEventListener('click', () => setKind(el.dataset.kindTab as Kind));
+    });
+    if (new URLSearchParams(location.search).get('type') === 'corp') setKind('corporate');
 
     form.addEventListener('submit', (e) => {
       e.preventDefault();
-
-      const boxes = form.querySelectorAll<HTMLInputElement>('input[type="checkbox"]');
       currentTotal = 0;
       byLayer['1'] = 0; byLayer['2'] = 0; byLayer['3'] = 0;
 
-      boxes.forEach((box) => {
-        if (box.checked) {
-          const w = Number(box.dataset.weight || 0);
-          const l = box.dataset.layer || '0';
-          currentTotal += w;
-          if (byLayer[l] !== undefined) byLayer[l] += w;
-        }
+      form.querySelectorAll<HTMLInputElement>(`input[type="checkbox"][data-set="${kind}"]`).forEach((box) => {
+        if (!box.checked) return;
+        const w = Number(box.dataset.weight || 0);
+        const l = box.dataset.layer || '0';
+        currentTotal += w;
+        if (byLayer[l] !== undefined) byLayer[l] += w;
       });
 
-      currentTier = tiers.find((t) => currentTotal >= t.min && currentTotal <= t.max) || tiers[0];
+      currentTier = TIERS[kind].find((t) => currentTotal >= t.min && currentTotal <= t.max) || TIERS[kind][0];
 
       const scoreEl = document.getElementById('result-score');
       const titleEl = document.getElementById('result-title');
@@ -283,7 +363,7 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
 
       if (typeof (window as any).gtag === 'function') {
         (window as any).gtag('event', 'diagnosis_complete', {
-          score: currentTotal, max: totalMax, tier: currentTier.title,
+          score: currentTotal, max: totalMax, tier: currentTier.title, kind,
         });
       }
     });
@@ -297,18 +377,12 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       const submitBtn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = '送信中…'; }
 
-      let sendOk = true;
       try {
         const formData = new FormData(leadForm);
         formData.set('js', '1');
-        const res = await fetch('/api/diagnosis-lead', {
-          method: 'POST',
-          body: formData,
-        });
-        sendOk = res.ok;
+        await fetch('/api/diagnosis-lead', { method: 'POST', body: formData });
       } catch (err) {
         console.error('diagnosis lead submit failed', err);
-        sendOk = false;
       }
 
       const bodyEl = document.getElementById('result-body');
@@ -323,13 +397,16 @@ const totalMax = layers.reduce((s, l) => s + l.questions.length * l.weight, 0);
       full?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
       if (typeof (window as any).gtag === 'function') {
-        (window as any).gtag('event', 'diagnosis_lead_captured', { tier: currentTier.title });
+        (window as any).gtag('event', 'diagnosis_lead_captured', { tier: currentTier.title, kind });
       }
     });
 
     retry?.addEventListener('click', () => {
       form.reset();
       leadForm.reset();
+      const submitBtn = leadForm.querySelector('button[type="submit"]') as HTMLButtonElement | null;
+      if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = '詳しい診断結果を見る'; }
+      setKind(kind);
       full?.classList.add('hidden');
       partial?.classList.add('hidden');
       intro?.classList.remove('hidden');

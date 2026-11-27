@@ -40,7 +40,7 @@ const SIGNATURE = `
 
 
 // 迷惑送信（ボット）の判定。当てはまったら、何も送らずに「受け付けた」ように返す
-function isSpam(formData: FormData, honeypot: string): string | null {
+function isSpam(formData: FormData, honeypot: string, needJapanese = true): string | null {
   if (formData.get(honeypot)) return 'honeypot';
   // ページのJavaScriptを通らずに直接送られたもの
   if (formData.get('js')?.toString() !== '1') return 'no_js';
@@ -50,7 +50,8 @@ function isSpam(formData: FormData, honeypot: string): string | null {
   if (!ts || elapsed < 4000 || elapsed > 24 * 60 * 60 * 1000) return 'timing';
   const text = ['company', 'name', 'message'].map((k) => formData.get(k)?.toString() || '').join(' ');
   // 日本語が1文字も含まれていない
-  if (!/[\u3040-\u30ff\u4e00-\u9fff]/.test(text)) return 'no_japanese';
+  // 診断は名前とメールだけなので、ローマ字の名前の個人を弾かないよう、この判定をしない
+  if (needJapanese && !/[\u3040-\u30ff\u4e00-\u9fff]/.test(text)) return 'no_japanese';
   // URLが3つ以上
   if ((text.match(/https?:\/\//g) || []).length >= 3) return 'many_urls';
   return null;
@@ -71,12 +72,17 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   const topic = formData.get('topic')?.toString() || '';
   const message = formData.get('message')?.toString() || '';
 
-  if (!company || !name || !email) {
+  // 会社名は任意（個人の方は空欄）
+  if (!name || !email) {
     return new Response('必須項目が入力されていません。', { status: 400 });
   }
+  const who = company || `${name}（個人）`;
 
   const topicLabel: Record<string, string> = {
     seimitsu: '30項目の精密診断（初回無料）',
+    personal: '個人：30分の個別診断（初回無料）',
+    personal_coaching: '個人：プレゼンスの個別指導',
+    shopping: '個人：スーツ・服選びの同行',
     presence: 'プレゼンスマネジメント研修',
     ai_ningenryoku: 'AI時代の人間力研修',
     both: '両方／どちらか分からない',
@@ -87,10 +93,10 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     from: 'NATIVETOKYO サイト <info@nativetokyo.jp>',
     to: ['info@nativetokyo.jp'],
     reply_to: email,
-    subject: `【お問い合わせ】${company} 様より`,
+    subject: `【お問い合わせ】${who} 様より`,
     html: `
-      <p><strong>会社名：</strong>${escapeHtml(company)}</p>
-      <p><strong>ご担当者名：</strong>${escapeHtml(name)}</p>
+      <p><strong>会社名：</strong>${escapeHtml(company || '（個人）')}</p>
+      <p><strong>お名前：</strong>${escapeHtml(name)}</p>
       <p><strong>メールアドレス：</strong>${escapeHtml(email)}</p>
       <p><strong>ご関心のある領域：</strong>${escapeHtml(topicLabel[topic] || topic)}</p>
       <p><strong>ご相談内容：</strong></p>
@@ -110,7 +116,7 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
     reply_to: 'info@nativetokyo.jp',
     subject: '【NATIVETOKYO】お問い合わせを受け付けました',
     html: `
-      <p>${escapeHtml(company)}<br>${escapeHtml(name)} 様</p>
+      <p>${company ? `${escapeHtml(company)}<br>` : ''}${escapeHtml(name)} 様</p>
       <p>このたびは、NATIVETOKYOにお問い合わせいただき、ありがとうございます。<br>
       以下の内容で受け付けました。通常2営業日以内に、担当者よりご連絡いたします。</p>
       <p><strong>ご関心のある領域：</strong>${escapeHtml(topicLabel[topic] || topic)}</p>
@@ -123,10 +129,28 @@ async function handleContact(request: Request, env: Env): Promise<Response> {
   return Response.redirect(new URL('/thanks', request.url).toString(), 303);
 }
 
+const NEXT_STEP_CORPORATE = `
+        <p style="border:1px solid #1B2A4A;padding:16px;margin:24px 0">
+          <strong>30項目の精密診断（通常30,000円 → 初回無料）</strong><br>
+          清潔感・トーン・ステータスの3つの段階、30項目で、社員のプレゼンスを個別に確認します。<br>
+          30分のオンライン面談で、結果と「どこから直すと効果が大きいか」を直接お伝えします。<br><br>
+          <strong>このメールに「精密診断希望」とご返信いただくだけで、お申し込みいただけます。</strong><br>
+          ご都合のよい日時の候補を、いくつか添えていただけるとスムーズです。
+        </p>`;
+
+const NEXT_STEP_PERSONAL = `
+        <p style="border:1px solid #1B2A4A;padding:16px;margin:24px 0">
+          <strong>30分の個別診断（オンライン・初回無料）</strong><br>
+          服装、色、体型に合う形、姿勢と話し方まで、あなたのプレゼンスを個別に確認します。<br>
+          結果と「どこから直すと一番変わるか」を、30分のオンライン面談で直接お伝えします。<br><br>
+          <strong>このメールに「個別診断希望」とご返信いただくだけで、お申し込みいただけます。</strong><br>
+          ご都合のよい日時の候補を、いくつか添えていただけるとスムーズです。
+        </p>`;
+
 async function handleDiagnosisLead(request: Request, env: Env): Promise<Response> {
   const formData = await request.formData();
 
-  const spam = isSpam(formData, 'lead-bot-field');
+  const spam = isSpam(formData, 'lead-bot-field', false);
   if (spam) {
     console.log('spam blocked (diagnosis):', spam);
     return new Response(JSON.stringify({ ok: true }), {
@@ -140,8 +164,10 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
   const score = formData.get('score')?.toString() || '';
   const tier = formData.get('tier')?.toString() || '';
   const optin = formData.get('optin')?.toString() === 'yes';
+  const kind = formData.get('kind')?.toString() === 'corporate' ? 'corporate' : 'personal';
 
-  if (!company || !name || !email) {
+  // 会社名が必須なのは、法人として受けた場合だけ
+  if (!name || !email || (kind === 'corporate' && !company)) {
     return new Response(JSON.stringify({ ok: false, error: 'missing_fields' }), {
       status: 400,
       headers: { 'Content-Type': 'application/json' },
@@ -152,9 +178,10 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
     from: 'プレゼンスマネジメント事務局 <info@nativetokyo.jp>',
     to: ['info@nativetokyo.jp'],
     reply_to: email,
-    subject: `【診断リード】${company} 様（${tier}）`,
+    subject: `【診断リード・${kind === 'corporate' ? '法人' : '個人'}】${company || name} 様（${tier}）`,
     html: `
-      <p><strong>会社名：</strong>${escapeHtml(company)}</p>
+      <p><strong>種別：</strong>${kind === 'corporate' ? '法人' : '個人'}</p>
+      <p><strong>会社名：</strong>${escapeHtml(company || '（個人）')}</p>
       <p><strong>お名前：</strong>${escapeHtml(name)}</p>
       <p><strong>メールアドレス：</strong>${escapeHtml(email)}</p>
       <p><strong>スコア：</strong>${escapeHtml(score)}</p>
@@ -170,25 +197,20 @@ async function handleDiagnosisLead(request: Request, env: Env): Promise<Response
       reply_to: 'info@nativetokyo.jp',
       subject: '【NATIVETOKYO】1分チェックの結果',
       html: `
-        <p>${escapeHtml(company)}<br>${escapeHtml(name)} 様</p>
+        <p>${company ? `${escapeHtml(company)}<br>` : ''}${escapeHtml(name)} 様</p>
         <p>1分チェックにご回答いただき、ありがとうございます。結果は以下のとおりです。</p>
         <p><strong>スコア：</strong>${escapeHtml(score)}</p>
         <p><strong>結果：</strong>${escapeHtml(tier)}</p>
         <p>${escapeHtml(tierComment(tier))}</p>
-        <p style="border:1px solid #1B2A4A;padding:16px;margin:24px 0">
-          <strong>30項目の精密診断（通常30,000円 → 初回無料）</strong><br>
-          清潔感・トーン・ステータスの3つの段階、30項目で、社員のプレゼンスを個別に確認します。<br>
-          30分のオンライン面談で、結果と「どこから直すと効果が大きいか」を直接お伝えします。<br><br>
-          <strong>このメールに「精密診断希望」とご返信いただくだけで、お申し込みいただけます。</strong><br>
-          ご都合のよい日時の候補を、いくつか添えていただけるとスムーズです。
-        </p>
+        ${kind === 'corporate' ? NEXT_STEP_CORPORATE : NEXT_STEP_PERSONAL}
         ${SIGNATURE}
       `,
     });
     if (!autoReply.ok) console.error('Auto-reply error:', await autoReply.text());
 
     // メールの受け取りに同意した人だけ、Resendの自動配信（5日間のメール）を開始する
-    if (optin) {
+    // 5日間メールは法人向けの内容のため、個人には送らない（個人向けの内容ができたら分ける）
+    if (optin && kind === 'corporate') {
       const ev = await fetch('https://api.resend.com/events/send', {
         method: 'POST',
         headers: {
@@ -298,6 +320,14 @@ const TIER_COMMENT: Record<string, string> = {
     '貴社の評価は、一部の社員の属人的な力に支えられています。その人が異動したとき、同じように取引してもらえるかどうかが分かれ目です。',
   '組織として機能している状態':
     '信頼が生まれる状態ができています。気をつけたいのは、会社としてのスタンダードができていないと、人が入れ替わったときに崩壊することです。',
+  '中身を見てもらう前に、損をしている可能性がある状態':
+    '実力や話の中身を見てもらう前に、見た目で判断されている可能性があります。ただし、一番早く変われる段階でもあります。まずはスーツのサイズを体に合わせて直すところから始めてください。',
+  '失礼ではないが、印象に残っていない状態':
+    '失点はありません。でも、周りと同じ服装で、相手の記憶に残っていない状態です。似合う色、体型に合う形、印象を決める1点を選べるようになると、ここから抜け出せます。',
+  '場面によっては、一目置かれている状態':
+    '一目置かれる場面はありますが、まだ安定していません。服装だけでなく、姿勢、声、話し始めの間まで含めて、どの場面でも同じプレゼンスを出せるようにする段階です。',
+  '見た目と振る舞いで、信頼が生まれている状態':
+    '話の中身を説明する前に、信頼が生まれています。役職や場面が変わったときに、それに見合ったプレゼンスへ合わせ直していくことが、次の課題です。',
 };
 
 function tierComment(tier: string): string {

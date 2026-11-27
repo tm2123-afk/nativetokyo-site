@@ -7,7 +7,7 @@ import PageHero from '../components/PageHero.astro';
 
 <Layout
   title="お問い合わせ"
-  description="法人向け研修のご相談・お見積りはこちらから。組織の規模と課題に合わせてご提案します。合同会社NATIVETOKYO。"
+  description="法人向け研修のご相談から、個人の個別診断・個別指導まで。プレゼンスに関するご相談はこちらから。"
   path="/contact"
   breadcrumbs={[{ name: 'お問い合わせ', path: '/contact' }]}
 >
@@ -17,7 +17,7 @@ import PageHero from '../components/PageHero.astro';
     <PageHero
       eyebrow="CONTACT"
       title="お問い合わせ"
-      lead="研修のご相談、お見積り、その他ご質問はこちらから。通常2営業日以内にご返信します。"
+      lead="法人の研修のご相談から、個人の個別診断・個別指導まで、こちらから受け付けています。通常2営業日以内にご返信します。"
     />
 
     <section class="px-6 md:px-16 py-16">
@@ -36,17 +36,17 @@ import PageHero from '../components/PageHero.astro';
 
         <div>
           <label for="company" class="block text-[13px] text-ink/60 tracking-wide mb-2">
-            会社名 <span class="text-magenta">*</span>
+            会社名 <span class="text-ink/45">（個人の方は空欄で構いません）</span>
           </label>
           <input
-            id="company" name="company" type="text" required
+            id="company" name="company" type="text"
             class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
           />
         </div>
 
         <div>
           <label for="name" class="block text-[13px] text-ink/60 tracking-wide mb-2">
-            ご担当者名 <span class="text-magenta">*</span>
+            お名前 <span class="text-magenta">*</span>
           </label>
           <input
             id="name" name="name" type="text" required
@@ -72,10 +72,17 @@ import PageHero from '../components/PageHero.astro';
             id="topic" name="topic"
             class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none"
           >
+            <optgroup label="個人の方">
+              <option value="personal">30分の個別診断（オンライン・初回無料）</option>
+              <option value="personal_coaching">プレゼンスの個別指導</option>
+              <option value="shopping">スーツ・服選びの同行</option>
+            </optgroup>
+            <optgroup label="法人の方">
             <option value="presence">プレゼンスマネジメント研修</option>
             <option value="ai_ningenryoku">AI時代の人間力研修</option>
             <option value="both">両方／どちらか分からない</option>
             <option value="seimitsu">30項目の精密診断（初回無料）</option>
+            </optgroup>
             <option value="other">その他</option>
           </select>
         </div>
@@ -86,7 +93,7 @@ import PageHero from '../components/PageHero.astro';
           </label>
           <textarea
             id="message" name="message" rows="6"
-            placeholder="現在の課題、想定人数、実施時期など、分かる範囲でお書きください。"
+            placeholder="個人の方は、今気になっていること。法人の方は、現在の課題、想定人数、実施時期など。分かる範囲でお書きください。"
             class="w-full border border-line bg-white/60 px-4 py-3 text-[15px] focus:border-navy outline-none resize-y"
           ></textarea>
         </div>
@@ -115,6 +122,9 @@ import PageHero from '../components/PageHero.astro';
       if (t && sel && sel.querySelector('option[value="' + t + '"]')) sel.value = t;
       if (t === 'seimitsu' && msg && !msg.value) {
         msg.value = '30項目の精密診断を希望します。\nご都合のよい日時の候補：\n';
+      }
+      if (t === 'personal' && msg && !msg.value) {
+        msg.value = '30分の個別診断を希望します。\nご都合のよい日時の候補：\n';
       }
     }
     prefillFromUrl();
