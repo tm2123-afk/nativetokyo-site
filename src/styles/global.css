@@ -201,6 +201,30 @@ details > summary::-webkit-details-marker { display: none; }
   color: var(--color-magenta-deep);
 }
 
+.photo-steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 12px;
+  margin: 2em 0;
+}
+.photo-steps figure {
+  margin: 0;
+}
+.photo-steps img {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  display: block;
+}
+.photo-steps figcaption {
+  margin-top: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  color: var(--color-navy);
+}
+
 /* YouTube埋め込み（16:9） */
 .video-embed {
   position: relative;
